@@ -1,5 +1,4 @@
 const express = require('express');
-const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
 const router = express.Router();
@@ -32,24 +31,23 @@ router.get('/:id?', (req, res) => {
   }
 });
 
-router.delete('/:id', (req, res) => {
-  User.findByIdAndRemove(req.params.id).then(() => {
-    res.status(204).end();
-  });
-});
-
 router.put('/:id', (req, res) => {
   const body = req.body;
 
   const user = {
-    email: body.email,
-    password: bcrypt.hashSync(body.password, 10),
-    role: body.role,
     firstName: body.firstName,
     lastName: body.lastName,
+    email: body.email,
+    role: body.role,
     gender: body.gender,
-    dateOfBirth: body.dateOfBirth,
-    countryOfResidence: body.countryOfResidence,
+    phone: body.phone,
+    country: body.country,
+    state: body.state,
+    city: body.city,
+    zip: body.zip,
+    birthDate: body.birthDate,
+    createdDate: body.createdDate,
+    updatedDate: body.updatedDate,
   };
 
   User.findByIdAndUpdate(req.params.id, user, { new: true })
@@ -59,6 +57,12 @@ router.put('/:id', (req, res) => {
     .catch((error) => {
       console.error('The Promise is rejected!', error);
     });
+});
+
+router.delete('/:id', (req, res) => {
+  User.findByIdAndRemove(req.params.id).then(() => {
+    res.status(204).end();
+  });
 });
 
 module.exports = router;
