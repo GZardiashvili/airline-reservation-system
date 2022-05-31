@@ -7,4 +7,4 @@ const url = process.env.MONGODB_URI;
 
 mongoose.connect(url);
 
-app.listen(process.env.PORT);
+app.listen(process.env.PORT || 3000);

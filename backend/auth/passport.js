@@ -1,7 +1,7 @@
-const helper = require('./helpers/helper');
+const authService = require('./services/authService');
 
 const jwtCallback = async (jwt_payload, done) => {
-  const user = await helper.getUserByEmail(jwt_payload.email);
+  const user = await authService.getUserByEmail(jwt_payload.email);
   return done(null, user);
 };
 
