@@ -8,6 +8,8 @@ const { ExtractJwt } = require('passport-jwt');
 
 const { jwtCallback } = require('./auth/passport');
 
+const errorHandler = require('./middlewares/error-handler');
+
 const app = express();
 
 app.use(express.json());
@@ -31,5 +33,6 @@ const loginRouter = require('./auth/login');
 app.use('/api/users', auth, usersRouter);
 app.use('/api/register', registerRouter);
 app.use('/api/login', loginRouter);
+app.use(errorHandler);
 
 module.exports = app;
