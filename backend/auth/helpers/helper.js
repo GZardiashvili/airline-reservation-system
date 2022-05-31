@@ -1,10 +1,8 @@
 const bcrypt = require('bcrypt');
 const User = require('../../models/user');
 
-async function getUserByEmail(email) {
-  const user = await User.findOne({ email: new RegExp(email, 'i') }).exec();
-
-  return user;
+function getUserByEmail(email) {
+  return User.findOne({ email: new RegExp(email, 'i') }).exec();
 }
 
 async function loginUser(email, password) {
