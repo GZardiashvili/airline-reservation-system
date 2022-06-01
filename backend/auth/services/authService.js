@@ -24,7 +24,7 @@ async function loginUserWithJWT(email, password) {
       id: user.id,
       email: user.email,
       role: user.role,
-      token: `Bearer ${token}`,
+      token,
     };
   }
   return null;
