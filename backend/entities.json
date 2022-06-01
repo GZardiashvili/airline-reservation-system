@@ -1,127 +1,121 @@
 {
   "airline": {
     "id": "1234567890",
-    "name": "",
-    "createdDate": "",
-    "updatedDate": ""
+    "name": "String",
+    "timestamps": true
   },
   "user": {
     "id": "1234567890",
-    "firstName": "",
-    "lastName": "",
-    "email": "",
-    "password": "",
-    "role": "",
-    "gender": "",
-    "phone": "",
-    "country": "",
-    "state": "",
-    "city": "",
-    "zip": "",
-    "birthDate": "",
-    "createdDate": "",
-    "updatedDate": ""
+    "firstName": "String",
+    "lastName": "String",
+    "email": "String",
+    "password": "String",
+    "role": "String",
+    "gender": "String",
+    "phone": "String",
+    "country": "String",
+    "state": "String",
+    "city": "String",
+    "zip": "String",
+    "birthDate": "Date",
+    "timestamps": true
   },
   "flights": {
     "id": "1234567890",
-    "flightNumber": "",
-    "departureAirport": "",
-    "arrivalAirport": "",
-    "departureDate": "",
-    "arrivalDate": "",
-    "type": "",
-    "price": "",
-    "airline": "",
-    "createdDate": "",
-    "updatedDate": ""
+    "flightNumber": "String",
+    "departureAirport": "String",
+    "arrivalAirport": "String",
+    "departureDate": "Date",
+    "arrivalDate": "Date",
+    "type": "String",
+    "price": "Number",
+    "airline": "ObjectId",
+    "timestamps": true
   },
 
   "ticket": {
     "id": "1234567890",
-    "flightId": "",
-    "userId": "",
-    "createdDate": "",
-    "updatedDate": ""
+    "flightId": "ObjectId",
+    "userId": "ObjectId",
+    "timestamps": true
   },
 
   "plane": {
     "id": "1234567890",
-    "name": "",
-    "rows": "",
-    "columns": "",
-    "createdDate": "",
-    "updatedDate": ""
+    "name": "String",
+    "rows": "Number",
+    "columns": "Number",
+    "timestamps": true
   },
   "airlineBooking": {
     "id": "1234567890",
-    "userId": "",
-    "flightId": "",
-    "createdDate": "",
-    "updatedDate": ""
+    "userId": "ObjectId",
+    "flightId": "ObjectId",
+    "timestamps": true
   },
 
   "passengerMethods": {
-    "addPassenger": "",
-    "getPassenger": "",
-    "updatePassenger": "",
-    "deletePassenger": "",
-    "getPassengerByFlight": "",
-    "getPassengerByUser": ""
+    "addPassenger": "fn(passenger: Object)",
+    "getPassenger": "fn(passengerId: String)",
+    "updatePassenger": "fn(passengerId: String, passenger: Object)",
+    "deletePassenger": "fn(passengerId: String)",
+    "getPassengerByFlight": "fn(flightId: String)",
+    "getPassengerByUser": "fn(userId: String)"
   },
   "ticketMethods": {
-    "addTicket": "",
-    "getTicket": "",
-    "getAllTickets": "",
-    "getTicketByUserId": "",
-    "getTicketByFlightId": "",
-    "updateTicket": "",
-    "deleteTicket": ""
+    "addTicket": "fn(ticket: Object)",
+    "getTicket": "fn(ticketId: String)",
+    "getAllTickets": "fn()",
+    "getTicketByUserId": "fn(userId: String)",
+    "getTicketByFlightId": "fn(flightId: String)",
+    "updateTicket": "fn(ticketId: String, ticket: Object)",
+    "deleteTicket": "fn(ticketId: String)"
   },
   "flightMethods": {
-    "addFlight": "",
-    "getFlight": "",
-    "getAllFlights": "",
-    "getFlightByUserId": "",
-    "getFlightByAirlineId": "",
-    "updateFlight": "",
-    "deleteFlight": ""
+    "addFlight": "fn(flight: Object)",
+    "getFlight": "fn(flightId: String)",
+    "getAllFlights": "fn()",
+    "getFlightByUserId": "fn(userId: String)",
+    "getFlightByAirlineId": "fn(airlineId: String)",
+    "updateFlight": "fn(flightId: String, flight: Object)",
+    "deleteFlight": "fn(flightId: String)"
   },
   "airlineMethods": {
-    "addAirline": "",
-    "getAirline": "",
-    "getAllAirlines": "",
-    "getAirlineByUserId": "",
-    "updateAirline": "",
-    "deleteAirline": ""
+    "addAirline": "fn(airline: Object)",
+    "getAirline": "fn(airlineId: String)",
+    "getAllAirlines": "fn()",
+    "getAirlineByUserId": "fn(userId: String)",
+    "updateAirline": "fn(airlineId: String, airline: Object)",
+    "deleteAirline": "fn(airlineId: String)"
   },
   "userMethods": {
-    "addUser": "",
-    "getUser": "",
-    "getAllUsers": "",
-    "getUserByAirlineId": "",
-    "updateUser": "",
-    "deleteUser": ""
+    "addUser": "fn(user: Object)",
+    "getUser": "fn(userId: String)",
+    "getAllUsers": "fn()",
+    "getUserByAirlineId": "fn(airlineId: String)",
+    "updateUser": "fn(userId: String, user: Object)",
+    "deleteUser": "fn(userId: String)"
   },
   "planeMethods": {
-    "addPlane": "",
-    "getPlane": "",
-    "getAllPlanes": "",
-    "getPlaneByAirlineId": "",
-    "updatePlane": "",
-    "deletePlane": ""
+    "addPlane": "fn(plane: Object)",
+    "getPlane": "fn(planeId: String)",
+    "getAllPlanes": "fn()",
+    "getPlaneByAirlineId": "fn(airlineId: String)",
+    "updatePlane": "fn(planeId: String, plane: Object)",
+    "deletePlane": "fn(planeId: String)"
   },
   "adminMethods": {
-    "getAllUsers": "",
-    "getAllFlights": "",
-    "getAllAirlines": "",
-    "getAllPlanes": "",
-    "getAllTickets": "",
-    "manageRole": "",
-    "manageReservation": "",
-    "manageAirline": "",
-    "managePlane": "",
-    "manageFlight": "",
-    "manageUser": "",
-    "manageTicket": ""
+    "getAllUsers": "fn()",
+    "getAllFlights": "fn()",
+    "getAllAirlines": "fn()",
+    "getAllPlanes": "fn()",
+    "getAllTickets": "fn()",
+    "manageRole": "fn(userId: String, role: String)",
+    "manageReservation": "fn(userId: String, flightId: String)",
+    "manageAirline": "fn(userId: String, airlineId: String)",
+    "managePlane": "fn(userId: String, planeId: String)",
+    "manageFlight": "fn(userId: String, flightId: String)",
+    "manageUser": "fn(userId: String, user: Object)",
+    "manageTicket": "fn(userId: String, ticketId: String)"
   }
 }
