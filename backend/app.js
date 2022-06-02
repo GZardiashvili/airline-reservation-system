@@ -26,13 +26,20 @@ passport.use(new JwtStrategy(opts, jwtCallback));
 
 const auth = passport.authenticate('jwt', { session: false });
 
-const usersRouter = require('./controllers/users');
 const registerRouter = require('./controllers/register');
 const loginRouter = require('./auth/login');
+const usersRouter = require('./controllers/users');
+const flightsRouter = require('./controllers/flights');
+const ticketsRouter = require('./controllers/tickets');
+const planesRouter = require('./controllers/planes');
 
-app.use('/api/users', auth, usersRouter);
 app.use('/api/register', registerRouter);
 app.use('/api/login', loginRouter);
+app.use('/api/users', auth, usersRouter);
+app.use('/api/flights', auth, flightsRouter);
+app.use('/api/tickets', auth, ticketsRouter);
+app.use('/api/planes', auth, planesRouter);
+
 app.use(errorHandler);
 
 module.exports = app;

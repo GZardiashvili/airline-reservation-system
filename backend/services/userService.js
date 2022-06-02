@@ -1,12 +1,12 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/user');
 
-const createUser = async (user) => {
-  const created = await User.create({
+const addUser = async (user) => {
+  const newUser = await User.create({
     ...user,
     password: bcrypt.hashSync(user.password, 10),
   });
-  return created;
+  return newUser;
 };
 
 const getAllUsers = async () => {
@@ -15,7 +15,7 @@ const getAllUsers = async () => {
 };
 
 const getOneUser = async (id) => {
-  const one = await User.findById(id);
+  const one = await User.findOne({ _id: id });
   return one;
 };
 
@@ -24,9 +24,15 @@ const updateUser = async (id, user) => {
   return updated;
 };
 
+const deleteUser = async (id) => {
+  const deleted = await User.findByIdAndDelete(id);
+  return deleted;
+};
+
 module.exports = {
-  createUser,
+  addUser,
   getAllUsers,
   getOneUser,
   updateUser,
+  deleteUser,
 };

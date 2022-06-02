@@ -1,9 +1,9 @@
 const express = require('express');
-const User = require('../models/user');
 const {
   getAllUsers,
   getOneUser,
   updateUser,
+  deleteUser,
 } = require('../services/userService');
 
 const router = express.Router();
@@ -24,8 +24,8 @@ router.put('/:id', async (req, res) => {
 });
 
 router.delete('/:id', async (req, res) => {
-  await User.findByIdAndRemove(req.params.id);
-  res.status(204).send();
+  const deletedUser = await deleteUser(req.params.id);
+  res.status(200).send(deletedUser);
 });
 
 module.exports = router;
