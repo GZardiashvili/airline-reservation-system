@@ -4,25 +4,15 @@ const ticketSchema = new mongoose.Schema(
   {
     flightNumber: { type: String, required: true },
     flightId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Flight',
+      type: String,
       required: true,
     },
     userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      type: String,
       required: true,
     },
   },
   { timestamps: true },
 );
-
-ticketSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
 
 module.exports = mongoose.model('Ticket', ticketSchema);

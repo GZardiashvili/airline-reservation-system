@@ -4,8 +4,7 @@ const flightSchema = new mongoose.Schema(
   {
     flightNumber: { type: String, required: true },
     airline: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Airline',
+      type: String,
       required: true,
     },
     departureAirport: { type: String, required: true },
@@ -17,13 +16,5 @@ const flightSchema = new mongoose.Schema(
   },
   { timestamps: true },
 );
-
-flightSchema.set('toJSON', {
-  transform: (document, returnedObject) => {
-    returnedObject.id = returnedObject._id.toString();
-    delete returnedObject._id;
-    delete returnedObject.__v;
-  },
-});
 
 module.exports = mongoose.model('Flight', flightSchema);
