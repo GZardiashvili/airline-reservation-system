@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const flightSchema = new mongoose.Schema(
   {
     flightNumber: { type: String, required: true },
-    airline: {
+    airlineId: {
       type: String,
       required: true,
     },
@@ -11,7 +11,6 @@ const flightSchema = new mongoose.Schema(
     arrivalAirport: { type: String, required: true },
     departureTime: { type: Date, required: true },
     arrivalTime: { type: Date, required: true },
-    price: { type: Number, required: true },
     availableSeats: { type: Number, required: true },
   },
   { timestamps: true },

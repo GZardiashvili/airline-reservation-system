@@ -1,19 +1,19 @@
 const mongoose = require('mongoose');
 
 const passengerSchema = new mongoose.Schema({
-  user: {
+  userId: {
     type: String,
     required: true,
   },
-  flight: {
+  flightId: {
     type: String,
     required: true,
   },
-  plane: {
+  planeId: {
     type: String,
     required: true,
   },
-  seat: {
+  seatId: {
     type: String,
     required: true,
   },

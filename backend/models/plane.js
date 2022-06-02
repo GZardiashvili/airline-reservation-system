@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const planeSchema = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    seat: {
+    seatId: {
       type: String,
       required: true,
     },
