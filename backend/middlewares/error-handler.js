@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-function errorHandler(err, req, res) {
+function errorHandler(err, req, res, next) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({
       message: 'Invalid Token',
