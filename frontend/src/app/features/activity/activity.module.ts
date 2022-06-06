@@ -1,12 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
+import { ActivityComponent } from "./activity.component";
+import { RouterModule } from "@angular/router";
 
 
 @NgModule({
-  declarations: [],
+  declarations: [ActivityComponent],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule.forChild([
+      {path: '', pathMatch: 'full', component: ActivityComponent},
+    ])
   ]
 })
-export class ActivityModule { }
+export class ActivityModule {
+}
