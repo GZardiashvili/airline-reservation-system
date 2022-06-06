@@ -3,75 +3,80 @@
     <form class="app-signup__form" [formGroup]="signUpFormGroup">
       <p class="app-signup__form--error" *ngIf="signupClicked">Some fields does not meet requirements</p>
       <mat-form-field class="app-signup__form-field">
-        <mat-label [ngClass]="signUpFormGroup.get('firstNameControl')?.value!==''? 'not-empty' :''">First Name
+        <mat-label [ngClass]="signUpFormGroup.get('firstName')?.value!==''? 'not-empty' :''">First Name
         </mat-label>
-        <input matInput name="firstName" formControlName="firstNameControl">
+        <input matInput name="firstName" formControlName="firstName">
       </mat-form-field>
       <mat-form-field class="app-signup__form-field">
-        <mat-label [ngClass]="signUpFormGroup.get('lastNameControl')?.value!==''? 'not-empty' :''">Last Name</mat-label>
-        <input matInput name="lastName" formControlName="lastNameControl">
+        <mat-label [ngClass]="signUpFormGroup.get('lastName')?.value!==''? 'not-empty' :''">Last Name</mat-label>
+        <input matInput name="lastName" formControlName="lastName">
       </mat-form-field>
       <mat-form-field class="app-signup__form-field">
-        <mat-label [ngClass]="signUpFormGroup.get('emailControl')?.value!==''? 'not-empty' :''">Email</mat-label>
-        <input matInput type="email" name="email" formControlName="emailControl">
+        <mat-label [ngClass]="signUpFormGroup.get('email')?.value!==''? 'not-empty' :''">Email</mat-label>
+        <input matInput type="email" name="email" formControlName="email">
         <span class="app-signup__form--error app-signup__form--error-email"
-              *ngIf="!signUpFormGroup.get('emailControl')?.valid && signUpFormGroup.get('emailControl')?.value !=='' && signupClicked">
+              *ngIf="!signUpFormGroup.get('email')?.valid && signUpFormGroup.get('email')?.value !=='' && signupClicked">
        <fa-icon [icon]="faExclamationCircle"></fa-icon> Wrong Email format. Check your typos and try again.  </span>
       </mat-form-field>
       <mat-form-field class="app-signup__form-field">
-        <mat-label [ngClass]="signUpFormGroup.get('passwordControl')?.value!==''? 'not-empty' :''">Password</mat-label>
-        <input matInput [type]="type.type" name="password" formControlName="passwordControl">
-        <a *ngIf="signUpFormGroup.get('passwordControl')?.value" (click)="showHide()">{{type.label}}</a>
+        <mat-label [ngClass]="signUpFormGroup.get('password')?.value!==''? 'not-empty' :''">Password</mat-label>
+        <input matInput [type]="type.type" name="password" formControlName="password">
+        <a *ngIf="signUpFormGroup.get('password')?.value" (click)="showHide()">{{type.label}}</a>
       </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Month</mat-label>
-        <input type="text"
-               placeholder="Month"
-               aria-label="Month"
-               matInput
-               formControlName="monthControl"
-               [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let month of months" [value]="month">
-            {{month}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Day</mat-label>
-        <input type="text"
-               placeholder="Day"
-               aria-label="Day"
-               matInput
-               formControlName="dayControl"
-               [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let day of days" [value]="day">
-            {{day}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field class="example-full-width" appearance="fill">
-        <mat-label>Year</mat-label>
-        <input type="text"
-               placeholder="Year"
-               aria-label="Year"
-               matInput
-               formControlName="yearControl"
-               [matAutocomplete]="auto">
-        <mat-autocomplete #auto="matAutocomplete">
-          <mat-option *ngFor="let year of years" [value]="year">
-            {{year}}
-          </mat-option>
-        </mat-autocomplete>
-      </mat-form-field>
-      <mat-form-field *ngIf="signUpFormGroup.get('birthDateGroup')">
-        <mat-select placeholder="Year" formControlName="yearControl" multiple>
-          <mat-option *ngFor="let year of years" [value]="year">
-            {{year}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+<!--      <mat-form-field class="app-signup__form-field">-->
+<!--        <mat-label [ngClass]="signUpFormGroup.get('confirmPasswordControl')?.value!==''? 'not-empty' :''">Confirm Password</mat-label>-->
+<!--        <input matInput [type]="type.type" name="confirmPassword" formControlName="confirmPasswordControl">-->
+<!--        <a *ngIf="signUpFormGroup.get('confirmPasswordControl')?.value" (click)="showHide()">{{type.label}}</a>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field class="example-full-width" appearance="fill">-->
+<!--        <mat-label>Month</mat-label>-->
+<!--        <input type="text"-->
+<!--               placeholder="Month"-->
+<!--               aria-label="Month"-->
+<!--               matInput-->
+<!--               formControlName="monthControl"-->
+<!--               [matAutocomplete]="auto">-->
+<!--        <mat-autocomplete #auto="matAutocomplete">-->
+<!--          <mat-option *ngFor="let month of months" [value]="month">-->
+<!--            {{month}}-->
+<!--          </mat-option>-->
+<!--        </mat-autocomplete>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field class="example-full-width" appearance="fill">-->
+<!--        <mat-label>Day</mat-label>-->
+<!--        <input type="text"-->
+<!--               placeholder="Day"-->
+<!--               aria-label="Day"-->
+<!--               matInput-->
+<!--               formControlName="dayControl"-->
+<!--               [matAutocomplete]="auto">-->
+<!--        <mat-autocomplete #auto="matAutocomplete">-->
+<!--          <mat-option *ngFor="let day of days" [value]="day">-->
+<!--            {{day}}-->
+<!--          </mat-option>-->
+<!--        </mat-autocomplete>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field class="example-full-width" appearance="fill">-->
+<!--        <mat-label>Year</mat-label>-->
+<!--        <input type="text"-->
+<!--               placeholder="Year"-->
+<!--               aria-label="Year"-->
+<!--               matInput-->
+<!--               formControlName="yearControl"-->
+<!--               [matAutocomplete]="auto">-->
+<!--        <mat-autocomplete #auto="matAutocomplete">-->
+<!--          <mat-option *ngFor="let year of years" [value]="year">-->
+<!--            {{year}}-->
+<!--          </mat-option>-->
+<!--        </mat-autocomplete>-->
+<!--      </mat-form-field>-->
+<!--      <mat-form-field *ngIf="signUpFormGroup.get('birthDateGroup')">-->
+<!--        <mat-select placeholder="Year" formControlName="yearControl" multiple>-->
+<!--          <mat-option *ngFor="let year of years" [value]="year">-->
+<!--            {{year}}-->
+<!--          </mat-option>-->
+<!--        </mat-select>-->
+<!--      </mat-form-field>-->
     </form>
     <button class="app-main__button-primary" mat-raised-button (click)="signUp()">
       Continue

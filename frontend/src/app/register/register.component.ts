@@ -15,7 +15,6 @@ import { SignupService } from "./services/signup.service";
 })
 export class RegisterComponent implements OnInit {
   private componentIsDestroyed$ = new Subject<boolean>();
-  currentView: 'login' | 'signup' = 'signup';
   signupClicked = false;
   faExclamationCircle: IconProp = faExclamationCircle;
   type = {
@@ -37,19 +36,19 @@ export class RegisterComponent implements OnInit {
     '4',]
 
   signUpFormGroup: FormGroup = new FormGroup({
-    firstNameControl: new FormControl('', [Validators.required]),
-    lastNameControl: new FormControl('', [Validators.required]),
-    emailControl: new FormControl('', [Validators.required, Validators.email]),
-    passwordControl: new FormControl('', [Validators.required]),
-    confirmPasswordControl: new FormControl('', [Validators.required]),
-    genderControl: new FormControl(''),
-    monthControl: new FormControl('', [Validators.required]),
-    dayControl: new FormControl('', [Validators.required]),
-    yearControl: new FormControl('', [Validators.required]),
-    phoneControl: new FormControl(''),
-    countryControl: new FormControl(''),
-    stateControl: new FormControl(''),
-    cityControl: new FormControl(''),
+    firstName: new FormControl('', [Validators.required]),
+    lastName: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [Validators.required]),
+    // confirmPasswordControl: new FormControl(''),
+    // genderControl: new FormControl(''),
+    // monthControl: new FormControl(''),
+    // dayControl: new FormControl(''),
+    // yearControl: new FormControl(''),
+    // phoneControl: new FormControl(''),
+    // countryControl: new FormControl(''),
+    // stateControl: new FormControl(''),
+    // cityControl: new FormControl(''),
   })
 
   constructor(private signupService: SignupService,
@@ -85,10 +84,6 @@ export class RegisterComponent implements OnInit {
       this.type.label = 'show';
       this.type.type = 'password';
     }
-  }
-
-  goToLogin() {
-    this.currentView = "login";
   }
 
   ngOnInit(): void {

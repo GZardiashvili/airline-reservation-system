@@ -10,7 +10,12 @@ export class SignupService {
   constructor(private http: HttpClient) {
   }
 
+  // signup(newUser: User) {
+  //   return this.http
+  //     .post(new URL('signup', environment.apiUrl).toString(), newUser)
+  // }
   signup(newUser: User) {
+    console.log(newUser);
     return this.http
       .post(new URL('signup', environment.apiUrl).toString(), newUser)
   }
