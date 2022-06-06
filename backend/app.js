@@ -33,10 +33,10 @@ const flightsRouter = require('./controllers/flights');
 const ticketsRouter = require('./controllers/tickets');
 const planesRouter = require('./controllers/planes');
 
-app.use('/api/register', registerRouter);
+app.use('/api/signup', registerRouter);
 app.use('/api/login', loginRouter);
 app.use('/api/users', auth, usersRouter);
-app.use('/api/flights', auth, flightsRouter);
+app.use('/api/flights', flightsRouter);
 app.use('/api/tickets', auth, ticketsRouter);
 app.use('/api/planes', auth, planesRouter);
 

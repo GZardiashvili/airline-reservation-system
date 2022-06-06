@@ -5,7 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from "./auth/auth.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { RegisterComponent } from './register/register.component';
+import { RegisterComponent } from "./register/register.component";
+import { SharedModule } from "./shared/shared.module";
+import { ReactiveFormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { RegisterComponent } from './register/register.component';
     BrowserAnimationsModule,
     AppRoutingModule,
     AuthModule,
+    SharedModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

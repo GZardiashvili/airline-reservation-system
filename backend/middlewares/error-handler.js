@@ -1,3 +1,4 @@
+// eslint-disable-next-line no-unused-vars
 function errorHandler(err, req, res) {
   if (err.name === 'UnauthorizedError') {
     res.status(401).json({

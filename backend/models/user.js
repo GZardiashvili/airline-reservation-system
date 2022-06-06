@@ -8,12 +8,11 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     role: { type: String, required: true },
     gender: { type: String },
+    birthDate: { type: Date },
     phone: { type: String },
     country: { type: String },
     state: { type: String },
     city: { type: String },
-    zip: { type: String },
-    birthDate: { type: Date },
   },
   { timestamps: true },
 );
