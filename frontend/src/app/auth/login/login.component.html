@@ -16,7 +16,6 @@
         <input matInput [type]="type.type" name="password" formControlName="passwordControl">
         <a *ngIf="loginFormGroup.get('passwordControl')?.value" (click)="showHide()">{{type.label}}</a>
       </mat-form-field>
-
     </form>
     <button class="app-main__button-primary" mat-raised-button (click)="login()">
       Login

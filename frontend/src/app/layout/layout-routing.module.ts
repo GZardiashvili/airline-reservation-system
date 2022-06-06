@@ -37,6 +37,13 @@ const routes: Routes = [
         import('../features/explore/explore.module').then(
           (m) => m.ExploreModule
         ),
+    },
+    {
+      path: 'trips',
+      loadChildren: () =>
+        import('../features/trip/trip.module').then(
+          (m) => m.TripModule
+        ),
     }
   ]
 ;
