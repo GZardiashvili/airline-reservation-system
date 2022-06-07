@@ -6,7 +6,7 @@ const userValidator = [
   body('email').isEmail().normalizeEmail(),
   body('password').isString().isLength({ min: 6 }),
   body('role').isString().isLength({ min: 1 }),
-  body('gender').isString.isLength({ min: 1 }),
+  body('gender').isString().isLength({ min: 1 }),
   body('birthDate').isDate(),
   body('phone').isString().isLength({ min: 3 }),
   body('country').isString().isLength({ min: 3 }),
