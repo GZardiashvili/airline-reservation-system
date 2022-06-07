@@ -1,0 +1,25 @@
+<div class="app-main">
+  <div class="app-login">
+    <h1 class="app-login__header">Hello</h1>
+    <img class="app-main__logo" src="../../assets/sm-logo.png" alt="logo">
+    <form class="app-login__form" [formGroup]="loginFormGroup">
+      <p class="app-login__form--error" *ngIf="loginClicked">Email or Password is not correct</p>
+      <mat-form-field class="app-login__form-field">
+        <mat-label [ngClass]="loginFormGroup.get('emailControl')?.value!==''? 'not-empty' :''">Email</mat-label>
+        <input matInput type="email" name="email" formControlName="emailControl">
+        <span class="app-login__form--error app-login__form--error-email"
+              *ngIf="!loginFormGroup.get('emailControl')?.valid && loginFormGroup.get('emailControl')?.value !=='' && loginClicked">
+       <fa-icon [icon]="faExclamationCircle"></fa-icon> Wrong Email format. Check your typos and try again.  </span>
+      </mat-form-field>
+      <mat-form-field class="app-login__form-field">
+        <mat-label [ngClass]="loginFormGroup.get('passwordControl')?.value!==''? 'not-empty' :''">Password</mat-label>
+        <input matInput [type]="type.type" name="password" formControlName="passwordControl">
+        <a *ngIf="loginFormGroup.get('passwordControl')?.value" (click)="showHide()">{{type.label}}</a>
+      </mat-form-field>
+    </form>
+    <button class="app-main__button-primary" mat-raised-button (click)="login()">
+      Login
+    </button>
+    <p class="app-main__register">Need an account? <a [routerLink]="'../register'">Register</a></p>
+  </div>
+</div>

@@ -1,0 +1,31 @@
+.layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-rows: 64px 1fr auto;
+  grid-template-areas:
+    "header header header"
+    "sidebar content right-sidebar"
+    "sidebar content right-sidebar";
+  margin: 0 auto;
+  column-gap: 5%;
+  row-gap: 20px;
+
+  &__header {
+    grid-area: header;
+  }
+
+  &__sidebar {
+    grid-area: sidebar;
+    margin-top: 15px;
+    z-index: 2;
+  }
+
+  &__outlet {
+    grid-area: content;
+    margin-top: 30px;
+    width: 90%;
+    justify-self: start;
+
+  }
+}
