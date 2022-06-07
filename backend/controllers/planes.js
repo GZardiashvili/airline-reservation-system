@@ -1,4 +1,6 @@
 const express = require('express');
+const planeValidator = require('../middlewares/plane-validator');
+const validateRequest = require('../middlewares/validate-request');
 const {
   addPlane,
   getAllPlanes,
@@ -10,7 +12,7 @@ const {
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', planeValidator, validateRequest, async (req, res) => {
   const plane = await addPlane(req.body);
   res.status(201).send(plane);
 });
@@ -25,7 +27,7 @@ router.get('/:id', async (req, res) => {
   res.status(200).send(plane);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', planeValidator, validateRequest, async (req, res) => {
   const updatedPlane = await updatePlane(req.params.id, req.body);
   res.status(200).send(updatedPlane);
 });

@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const seatSchema = new mongoose.Schema({
   row: { type: Number, required: true },
-  column: { type: Number, required: true },
-  planeId: {
+  column: { type: String, required: true },
+  flightId: {
     type: String,
     required: true,
   },

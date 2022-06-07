@@ -1,4 +1,6 @@
 const express = require('express');
+const ticketValidator = require('../middlewares/ticket-validator');
+const validateRequest = require('../middlewares/validate-request');
 const {
   addTicket,
   getAllTickets,
@@ -11,7 +13,7 @@ const {
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+router.post('/', ticketValidator, validateRequest, async (req, res) => {
   const ticket = await addTicket(req.body);
   res.status(201).send(ticket);
 });
@@ -26,7 +28,7 @@ router.get('/:id', async (req, res) => {
   res.status(200).send(ticket);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', ticketValidator, validateRequest, async (req, res) => {
   const updatedTicket = await updateTicket(req.params.id, req.body);
   res.status(200).send(updatedTicket);
 });
