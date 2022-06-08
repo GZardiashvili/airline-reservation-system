@@ -1,4 +1,6 @@
 const express = require('express');
+const userValidator = require('../middlewares/user-validator');
+const validateRequest = require('../middlewares/validate-request');
 const {
   getAllUsers,
   getOneUser,
@@ -18,7 +20,7 @@ router.get('/:id', async (req, res) => {
   res.status(200).send(user);
 });
 
-router.put('/:id', async (req, res) => {
+router.put('/:id', userValidator, validateRequest, async (req, res) => {
   const updatedUser = await updateUser(req.params.id, req.body);
   res.status(200).send(updatedUser);
 });
