@@ -1,18 +1,12 @@
 const express = require('express');
 require('dotenv').config();
-const { body, validationResult } = require('express-validator');
 const authService = require('./services/authService');
+const validateRequest = require('../middlewares/validate-request');
+const loginValidator = require('../middlewares/login-validator');
 
 const router = express.Router();
 
-router.post('/', body('email').isEmail().normalizeEmail(), async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({
-      success: false,
-      errors: errors.array(),
-    });
-  }
+router.post('/', validateRequest, loginValidator, async (req, res) => {
   const user = await authService.loginUserWithJWT(
     req.body.email,
     req.body.password,
