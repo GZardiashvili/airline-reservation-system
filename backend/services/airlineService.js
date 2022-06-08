@@ -7,9 +7,12 @@ const addAirline = async (airline) => {
   return newAirline;
 };
 
-const getAllAirlines = async () => {
-  const all = await Airline.find({});
-  return all;
+const getAllAirlines = async (query) => {
+  const { name } = query;
+  query = {};
+  if (name != null) query.name = name;
+  const airlines = await Airline.find({ ...query });
+  return airlines;
 };
 
 const getOneAirline = async (id) => {

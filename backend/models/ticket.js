@@ -10,6 +10,14 @@ const ticketSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    seatId: {
+      type: String,
+      required: true,
+    },
+    price: {
+      type: Number,
+      required: true,
+    },
   },
   { timestamps: true },
 );

@@ -7,9 +7,15 @@ const addFlight = async (flight) => {
   return newFlight;
 };
 
-const getAllFlights = async () => {
-  const all = await Flight.find({});
-  return all;
+const getAllFlights = async (query) => {
+  const { departureCity, arrivalCity } = query;
+  query = {};
+  if (departureCity != null) query.departureCity = departureCity;
+  if (arrivalCity != null) query.arrivalCity = arrivalCity;
+  // if (price != null) query.price = price;
+
+  const flights = await Flight.find({ ...query });
+  return flights;
 };
 
 const getOneFlight = async (id) => {
