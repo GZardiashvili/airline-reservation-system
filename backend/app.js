@@ -32,13 +32,16 @@ const usersRouter = require('./controllers/users');
 const flightsRouter = require('./controllers/flights');
 const ticketsRouter = require('./controllers/tickets');
 const planesRouter = require('./controllers/planes');
+const airlinesRouter = require('./controllers/airlines');
+const { adminGuard, userGuard } = require('./guards/user-guard');
 
 app.use('/api/signup', registerRouter);
 app.use('/api/login', loginRouter);
-app.use('/api/users', auth, usersRouter);
+app.use('/api/users', auth, adminGuard, usersRouter);
+app.use('/api/airlines', auth, airlinesRouter);
 app.use('/api/flights', flightsRouter);
-app.use('/api/tickets', auth, ticketsRouter);
-app.use('/api/planes', auth, planesRouter);
+app.use('/api/tickets', auth, userGuard, ticketsRouter);
+app.use('/api/planes', auth, adminGuard, planesRouter);
 
 app.use(errorHandler);
 

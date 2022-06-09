@@ -7,9 +7,18 @@ const addPlane = async (plane) => {
   return newPlane;
 };
 
-const getAllPlanes = async () => {
-  const all = await Plane.find({});
-  return all;
+const getAllPlanes = async (query) => {
+  const {
+    airline,
+    model,
+  } = query;
+  if (airline != null) query.airline = airline;
+  if (model != null) query.model = model;
+
+  const planes = await Plane.find({
+    ...query,
+  });
+  return planes;
 };
 
 const getOnePlane = async (id) => {

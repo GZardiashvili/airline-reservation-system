@@ -11,7 +11,7 @@ const {
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const users = await getAllUsers();
+  const users = await getAllUsers(req.query);
   res.status(200).send(users);
 });
 

@@ -18,7 +18,7 @@ router.post('/', planeValidator, validateRequest, async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const planes = await getAllPlanes();
+  const planes = await getAllPlanes(req.params);
   res.status(200).send(planes);
 });
 

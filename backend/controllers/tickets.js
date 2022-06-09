@@ -19,7 +19,7 @@ router.post('/', ticketValidator, validateRequest, async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const tickets = await getAllTickets();
+  const tickets = await getAllTickets(req.query);
   res.status(200).send(tickets);
 });
 

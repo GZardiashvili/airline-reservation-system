@@ -21,7 +21,7 @@ router.post('/', flightValidator, validateRequest, async (req, res) => {
 });
 
 router.get('/', async (req, res) => {
-  const flights = await getAllFlights();
+  const flights = await getAllFlights(req.query);
   res.status(200).send(flights);
 });
 

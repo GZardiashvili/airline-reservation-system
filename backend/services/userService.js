@@ -9,9 +9,24 @@ const addUser = async (user) => {
   return newUser;
 };
 
-const getAllUsers = async () => {
-  const all = await User.find({});
-  return all;
+const getAllUsers = async (query) => {
+  const {
+    firstName,
+    lastName,
+    email,
+    role,
+    country,
+    city,
+  } = query;
+  query = {};
+  if (firstName != null) query.firstName = firstName;
+  if (lastName != null) query.lastName = lastName;
+  if (email != null) query.email = email;
+  if (role != null) query.role = role;
+  if (country != null) query.country = country;
+  if (city != null) query.city = city;
+  const users = await User.find({ ...query });
+  return users;
 };
 
 const getOneUser = async (id) => {
