@@ -18,8 +18,8 @@ const getAllTickets = async (query) => {
   if (user != null) query.user = user;
   if (flight != null) query.flight = flight;
   if (seat != null) query.seat = seat;
-  if (price != null) query.price = price;
-  const tickets = await Ticket.find({ ...query, price: { $gte: price } });
+  if (price != null) query.price = { price: { $gte: price } };
+  const tickets = await Ticket.find({ ...query });
   return tickets;
 };
 
