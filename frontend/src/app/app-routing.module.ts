@@ -3,11 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from "./auth/login/login.component";
 import { RegisterComponent } from "./register/register.component";
 import { LayoutComponent } from "./layout/layout.component";
+import { LoggedInGuard } from "./auth/guards/logged-in.guard";
 
 const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+    canActivate: [LoggedInGuard],
   },
   {
     path: 'register',
