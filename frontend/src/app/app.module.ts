@@ -14,14 +14,14 @@ import { ReactiveFormsModule } from "@angular/forms";
     AppComponent,
     RegisterComponent,
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    AuthModule,
-    SharedModule,
-    ReactiveFormsModule,
-  ],
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        AuthModule,
+        SharedModule,
+        ReactiveFormsModule,
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

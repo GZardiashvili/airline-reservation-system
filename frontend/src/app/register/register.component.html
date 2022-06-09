@@ -1,16 +1,24 @@
 <div class="app-main">
   <div class="app-signup">
-    <form class="app-signup__form" [formGroup]="signUpFormGroup">
+    <div class="app-signup-header">
+      <div class="back" type="button" *ngIf="mode=='registerStep2'" (click)="mode='registerStep1'">Back</div>
+      <h1>Sign Up</h1>
+      <p>Please fill in this form to create an account.</p>
+      <hr>
+    </div>
+    <form class="app-signup__form" [formGroup]="signUpFormGroup" *ngIf="mode=='registerStep1'; else stepTwo">
       <p class="app-signup__form--error" *ngIf="signupClicked">Some fields does not meet requirements</p>
-      <mat-form-field class="app-signup__form-field">
-        <mat-label [ngClass]="signUpFormGroup.get('firstName')?.value!==''? 'not-empty' :''">First Name
-        </mat-label>
-        <input matInput name="firstName" formControlName="firstName">
-      </mat-form-field>
-      <mat-form-field class="app-signup__form-field">
-        <mat-label [ngClass]="signUpFormGroup.get('lastName')?.value!==''? 'not-empty' :''">Last Name</mat-label>
-        <input matInput name="lastName" formControlName="lastName">
-      </mat-form-field>
+      <div class="app-signup__form--name">
+        <mat-form-field class="app-signup__form-field">
+          <mat-label [ngClass]="signUpFormGroup.get('firstName')?.value!==''? 'not-empty' :''">First Name
+          </mat-label>
+          <input matInput name="firstName" formControlName="firstName">
+        </mat-form-field>
+        <mat-form-field class="app-signup__form-field">
+          <mat-label [ngClass]="signUpFormGroup.get('lastName')?.value!==''? 'not-empty' :''">Last Name</mat-label>
+          <input matInput name="lastName" formControlName="lastName">
+        </mat-form-field>
+      </div>
       <mat-form-field class="app-signup__form-field">
         <mat-label [ngClass]="signUpFormGroup.get('email')?.value!==''? 'not-empty' :''">Email</mat-label>
         <input matInput type="email" name="email" formControlName="email">
@@ -19,68 +27,81 @@
        <fa-icon [icon]="faExclamationCircle"></fa-icon> Wrong Email format. Check your typos and try again.  </span>
       </mat-form-field>
       <mat-form-field class="app-signup__form-field">
+        <mat-label [ngClass]="signUpFormGroup.get('confirmPasswordControl')?.value!==''? 'not-empty' :''">Confirm
+          Password
+        </mat-label>
+        <input matInput name="confirmPassword" formControlName="confirmPasswordControl">
+      </mat-form-field>
+      <mat-form-field class="app-signup__form-field">
         <mat-label [ngClass]="signUpFormGroup.get('password')?.value!==''? 'not-empty' :''">Password</mat-label>
         <input matInput [type]="type.type" name="password" formControlName="password">
         <a *ngIf="signUpFormGroup.get('password')?.value" (click)="showHide()">{{type.label}}</a>
       </mat-form-field>
-<!--      <mat-form-field class="app-signup__form-field">-->
-<!--        <mat-label [ngClass]="signUpFormGroup.get('confirmPasswordControl')?.value!==''? 'not-empty' :''">Confirm Password</mat-label>-->
-<!--        <input matInput [type]="type.type" name="confirmPassword" formControlName="confirmPasswordControl">-->
-<!--        <a *ngIf="signUpFormGroup.get('confirmPasswordControl')?.value" (click)="showHide()">{{type.label}}</a>-->
-<!--      </mat-form-field>-->
-<!--      <mat-form-field class="example-full-width" appearance="fill">-->
-<!--        <mat-label>Month</mat-label>-->
-<!--        <input type="text"-->
-<!--               placeholder="Month"-->
-<!--               aria-label="Month"-->
-<!--               matInput-->
-<!--               formControlName="monthControl"-->
-<!--               [matAutocomplete]="auto">-->
-<!--        <mat-autocomplete #auto="matAutocomplete">-->
-<!--          <mat-option *ngFor="let month of months" [value]="month">-->
-<!--            {{month}}-->
-<!--          </mat-option>-->
-<!--        </mat-autocomplete>-->
-<!--      </mat-form-field>-->
-<!--      <mat-form-field class="example-full-width" appearance="fill">-->
-<!--        <mat-label>Day</mat-label>-->
-<!--        <input type="text"-->
-<!--               placeholder="Day"-->
-<!--               aria-label="Day"-->
-<!--               matInput-->
-<!--               formControlName="dayControl"-->
-<!--               [matAutocomplete]="auto">-->
-<!--        <mat-autocomplete #auto="matAutocomplete">-->
-<!--          <mat-option *ngFor="let day of days" [value]="day">-->
-<!--            {{day}}-->
-<!--          </mat-option>-->
-<!--        </mat-autocomplete>-->
-<!--      </mat-form-field>-->
-<!--      <mat-form-field class="example-full-width" appearance="fill">-->
-<!--        <mat-label>Year</mat-label>-->
-<!--        <input type="text"-->
-<!--               placeholder="Year"-->
-<!--               aria-label="Year"-->
-<!--               matInput-->
-<!--               formControlName="yearControl"-->
-<!--               [matAutocomplete]="auto">-->
-<!--        <mat-autocomplete #auto="matAutocomplete">-->
-<!--          <mat-option *ngFor="let year of years" [value]="year">-->
-<!--            {{year}}-->
-<!--          </mat-option>-->
-<!--        </mat-autocomplete>-->
-<!--      </mat-form-field>-->
-<!--      <mat-form-field *ngIf="signUpFormGroup.get('birthDateGroup')">-->
-<!--        <mat-select placeholder="Year" formControlName="yearControl" multiple>-->
-<!--          <mat-option *ngFor="let year of years" [value]="year">-->
-<!--            {{year}}-->
-<!--          </mat-option>-->
-<!--        </mat-select>-->
-<!--      </mat-form-field>-->
+
     </form>
-    <button class="app-main__button-primary" mat-raised-button (click)="signUp()">
-      Continue
-    </button>
-    <p class="app-main__signup"><a [routerLink]="'../login'">Already have an account?</a></p>
+    <div class="app-main__footer">
+      <button class="app-main__button-primary" mat-raised-button (click)="signUp()">
+        {{mode == 'registerStep2' ? 'Sign Up' : 'Continue'}}
+      </button>
+      <p class="app-main__signup"><a [routerLink]="'../login'">Already have an account?</a></p>
+    </div>
   </div>
 </div>
+
+<ng-template #stepTwo>
+  <form class="app-signup__form" [formGroup]="signUpFormGroup">
+    <mat-label>Gender</mat-label>
+    <mat-radio-group aria-label="Select an option">
+      <mat-radio-button value="female">Female</mat-radio-button>
+      <mat-radio-button value="male">Male</mat-radio-button>
+    </mat-radio-group>
+    <mat-label>Birthday</mat-label>
+    <div class="app-signup__form--birthday">
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="monthControl">
+          <mat-option *ngFor="let month of months" [value]="month.value">
+            {{month.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="dayControl">
+          <mat-option *ngFor="let day of days" [value]="day">
+            {{day}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-select formControlName="yearControl">
+          <mat-option *ngFor="let year of years" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <mat-form-field appearance="fill">
+      <mat-label>Country</mat-label>
+      <mat-select formControlName="countryControl">
+        <mat-option *ngFor="let country of countries" [value]="country.value">
+          {{country.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>State</mat-label>
+      <mat-select formControlName="stateControl">
+        <mat-option *ngFor="let state of states" [value]="state.value">
+          {{state.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>City</mat-label>
+      <mat-select formControlName="cityControl">
+        <mat-option *ngFor="let city of cities" [value]="city.value">
+          {{city.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+</ng-template>
