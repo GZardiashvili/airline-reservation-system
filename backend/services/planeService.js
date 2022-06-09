@@ -11,19 +11,9 @@ const getAllPlanes = async (query) => {
   const {
     airline,
     model,
-    seats,
-    maxSpeed,
-    maxLoad,
-    maxRange,
-    maxAltitude,
   } = query;
   if (airline != null) query.airline = airline;
   if (model != null) query.model = model;
-  if (seats != null) query.seats = seats;
-  if (maxSpeed != null) query.maxSpeed = { maxSpeed: { $lte: maxSpeed } };
-  if (maxLoad != null) query.maxLoad = { maxLoad: { $lte: maxLoad } };
-  if (maxRange != null) query.maxRange = { maxRange: { $lte: maxRange } };
-  if (maxAltitude != null) query.maxAltitude = { maxAltitude: { $lte: maxAltitude } };
 
   const planes = await Plane.find({
     ...query,

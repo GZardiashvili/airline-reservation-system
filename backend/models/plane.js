@@ -2,10 +2,6 @@ const mongoose = require('mongoose');
 
 const seatSchema = new mongoose.Schema(
   {
-    planeId: {
-      type: String,
-      required: true,
-    },
     row: { type: Number, required: true },
     column: { type: String, required: true },
     class: {
@@ -33,19 +29,15 @@ const planeSchema = new mongoose.Schema(
     },
     maxSpeed: {
       type: Number,
-      required: true,
     },
     maxLoad: {
       type: Number,
-      required: true,
     },
     maxRange: {
       type: Number,
-      required: true,
     },
     maxAltitude: {
       type: Number,
-      required: true,
     },
   },
   { timestamps: true },
