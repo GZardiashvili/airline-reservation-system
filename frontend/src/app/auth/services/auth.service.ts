@@ -4,7 +4,6 @@ import { environment } from '../../../environments/environment';
 import { tap } from 'rxjs/operators';
 import { UtilsService } from '../../shared/utils/utils.service';
 import { Router } from '@angular/router';
-import { User } from "../../register/user";
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +30,9 @@ export class AuthService {
     return this.utilsService.clearStorage();
   }
 
+  isAuthenticated() {
+    return this.utilsService.isAuthenticated();
+  }
 
   getToken() {
     return this.utilsService.getToken();
