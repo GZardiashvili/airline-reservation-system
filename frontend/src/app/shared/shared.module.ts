@@ -12,6 +12,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from "@angular/material/form-field";
+import { MatRadioModule } from "@angular/material/radio";
 
 const materialModules = [
   FontAwesomeModule,
@@ -26,6 +27,7 @@ const materialModules = [
   MatSnackBarModule,
   MatDialogModule,
   MatAutocompleteModule,
+  MatRadioModule,
 ];
 
 @NgModule({
