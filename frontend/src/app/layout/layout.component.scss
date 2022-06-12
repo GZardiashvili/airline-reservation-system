@@ -13,6 +13,9 @@
 
   &__header {
     grid-area: header;
+    justify-self: center;
+    margin: 50px 290px 0 0;
+    padding-bottom: 50px;
   }
 
   &__sidebar {
