@@ -1,14 +1,38 @@
-<!--<div class="container">-->
-<!--  <nav class="menu">-->
-<!--    <ul class="menu__list">-->
-<!--      <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"-->
-<!--          class="menu__list-item">-->
-<!--        <a [routerLink]="menuItem.route">-->
-<!--          <span class="menu__list-icon"><fa-icon [icon]="menuItem.icon"></fa-icon></span>-->
-<!--          <span-->
-<!--            [ngClass]="currentRoute.includes(menuItem.route) ? 'selected':''">{{menuItem.title}}</span>-->
-<!--        </a>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--  </nav>-->
-<!--</div>-->
+<div class="advanced-search" *ngIf="currentRoute==='/flights'">
+  <section class="advanced-search__flight-type">
+    <span class="flight-type__list">
+    <mat-checkbox class="flight-type__list--checkbox"
+                  [checked]="allComplete"
+                  [color]="flightClass.color"
+                  [indeterminate]="someComplete()"
+                  (change)="setAll($event.checked)">
+      {{flightClass.type}}
+    </mat-checkbox>
+  </span>
+    <span class="flight-type__list">
+    <ul>
+      <li *ngFor="let classItem of flightClass.classItem">
+        <mat-checkbox [(ngModel)]="classItem.completed"
+                      [color]="classItem.color"
+                      (ngModelChange)="updateAllComplete()">
+          {{classItem.type}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+  </section>
+  <section class="price-range">
+    <mat-form-field class="advanced-search__input">
+      <input matInput placeholder="From">
+    </mat-form-field>
+    <mat-slider
+      thumbLabel
+      [displayWith]="formatLabel"
+      tickInterval="1000"
+      step="1000"
+      min="0"
+      max="100000"
+      aria-label="units">
+    </mat-slider>
+  </section>
+</div>

@@ -1,57 +1,49 @@
 @use "../../shared/styles/palette" as var_1;
 
-.container {
+.advanced-search {
   height: 80vh;
   width: fit-content;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
+  justify-content: start;
   position: fixed;
 
+  &__flight-type {
+    padding: 30px 20px;
 
-  .menu {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    align-items: flex-start;
-
+    .flight-type__list {
+      margin: 12px -12px;
+    }
 
     &__list {
-      display: flex;
-      flex-direction: column;
-      list-style: none;
+      list-style-type: none;
+      margin-top: 4px;
+    }
 
-      &-icon {
+  }
 
-      }
+  .price-range {
+    padding: 0px 20px;
+    display: flex;
+    flex-direction: column;
 
-      .selected {
-        font-weight: bold;
-      }
+    mat-form-field {
+      width: 50px;
+    }
 
-      &-item {
+    mat-slider {
+      width: 130%;
 
-        a {
-          display: flex;
-          color: var_1.$btn-menu;
-          gap: 1rem;
-          text-decoration: none;
-          font-size: 1.35rem;
-          border-radius: 15px;
-          padding: 1rem 1.5rem;
-          width: fit-content;
-          text-transform: capitalize;
-
-          &:hover {
-            background-color: var_1.$btn-menu-hover;
-          }
-
-          &:active {
-            color: var_1.$btn-menu;
-          }
-        }
+      mat-slider-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: var_1.$btn-menu;
+        margin-top: -10px;
+        margin-left: -10px;
       }
     }
   }
+
 }

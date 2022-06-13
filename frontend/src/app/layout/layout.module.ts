@@ -7,7 +7,8 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { SearchComponent } from './search/search.component';
 import { SharedModule } from "../shared/shared.module";
 import { LayoutComponent } from './layout.component';
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { MatSliderModule } from "@angular/material/slider";
 
 
 @NgModule({
@@ -17,11 +18,16 @@ import { ReactiveFormsModule } from "@angular/forms";
     SearchComponent,
     LayoutComponent,
   ],
-    imports: [
-        CommonModule,
-        LayoutRoutingModule,
-        SharedModule,
-        ReactiveFormsModule
-    ]
+  exports: [
+    SearchComponent
+  ],
+  imports: [
+    CommonModule,
+    LayoutRoutingModule,
+    SharedModule,
+    ReactiveFormsModule,
+    MatSliderModule,
+    FormsModule
+  ]
 })
 export class LayoutModule { }
