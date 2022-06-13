@@ -1,0 +1,59 @@
+@use "../../shared/styles/palette" as var_1;
+
+.container {
+  height: 80vh;
+  width: fit-content;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: space-between;
+  position: fixed;
+
+
+  .menu {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: flex-start;
+
+
+    &__list {
+      display: flex;
+      flex-direction: row;
+      list-style: none;
+
+      &-icon {
+
+      }
+
+      .selected {
+        font-weight: bold;
+      }
+
+      &-item {
+
+        a {
+          display: flex;
+          color: var_1.$btn-menu;
+          gap: 0.8rem;
+          text-decoration: none;
+          font-size: 1rem;
+          border-radius: 15px;
+          padding: 0.5rem 0.7rem;
+          width: fit-content;
+          text-transform: capitalize;
+
+          &:hover {
+            background-color: var_1.$btn-menu;
+            color: var_1.$btn-menu-text;
+          }
+
+          &:active {
+            color: var_1.$btn-menu;
+            color: var_1.$btn-menu-text;
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,11 +8,13 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RegisterComponent } from "./register/register.component";
 import { SharedModule } from "./shared/shared.module";
 import { ReactiveFormsModule } from "@angular/forms";
+import { HomeComponent } from './features/home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
+    HomeComponent,
   ],
     imports: [
         BrowserModule,

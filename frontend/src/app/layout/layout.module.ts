@@ -8,7 +8,6 @@ import { SearchComponent } from './search/search.component';
 import { SharedModule } from "../shared/shared.module";
 import { LayoutComponent } from './layout.component';
 import { ReactiveFormsModule } from "@angular/forms";
-import { SubHeaderComponent } from './header/sub-header/sub-header.component';
 
 
 @NgModule({
@@ -17,7 +16,6 @@ import { SubHeaderComponent } from './header/sub-header/sub-header.component';
     SidebarComponent,
     SearchComponent,
     LayoutComponent,
-    SubHeaderComponent,
   ],
     imports: [
         CommonModule,

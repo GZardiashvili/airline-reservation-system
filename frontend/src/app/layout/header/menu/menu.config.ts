@@ -1,12 +1,19 @@
 import { MenuItem } from './menu-item';
 import {
   faBed,
-  faCar, faGlobe, faMapLocationDot,
+  faCar, faGlobe, faHome, faMapLocationDot,
   faPlaneDeparture, faSignsPost,
 
 } from '@fortawesome/free-solid-svg-icons';
 
 export const MENU_CONFIG: MenuItem[] = [
+  {
+    id: 'home',
+    title: 'Home',
+    icon: faHome,
+    route: '/home',
+    permission: 'guest',
+  },
   {
     id: 'flights',
     title: 'Flights',
