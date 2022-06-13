@@ -1,12 +1,28 @@
-.travel-destination{
+@use "../../shared/styles/palette" as var_1;
+
+.travel-destination {
   display: flex;
   gap: 15px;
-  //flex-wrap: wrap;
-}
-.example-card {
-  max-width: 400px;
+  flex-wrap: wrap;
 }
 
-.example-header-image {
-  background-size: cover;
+.flight-card {
+  max-width: 300px;
+  background: #EEEDF0;
+  border-radius: 15px;
+  border: 1px solid var_1.$border-color;
+
+  img {
+    width: 300px;
+    padding: 10px;
+    border-radius: 15px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px 0;
+    background: var_1.$btn-menu;
+    color: white;
+    border-radius: 0 0 15px 15px;
+  }
 }
