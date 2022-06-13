@@ -18,9 +18,7 @@ import { MatSliderModule } from "@angular/material/slider";
     SearchComponent,
     LayoutComponent,
   ],
-  exports: [
-    SearchComponent
-  ],
+  exports: [],
   imports: [
     CommonModule,
     LayoutRoutingModule,
@@ -30,4 +28,5 @@ import { MatSliderModule } from "@angular/material/slider";
     FormsModule
   ]
 })
-export class LayoutModule { }
+export class LayoutModule {
+}

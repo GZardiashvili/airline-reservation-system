@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from "@angular/forms";
-import { map, Observable, startWith } from "rxjs";
-import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
+import { FormControl } from '@angular/forms';
+import { IconProp } from '@fortawesome/fontawesome-svg-core';
+import { faSearch, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-search',
@@ -9,35 +9,21 @@ import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-ic
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-
-  fromCityControl = new FormControl('');
-  toCityControl = new FormControl('');
-  options: string[] = ['USA', 'UK', 'France', 'Germany', 'Italy', 'Spain'];
-  filteredOptions: Observable<string[]> | null = null;
-  faPlaneDeparture = faPlaneDeparture
-  faPlaneArrival = faPlaneArrival
+  faSearch: IconProp = faSearch;
+  faXmark: IconProp = faXmark;
+  searchControl: FormControl = new FormControl('');
 
   constructor() {
-
+    this.searchControl.valueChanges.subscribe(term => {
+      console.log(term);
+    });
   }
+
 
   ngOnInit(): void {
-
-    this.filteredOptions = this.fromCityControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
-
-    this.filteredOptions = this.toCityControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
-    );
   }
 
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
+  clear() {
+    this.searchControl.setValue('');
   }
-
 }

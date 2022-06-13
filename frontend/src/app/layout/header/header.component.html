@@ -1,13 +1,27 @@
-<div class="container">
-  <nav class="menu">
-    <ul class="menu__list">
-      <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"
-          class="menu__list-item">
-        <a [ngClass]="currentRoute.includes(menuItem.route) ? 'selected items':''" [routerLink]="menuItem.route">
-          <span class="menu__list-icon"><fa-icon [icon]="menuItem.icon"></fa-icon></span>
-          <span>{{menuItem.title}}</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+<div class="wrapper">
+  <div class="search-bar" *ngIf="currentRoute.includes('/flights')">
+    <app-search></app-search>
+  </div>
+  <div class="container">
+    <nav class="menu">
+      <ul class="menu__list">
+        <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"
+            class="menu__list-item">
+          <a [ngClass]="currentRoute.includes(menuItem.route) ? 'selected items':''" [routerLink]="menuItem.route">
+            <span class="menu__list-icon"><fa-icon [icon]="menuItem.icon"></fa-icon></span>
+            <span>{{menuItem.title}}</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="profile">
+    <div class="profile__avatar">
+      <img src="assets/images/avatar.png" alt="">
+    </div>
+    <div class="profile">
+      <span class="profile__pfp"><fa-icon [icon]="faUser"></fa-icon></span>
+      <span class="profile__name">{{user.name}}</span>
+    </div>
+  </div>
 </div>

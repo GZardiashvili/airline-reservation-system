@@ -2,7 +2,7 @@ import { MenuItem } from './menu-item';
 import {
   faBed,
   faCar, faGlobe, faHome, faMapLocationDot,
-  faPlaneDeparture, faSignsPost,
+  faPlaneDeparture, faSignsPost, faUser,
 
 } from '@fortawesome/free-solid-svg-icons';
 
