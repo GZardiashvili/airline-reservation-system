@@ -1,0 +1,68 @@
+@use "../../shared/styles/palette" as var_1;
+
+.wrapper {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 20%;
+
+  .search-bar {
+    justify-self: center;
+    align-self: center;
+  }
+
+  .container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-self: center;
+    //position: fixed;
+
+    .menu {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-self: center;
+
+
+      &__list {
+        display: flex;
+        flex-direction: row;
+        list-style: none;
+
+        &-icon {
+
+        }
+
+        .selected {
+          font-weight: bold;
+          border-radius: 15px;
+          padding: 0.5rem 0.7rem;
+          background-color: var_1.$btn-menu;
+          color: var_1.$btn-menu-text;
+        }
+
+        &-item {
+          a {
+            display: flex;
+            color: var_1.$btn-menu;
+            gap: 0.8rem;
+            text-decoration: none;
+            font-size: 1rem;
+            border-radius: 12px;
+            padding: 0.5rem 0.7rem;
+            width: fit-content;
+            text-transform: capitalize;
+          }
+        }
+      }
+    }
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: row;
+  }
+}

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faHeart, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-flight',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./flight.component.scss']
 })
 export class FlightComponent implements OnInit {
+  faHeart = faHeart
+  faLocation = faLocationDot
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }

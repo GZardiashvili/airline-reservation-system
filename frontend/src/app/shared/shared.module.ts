@@ -13,6 +13,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatRadioModule } from "@angular/material/radio";
+import { MatCheckboxModule } from "@angular/material/checkbox";
 
 const materialModules = [
   FontAwesomeModule,
@@ -28,6 +29,7 @@ const materialModules = [
   MatDialogModule,
   MatAutocompleteModule,
   MatRadioModule,
+  MatCheckboxModule,
 ];
 
 @NgModule({
