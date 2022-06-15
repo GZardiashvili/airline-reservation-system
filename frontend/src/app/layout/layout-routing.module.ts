@@ -16,6 +16,13 @@ const routes: Routes = [
         import('../features/flight/flight.module').then(
           (m) => m.FlightModule
         ),
+    },
+    {
+      path: 'book-flight',
+      loadChildren: () =>
+        import('../features/book-flight/book-flight.module').then(
+          (m) => m.BookFlightModule
+        ),
     }
   ]
 ;

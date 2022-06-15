@@ -15,6 +15,7 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSliderModule } from "@angular/material/slider";
+import { MatStepperModule } from "@angular/material/stepper";
 
 const materialModules = [
   FontAwesomeModule,
@@ -32,6 +33,7 @@ const materialModules = [
   MatRadioModule,
   MatCheckboxModule,
   MatSliderModule,
+  MatStepperModule,
 ];
 
 @NgModule({
