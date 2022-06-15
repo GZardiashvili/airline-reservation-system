@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatRadioModule } from "@angular/material/radio";
 import { MatCheckboxModule } from "@angular/material/checkbox";
+import { MatSliderModule } from "@angular/material/slider";
 
 const materialModules = [
   FontAwesomeModule,
@@ -30,6 +31,7 @@ const materialModules = [
   MatAutocompleteModule,
   MatRadioModule,
   MatCheckboxModule,
+  MatSliderModule,
 ];
 
 @NgModule({

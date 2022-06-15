@@ -1,19 +1,25 @@
-<div class="travel-destination">
-  <mat-card class="flight-card">
-    <mat-card-header>
-      <mat-card-title><span><fa-icon [icon]="faLocation"></fa-icon> Germany</span></mat-card-title>
-    </mat-card-header>
-    <img mat-card-image src="../../../assets/Germany.jpg" alt="Photo of a Germany">
-    <mat-card-content>
-      <p>
-        Vaccinated travelers can visit
-        Masks required
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>
-        Book Now
-      </button>
-    </mat-card-actions>
-  </mat-card>
+<ng-container *ngFor="let flight of flights$ | async">
+  <div class="travel-destination">
+    <mat-card class="flight-card">
+      <mat-card-header>
+        <mat-card-title><span><fa-icon [icon]="faLocation"></fa-icon>
+          {{flight.arrivalCity}}</span></mat-card-title>
+      </mat-card-header>
+      <img mat-card-image src="https://picsum.photos/200?random={{flight?._id}}" alt="Photo of a Germany">
+      <mat-card-content>
+        <p>
+          {{flight.description}}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>
+          Book Now
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</ng-container>
+<div *ngFor="let flight of flights$ | async">
+  {{flight | json}}
 </div>
+

@@ -15,6 +15,7 @@ export class SidebarComponent {
   priceRangeFormGroup = this.formBuilder.group({
     priceRangeControl: ['']
   });
+
   flightClass = {
     type: 'All',
     completed: false,
@@ -57,8 +58,8 @@ export class SidebarComponent {
   }
 
   formatLabel(value: number) {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + '$';
+    if (value >= 5000) {
+      return Math.round(value / 5000) + '$';
     }
 
     return value;
