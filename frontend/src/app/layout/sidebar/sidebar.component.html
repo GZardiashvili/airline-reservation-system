@@ -1,11 +1,38 @@
 <div class="advanced-search" *ngIf="currentRoute==='/flights'">
+  <section class="advanced-search__sort">
+    <p>Order by</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Best Match</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let by of orderBy" [value]="by.value">
+          {{by.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
   <section class="advanced-search__flight-type">
     <span class="flight-type__list-header">
-     Flight Clases
+     Flight Class
   </span>
     <span class="flight-type__list">
     <ul>
       <li *ngFor="let classItem of flightClass.classItem">
+        <mat-checkbox [(ngModel)]="classItem.completed"
+                      [color]="classItem.color"
+                      (ngModelChange)="updateAllComplete()">
+          {{classItem.type}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+  </section>
+  <section class="advanced-search__flight-type">
+    <span class="flight-type__list-header">
+     Airline
+  </span>
+    <span class="flight-type__list">
+    <ul>
+      <li *ngFor="let classItem of airline.classItem">
         <mat-checkbox [(ngModel)]="classItem.completed"
                       [color]="classItem.color"
                       (ngModelChange)="updateAllComplete()">
