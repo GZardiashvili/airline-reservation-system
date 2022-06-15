@@ -1,13 +1,7 @@
 <div class="advanced-search" *ngIf="currentRoute==='/flights'">
   <section class="advanced-search__flight-type">
-    <span class="flight-type__list">
-    <mat-checkbox class="flight-type__list--checkbox"
-                  [checked]="allComplete"
-                  [color]="flightClass.color"
-                  [indeterminate]="someComplete()"
-                  (change)="setAll($event.checked)">
-      {{flightClass.type}}
-    </mat-checkbox>
+    <span class="flight-type__list-header">
+     Flight Clases
   </span>
     <span class="flight-type__list">
     <ul>
@@ -22,9 +16,14 @@
   </span>
   </section>
   <section class="price-range">
-    <mat-form-field class="advanced-search__input">
-      <input matInput placeholder="From">
-    </mat-form-field>
+    <div class="advanced-search-flex">
+      <mat-form-field class="advanced-search__input">
+        <input matInput placeholder="From">
+      </mat-form-field>
+      <mat-form-field class="advanced-search__input">
+        <input matInput placeholder="To">
+      </mat-form-field>
+    </div>
     <mat-slider
       thumbLabel
       [displayWith]="formatLabel"

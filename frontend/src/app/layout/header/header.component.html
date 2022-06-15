@@ -1,5 +1,5 @@
 <div class="wrapper">
-  <div class="search-bar" *ngIf="currentRoute.includes('/flights')">
+  <div class="search-bar" [ngClass]="{'hidden':!currentRoute.includes('/flights')}">
     <app-search></app-search>
   </div>
   <div class="container">

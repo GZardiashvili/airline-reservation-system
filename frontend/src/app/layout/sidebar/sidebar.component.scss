@@ -9,11 +9,19 @@
   justify-content: start;
   position: fixed;
 
+  &-flex {
+    display: flex;
+    gap: 20px
+  }
+
   &__flight-type {
     padding: 30px 20px;
+    width: 100%;
 
-    .flight-type__list {
-      margin: 12px -12px;
+    .flight-type__list-header {
+      margin: 0 0 0 -20px;
+      font-size: 1.3rem;
+      line-height: 50px;
     }
 
     &__list {
