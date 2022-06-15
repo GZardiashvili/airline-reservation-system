@@ -9,6 +9,7 @@ const userSchema = new mongoose.Schema(
     role: { type: String, default: 'user' },
     gender: { type: String },
     birthDate: { type: Date },
+    pfpUrl: { type: String },
     phone: { type: String },
     country: { type: String },
     state: { type: String },

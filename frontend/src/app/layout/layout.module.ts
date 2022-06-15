@@ -9,6 +9,7 @@ import { SharedModule } from "../shared/shared.module";
 import { LayoutComponent } from './layout.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
+import { MatMenuModule } from "@angular/material/menu";
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { HttpClientModule } from "@angular/common/http";
     SharedModule,
     ReactiveFormsModule,
     FormsModule,
+    MatMenuModule,
   ]
 })
 export class LayoutModule {

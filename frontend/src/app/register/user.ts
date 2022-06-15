@@ -1,4 +1,5 @@
 export interface User {
+  _id: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -6,6 +7,7 @@ export interface User {
   confirmPassword: string;
   gender: string;
   birthDate: Date;
+  pfpUrl: string;
   phone: string;
   country: string;
   state: string;
