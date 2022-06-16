@@ -2,7 +2,7 @@ import { MenuItem } from './menu-item';
 import {
   faBed,
   faCar, faGlobe, faHome, faMapLocationDot,
-  faPlaneDeparture, faSignsPost, faUser,
+  faPlaneDeparture, faSignsPost, faUser, faUserSecret,
 
 } from '@fortawesome/free-solid-svg-icons';
 
@@ -20,5 +20,12 @@ export const MENU_CONFIG: MenuItem[] = [
     icon: faPlaneDeparture,
     route: '/flights',
     permission: 'guest',
+  },
+  {
+    id: 'ars-manager',
+    title: 'ARS Manager',
+    icon: faUserSecret,
+    route: '/ars-manager',
+    permission: 'admin',
   }
 ];

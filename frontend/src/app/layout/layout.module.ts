@@ -10,6 +10,7 @@ import { LayoutComponent } from './layout.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { MatMenuModule } from "@angular/material/menu";
+import { SubMenuComponent } from './header/sub-menu/sub-menu.component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { MatMenuModule } from "@angular/material/menu";
     SidebarComponent,
     SearchComponent,
     LayoutComponent,
+    SubMenuComponent,
   ],
   exports: [],
   imports: [

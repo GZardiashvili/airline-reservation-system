@@ -43,7 +43,7 @@ export class HeaderComponent implements OnDestroy {
     this.user.pipe(takeUntil(this.componentIsDestroyed$)).subscribe((user) => {
       this.profile.name = user.firstName + ' ' + user.lastName;
       this.profile.pfpUrl =
-        user.pfpUrl == '' ? user.pfpUrl : '../../assets/default-pfp.png';
+        user.pfpUrl == '' ? user.pfpUrl : '../../../assets/default-pfp.png';
       this.profile.account.url = '/account';
       this.profile.display.url = '/display';
     });
