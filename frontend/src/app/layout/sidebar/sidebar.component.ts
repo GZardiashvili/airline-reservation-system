@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { FormBuilder } from "@angular/forms";
+import { Profile } from "../header/models/profile";
 
 @Component({
   selector: 'app-sidebar',
@@ -15,6 +16,7 @@ export class SidebarComponent {
   priceRangeFormGroup = this.formBuilder.group({
     priceRangeControl: ['']
   });
+
   flightClass = {
     type: 'All',
     completed: false,
@@ -26,6 +28,27 @@ export class SidebarComponent {
       {type: 'First', completed: false, color: 'primary'},
     ],
   };
+
+  airline = {
+    type: 'All',
+    completed: false,
+    color: 'primary',
+    classItem: [
+      {type: 'Ar1', completed: false, color: 'primary'},
+      {type: 'AR2', completed: false, color: 'primary'},
+      {type: 'AR3', completed: false, color: 'primary'},
+      {type: 'Ar4', completed: false, color: 'primary'},
+      {type: 'Ar5', completed: false, color: 'primary'},
+      {type: 'Ar6', completed: false, color: 'primary'},
+      {type: 'Ar7', completed: false, color: 'primary'},
+    ],
+  };
+  orderBy = [
+    {value: 'best_match', viewValue: 'Best match'},
+    {value: 'priceLow', viewValue: 'Price: lowest first'},
+    {value: 'priceHigh', viewValue: 'Price: highest first'},
+    {value: 'duration', viewValue: 'Duration'},
+  ];
 
   constructor(private router: Router, private formBuilder: FormBuilder) {
     router.events.pipe(filter((event: any) => event instanceof NavigationEnd)
@@ -57,8 +80,8 @@ export class SidebarComponent {
   }
 
   formatLabel(value: number) {
-    if (value >= 1000) {
-      return Math.round(value / 1000) + '$';
+    if (value >= 5000) {
+      return Math.round(value / 5000) + '$';
     }
 
     return value;

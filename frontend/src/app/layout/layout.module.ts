@@ -8,7 +8,8 @@ import { SearchComponent } from './search/search.component';
 import { SharedModule } from "../shared/shared.module";
 import { LayoutComponent } from './layout.component';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { MatSliderModule } from "@angular/material/slider";
+import { HttpClientModule } from "@angular/common/http";
+import { MatMenuModule } from "@angular/material/menu";
 
 
 @NgModule({
@@ -22,10 +23,11 @@ import { MatSliderModule } from "@angular/material/slider";
   imports: [
     CommonModule,
     LayoutRoutingModule,
+    HttpClientModule,
     SharedModule,
     ReactiveFormsModule,
-    MatSliderModule,
-    FormsModule
+    FormsModule,
+    MatMenuModule,
   ]
 })
 export class LayoutModule {

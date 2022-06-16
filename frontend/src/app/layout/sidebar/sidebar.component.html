@@ -1,13 +1,18 @@
 <div class="advanced-search" *ngIf="currentRoute==='/flights'">
+  <section class="advanced-search__sort">
+    <p>Order by</p>
+    <mat-form-field appearance="fill">
+      <mat-label>Best Match</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let by of orderBy" [value]="by.value">
+          {{by.viewValue}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </section>
   <section class="advanced-search__flight-type">
-    <span class="flight-type__list">
-    <mat-checkbox class="flight-type__list--checkbox"
-                  [checked]="allComplete"
-                  [color]="flightClass.color"
-                  [indeterminate]="someComplete()"
-                  (change)="setAll($event.checked)">
-      {{flightClass.type}}
-    </mat-checkbox>
+    <span class="flight-type__list-header">
+     Flight Class
   </span>
     <span class="flight-type__list">
     <ul>
@@ -21,10 +26,31 @@
     </ul>
   </span>
   </section>
+  <section class="advanced-search__flight-type">
+    <span class="flight-type__list-header">
+     Airline
+  </span>
+    <span class="flight-type__list">
+    <ul>
+      <li *ngFor="let classItem of airline.classItem">
+        <mat-checkbox [(ngModel)]="classItem.completed"
+                      [color]="classItem.color"
+                      (ngModelChange)="updateAllComplete()">
+          {{classItem.type}}
+        </mat-checkbox>
+      </li>
+    </ul>
+  </span>
+  </section>
   <section class="price-range">
-    <mat-form-field class="advanced-search__input">
-      <input matInput placeholder="From">
-    </mat-form-field>
+    <div class="advanced-search-flex">
+      <mat-form-field class="advanced-search__input">
+        <input matInput placeholder="From">
+      </mat-form-field>
+      <mat-form-field class="advanced-search__input">
+        <input matInput placeholder="To">
+      </mat-form-field>
+    </div>
     <mat-slider
       thumbLabel
       [displayWith]="formatLabel"
@@ -47,3 +73,4 @@
     </mat-form-field>
   </section>
 </div>
+

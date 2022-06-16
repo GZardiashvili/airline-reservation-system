@@ -4,7 +4,10 @@
   display: flex;
   width: 100%;
   flex-direction: row;
-  gap: 20%;
+
+  .hidden {
+    visibility: hidden;
+  }
 
   .search-bar {
     justify-self: center;
@@ -19,13 +22,13 @@
     align-items: center;
     justify-self: center;
     //position: fixed;
+    justify-content: center;
 
     .menu {
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-self: center;
-
 
       &__list {
         display: flex;

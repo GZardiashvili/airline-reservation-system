@@ -6,14 +6,32 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: start;
+  justify-content: flex-start;
   position: fixed;
+
+  &__sort {
+    padding-left: 20px;
+
+    p {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 50px;
+    }
+  }
+
+  &-flex {
+    display: flex;
+    gap: 20px
+  }
 
   &__flight-type {
     padding: 30px 20px;
+    width: 100%;
 
-    .flight-type__list {
-      margin: 12px -12px;
+    .flight-type__list-header {
+      font-size: 1.1rem;
+      font-weight: bold;
+      line-height: 50px;
     }
 
     &__list {
