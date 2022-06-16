@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from "../auth/guards/auth.guard";
 import { AdminGuard } from "../auth/guards/admin.guard";
+import { FlightComponent } from "../features/flight/flight.component";
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},

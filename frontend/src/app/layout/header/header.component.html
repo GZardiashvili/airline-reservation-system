@@ -1,29 +1,33 @@
-<div class="wrapper">
-  <div class="search-bar" [ngClass]="{'hidden':!currentRoute.includes('/flights')}">
-    <app-search></app-search>
+<div class="flex">
+  <div class="wrapper">
+    <div class="search-bar" [ngClass]="{ 'hidden' : !currentRoute.includes('/flights') }">
+      <app-search></app-search>
+    </div>
+    <div class="container">
+      <nav class="menu">
+        <ul class="menu__list">
+          <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"
+              class="menu__list-item">
+            <a [ngClass]="currentRoute.includes(menuItem.route) ? 'selected items' : '' " [routerLink]="menuItem.route">
+              <span class="menu__list-icon"><fa-icon [icon]="menuItem.icon"></fa-icon></span>
+              <span>{{menuItem.title}}</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+    <div class="app-header__profile">
+      <button class="btn-list" mat-button [matMenuTriggerFor]="userAcc">
+        <img src="{{profile.pfpUrl}}" alt="pfp">
+        {{profile.name}}</button>
+      <mat-menu #userAcc="matMenu">
+        <button class="btn-list--item" mat-menu-item>{{profile.account.label}}</button>
+        <button class="btn-list--item" mat-menu-item>{{profile.display.label}}</button>
+        <button class="btn-list--item" mat-menu-item (click)="logout()">{{profile.logout}}</button>
+      </mat-menu>
+    </div>
   </div>
-  <div class="container">
-    <nav class="menu">
-      <ul class="menu__list">
-        <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"
-            class="menu__list-item">
-          <a [ngClass]="currentRoute.includes(menuItem.route) ? 'selected items':''" [routerLink]="menuItem.route">
-            <span class="menu__list-icon"><fa-icon [icon]="menuItem.icon"></fa-icon></span>
-            <span>{{menuItem.title}}</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-  <div class="app-header__profile">
-    <button class="btn-list" mat-button [matMenuTriggerFor]="userAcc">
-      <img src="{{profile.pfpUrl}}" alt="pfp">
-      {{profile.name}}</button>
-    <mat-menu #userAcc="matMenu">
-      <button class="btn-list--item" mat-menu-item>{{profile.account.label}}</button>
-      <button class="btn-list--item" mat-menu-item>{{profile.display.label}}</button>
-      <button class="btn-list--item" mat-menu-item (click)="logout()">{{profile.logout}}</button>
-    </mat-menu>
-  </div>
+  <ng-container *ngIf="currentRoute.includes('/ars-manager')">
+    <app-sub-menu class="sub-menu"></app-sub-menu>
+  </ng-container>
 </div>
-<app-sub-menu></app-sub-menu>
