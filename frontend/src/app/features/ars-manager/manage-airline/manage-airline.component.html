@@ -1,1 +1,3 @@
-<p>manage-airline works!</p>
+<div *ngFor="let airline of airlines$ | async">
+  <p>{{airline.name}} :: {{airline.flightId}}</p>
+</div>

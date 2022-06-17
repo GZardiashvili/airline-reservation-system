@@ -8,7 +8,6 @@ const seatSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    available: { type: Boolean, required: true },
   },
   { _id: false },
 );
@@ -25,7 +24,7 @@ const planeSchema = new mongoose.Schema(
     },
     seats: {
       type: [seatSchema],
-      required: true,
+      // required: true,
     },
     maxSpeed: {
       type: Number,

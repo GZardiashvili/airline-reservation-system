@@ -11,6 +11,7 @@
   row-gap: 20px;
 
   &__header {
+    border-bottom: #D0D0D0 1px solid;
     grid-area: header;
     display: flex;
     justify-self: center;

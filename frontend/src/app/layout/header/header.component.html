@@ -18,13 +18,17 @@
       </nav>
     </div>
     <div class="app-header__profile">
-      <button class="btn-list" mat-button [matMenuTriggerFor]="userAcc">
+      <button *ngIf="notSignIn" class="btn-list" mat-button [matMenuTriggerFor]="userAcc">
+        <fa-icon [icon]="faUser"></fa-icon>
+      </button>
+      <button *ngIf="!notSignIn" class="btn-list" mat-button [matMenuTriggerFor]="userAcc">
         <img src="{{profile.pfpUrl}}" alt="pfp">
-        {{profile.name}}</button>
+      </button>
       <mat-menu #userAcc="matMenu">
-        <button class="btn-list--item" mat-menu-item>{{profile.account.label}}</button>
-        <button class="btn-list--item" mat-menu-item>{{profile.display.label}}</button>
-        <button class="btn-list--item" mat-menu-item (click)="logout()">{{profile.logout}}</button>
+        <button mat-menu-item>{{profile.sign.in}}</button>
+        <button *ngIf="notSignIn" mat-menu-item>{{profile.sign.up}}</button>
+        <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item>{{profile.account.label}}</button>
+        <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item (click)="logout()">{{profile.logout}}</button>
       </mat-menu>
     </div>
   </div>

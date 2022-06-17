@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from "rxjs";
+import { ManageAirlineService } from "./services/manage-airline.service";
 
 @Component({
   selector: 'app-manage-airline',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageAirlineComponent implements OnInit {
 
-  constructor() { }
+  airlines$!: Observable<any[]>;
 
-  ngOnInit(): void {
+  constructor(private manageAirlineService: ManageAirlineService) {
+
+  }
+
+  ngOnInit()
+    :
+    void {
+    this.airlines$ = this.manageAirlineService.getAirlines();
   }
 
 }

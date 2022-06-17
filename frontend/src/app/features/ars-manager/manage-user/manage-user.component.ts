@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from "rxjs";
+import { User } from "../../../register/user";
+import { ManageUserService } from "./services/manage-user.service";
 
 @Component({
   selector: 'app-manage-user',
@@ -7,9 +10,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ManageUserComponent implements OnInit {
 
-  constructor() { }
+  users$!: Observable<User[]>;
+
+  constructor(private manageUserService: ManageUserService) {
+  }
 
   ngOnInit(): void {
+    this.users$ = this.manageUserService.getUsers();
+
   }
 
 }

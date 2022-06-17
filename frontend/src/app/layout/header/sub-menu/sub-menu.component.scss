@@ -15,7 +15,7 @@
     flex-direction: row;
     justify-content: center;
     align-self: center;
-    margin-left: 200px;
+    margin-left: 75px;
 
     &__list {
       display: flex;
@@ -28,7 +28,7 @@
 
       .selected {
         font-weight: bold;
-        border-radius: 15px;
+        border-radius: 10px;
         padding: 0.5rem 0.7rem;
         background-color: #663a82;
         color: var_1.$btn-menu-text;

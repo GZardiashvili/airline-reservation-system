@@ -1,1 +1,4 @@
-<p>manage-flight works!</p>
+<div *ngFor="let flight of flights$ | async">
+  <p>{{flight.flightNumber}} :: {{flight.departureCity}} :: {{flight.arrivalCity}}
+    :: {{flight.departureTime | date}}</p>
+</div>

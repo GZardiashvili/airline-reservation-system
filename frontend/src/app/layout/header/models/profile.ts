@@ -1,5 +1,8 @@
 export interface Profile {
-  name: string;
+  sign: {
+    in: string;
+    up: string;
+  };
   pfpUrl: string;
   account: {
     label: string;

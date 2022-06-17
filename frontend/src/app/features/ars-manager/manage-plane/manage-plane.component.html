@@ -1,1 +1,3 @@
-<p>manage-plane works!</p>
+<div *ngFor="let plane of planes$ | async">
+  <p>{{plane.model}} :: {{plane.airlineId}}</p>
+</div>
