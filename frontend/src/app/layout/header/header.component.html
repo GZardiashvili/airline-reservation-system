@@ -9,7 +9,8 @@
           <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"
               class="menu__list-item">
             <a [ngClass]="currentRoute.includes(menuItem.route) ? 'selected items' : '' " [routerLink]="menuItem.route">
-              <span class="menu__list-icon"><fa-icon [icon]="menuItem.icon"></fa-icon></span>
+              <span class="menu__list-icon" [ngClass]="{ 'hidden' : role ==='admin' }"><fa-icon
+                [icon]="menuItem.icon"></fa-icon></span>
               <span>{{menuItem.title}}</span>
             </a>
           </li>

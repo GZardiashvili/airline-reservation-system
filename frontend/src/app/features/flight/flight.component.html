@@ -1,13 +1,12 @@
 <div class="travel-destination">
   <ng-container *ngFor="let flight of flights$ | async">
     <mat-card class="flight-card">
-      <mat-card-header>
-        <mat-card-title><span><fa-icon [icon]="faLocation"></fa-icon>
-          {{flight.arrivalCity}}</span></mat-card-title>
-      </mat-card-header>
-      <img mat-card-image src="https://picsum.photos/200?random={{flight?._id}}" alt="Photo of a Germany">
+      <img mat-card-image src="https://picsum.photos/200?random={{flight?._id}}" alt="Photo">
       <mat-card-content>
-        <p>
+        <p class="flex">
+         <span><fa-icon [icon]="faLocation"></fa-icon>
+           {{flight.arrivalCity}}</span>
+          <span class="travel-time">{{flight.departureTime | date}}</span>
           {{flight.description}}
         </p>
       </mat-card-content>

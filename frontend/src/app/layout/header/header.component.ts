@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 
 import { NavigationEnd, Router } from '@angular/router';
 import { filter, takeUntil } from 'rxjs/operators';
@@ -15,10 +15,9 @@ import { UserService } from "./services/user.service";
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss']
 })
-export class HeaderComponent implements OnDestroy {
+export class HeaderComponent implements OnInit, OnDestroy {
   private componentIsDestroyed$ = new Subject<boolean>();
   user: Observable<User> = this.userService.getUserProfile();
-
   menu: MenuItem[] = MENU_CONFIG;
   currentRoute: string = '/';
   profile: Profile = {
@@ -55,6 +54,9 @@ export class HeaderComponent implements OnDestroy {
 
   trackBy(index: number, item: MenuItem): string {
     return item.id;
+  }
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {
