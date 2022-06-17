@@ -10,6 +10,8 @@ import { SharedModule } from "./shared/shared.module";
 import { ReactiveFormsModule } from "@angular/forms";
 import { HomeComponent } from './features/home/home.component';
 import { LayoutModule } from "./layout/layout.module";
+import { HTTP_INTERCEPTORS } from "@angular/common/http";
+import { AuthInterceptor } from "./auth/interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -17,16 +19,20 @@ import { LayoutModule } from "./layout/layout.module";
     RegisterComponent,
     HomeComponent,
   ],
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        AuthModule,
-        SharedModule,
-        ReactiveFormsModule,
-        LayoutModule,
-    ],
-  providers: [],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    AuthModule,
+    SharedModule,
+    ReactiveFormsModule,
+    LayoutModule,
+  ],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: AuthInterceptor,
+    multi: true,
+  },],
   bootstrap: [AppComponent]
 })
 export class AppModule {
