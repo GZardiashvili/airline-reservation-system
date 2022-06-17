@@ -22,10 +22,10 @@ export class SidebarComponent {
     completed: false,
     color: 'primary',
     classItem: [
-      {type: 'Economy', completed: false, color: 'primary'},
-      {type: 'Premium', completed: false, color: 'primary'},
-      {type: 'Business', completed: false, color: 'primary'},
-      {type: 'First', completed: false, color: 'primary'},
+      {type: 'Economy', completed: false, color: 'accent'},
+      {type: 'Premium', completed: false, color: 'accent'},
+      {type: 'Business', completed: false, color: 'accent'},
+      {type: 'First', completed: false, color: 'accent'},
     ],
   };
 
@@ -34,13 +34,9 @@ export class SidebarComponent {
     completed: false,
     color: 'primary',
     classItem: [
-      {type: 'Ar1', completed: false, color: 'primary'},
-      {type: 'AR2', completed: false, color: 'primary'},
-      {type: 'AR3', completed: false, color: 'primary'},
-      {type: 'Ar4', completed: false, color: 'primary'},
-      {type: 'Ar5', completed: false, color: 'primary'},
-      {type: 'Ar6', completed: false, color: 'primary'},
-      {type: 'Ar7', completed: false, color: 'primary'},
+      {type: 'Ar1', completed: false, color: 'accent'},
+      {type: 'AR2', completed: false, color: 'accent'},
+      {type: 'AR3', completed: false, color: 'accent'},
     ],
   };
   orderBy = [

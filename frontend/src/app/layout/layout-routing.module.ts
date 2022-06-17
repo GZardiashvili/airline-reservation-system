@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from "../auth/guards/auth.guard";
+import { AdminGuard } from "../auth/guards/admin.guard";
+import { FlightComponent } from "../features/flight/flight.component";
 
 const routes: Routes = [
     {path: '', redirectTo: 'home', pathMatch: 'full'},
@@ -23,6 +26,15 @@ const routes: Routes = [
         import('../features/book-flight/book-flight.module').then(
           (m) => m.BookFlightModule
         ),
+      canActivate: [AuthGuard],
+    },
+    {
+      path: 'ars-manager',
+      loadChildren: () =>
+        import('../features/ars-manager/ars-manager.module').then(
+          (m) => m.ArsManagerModule
+        ),
+      canActivate: [AuthGuard, AdminGuard],
     }
   ]
 ;
