@@ -82,6 +82,6 @@ export class ManageAirlineComponent implements OnInit {
 
   addAirline() {
     console.log(this.airlineFormGroup.value);
-    return this.manageAirlineService.addAirline(<Airline>this.airlineFormGroup.value).subscribe();
+    return this.manageAirlineService.addAirline(<Airline>this.airlineFormGroup.value).subscribe()
   }
 }
