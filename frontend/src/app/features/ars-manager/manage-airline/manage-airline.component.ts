@@ -7,6 +7,7 @@ import { MatChipInputEvent } from "@angular/material/chips";
 import { Flight } from "../../flight/flight";
 import { ManageFlightService } from "../manage-flight/services/manage-flight.service";
 import { MatAutocompleteSelectedEvent } from "@angular/material/autocomplete";
+import { Airline } from "./airline";
 
 @Component({
   selector: 'app-manage-airline',
@@ -81,6 +82,6 @@ export class ManageAirlineComponent implements OnInit {
 
   addAirline() {
     console.log(this.airlineFormGroup.value);
-    return this.manageAirlineService.addAirline(this.airlineFormGroup.value);
+    return this.manageAirlineService.addAirline(<Airline>this.airlineFormGroup.value).subscribe();
   }
 }
