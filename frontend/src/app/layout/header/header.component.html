@@ -22,7 +22,7 @@
         <fa-icon [icon]="faUser"></fa-icon>
       </button>
       <button *ngIf="!notSignIn" class="btn-list" mat-button [matMenuTriggerFor]="userAcc">
-        <img src="{{profile.pfpUrl}}" alt="pfp">
+        <fa-icon [icon]="faUser"></fa-icon>
       </button>
       <mat-menu #userAcc="matMenu">
         <button mat-menu-item>{{profile.sign.in}}</button>

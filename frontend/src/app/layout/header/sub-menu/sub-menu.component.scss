@@ -15,7 +15,7 @@
     flex-direction: row;
     justify-content: center;
     align-self: center;
-    margin-left: 75px;
+    margin-left: 200px;
 
     &__list {
       display: flex;
@@ -30,14 +30,14 @@
         font-weight: bold;
         border-radius: 10px;
         padding: 0.5rem 0.7rem;
-        background-color: #663a82;
+        background-color: var_1.$btn-menu-blue;
         color: var_1.$btn-menu-text;
       }
 
       &-item {
         a {
           display: flex;
-          color: #663a82;
+          color: var_1.$btn-menu-blue;
           gap: 0.8rem;
           text-decoration: none;
           font-size: 1rem;

@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { Flight } from "../../flight/flight";
-import { HttpClient } from "@angular/common/http";
 import { ManageFlightService } from "./services/manage-flight.service";
+import { FormBuilder } from "@angular/forms";
 
 @Component({
   selector: 'app-manage-flight',
@@ -12,8 +12,25 @@ import { ManageFlightService } from "./services/manage-flight.service";
 export class ManageFlightComponent implements OnInit {
 
   flights$!: Observable<Flight[]>;
+  flightFormGroup = this.fb.group({
+    flightNumber: [''],
+    description: [''],
+    airlineId: [''],
+    planeId: [''],
+    ticketId: [''],
+    departureCity: [''],
+    arrivalCity: [''],
+    departureAirport: [''],
+    arrivalAirport: [''],
+    departureTime: [''],
+    arrivalTime: [''],
+  });
 
-  constructor(private flightManageService: ManageFlightService) {
+  constructor(private flightManageService: ManageFlightService, private fb: FormBuilder) {
+  }
+
+  addFlight() {
+    this.flightManageService.addFlight(<Flight>this.flightFormGroup.value);
   }
 
   ngOnInit(): void {

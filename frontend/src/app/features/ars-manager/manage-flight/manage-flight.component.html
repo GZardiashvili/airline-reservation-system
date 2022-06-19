@@ -1,3 +1,64 @@
+<div class="app-airline">
+  <form class="app-airline__form" [formGroup]="flightFormGroup">
+    <mat-form-field class="app-login__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('flightNumber')?.value!==''? 'not-empty' :''">Flight Number</mat-label>
+      <input matInput type="text" name="flightNumber" formControlName="flightNumber">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('description')?.value!==''? 'not-empty' :''">description</mat-label>
+      <input matInput
+             type="text" name="description" formControlName="description">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('airlineId')?.value!==''? 'not-empty' :''">Airline</mat-label>
+      <input matInput
+             type="text" name="airlineId" formControlName="airlineId">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('planeId')?.value!==''? 'not-empty' :''">Plane
+      </mat-label>
+      <input matInput
+             type="text" name="planeId" formControlName="planeId">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('departureCity')?.value!==''? 'not-empty' :''">Departure City
+      </mat-label>
+      <input matInput
+             type="text" name="departureCity" formControlName="departureCity">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('arrivalCity')?.value!==''? 'not-empty' :''">Arrival City</mat-label>
+      <input matInput
+             type="text" name="arrivalCity" formControlName="arrivalCity">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('departureAirport')?.value!==''? 'not-empty' :''">Departure Airport
+      </mat-label>
+      <input matInput
+             type="text" name="departureAirport" formControlName="departureAirport">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('arrivalAirport')?.value!==''? 'not-empty' :''">Arrival Airport
+      </mat-label>
+      <input matInput
+             type="text" name="arrivalAirport" formControlName="arrivalAirport">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('departureDate')?.value!==''? 'not-empty' :''">Departure Date
+      </mat-label>
+      <input matInput
+             type="text" name="departureDate" formControlName="departureTime">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="flightFormGroup.get('arrivalDate')?.value!==''? 'not-empty' :''">Arrival Date
+      </mat-label>
+      <input matInput
+             type="text" name="arrivalDate" formControlName="arrivalTime">
+    </mat-form-field>
+  </form>
+  <button mat-raised-button class="app-airline__button" color="primary" (click)="addFlight()">Add</button>
+</div>
+
 <div *ngFor="let flight of flights$ | async">
   <p>{{flight.flightNumber}} :: {{flight.departureCity}} :: {{flight.arrivalCity}}
     :: {{flight.departureTime | date}}</p>

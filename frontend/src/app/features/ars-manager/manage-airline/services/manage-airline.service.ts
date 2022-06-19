@@ -12,7 +12,7 @@ export class ManageAirlineService {
   }
 
   addAirline(airline: any) {
-    return this.http.post(`${environment.apiUrl}airlines`, airline);
+    return this.http.post<any>(`${environment.apiUrl}airlines`, airline);
   }
 
   getAirlines(): Observable<any[]> {

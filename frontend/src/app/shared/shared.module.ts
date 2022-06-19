@@ -16,6 +16,8 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatStepperModule } from "@angular/material/stepper";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatIconModule } from "@angular/material/icon";
 
 const materialModules = [
   FontAwesomeModule,
@@ -34,6 +36,8 @@ const materialModules = [
   MatCheckboxModule,
   MatSliderModule,
   MatStepperModule,
+  MatChipsModule,
+  MatIconModule,
 ];
 
 @NgModule({
