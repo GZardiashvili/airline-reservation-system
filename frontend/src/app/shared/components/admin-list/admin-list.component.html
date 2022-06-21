@@ -29,9 +29,11 @@
           <p>No items to display</p>
         </ng-container>
         <div *ngFor='let item of list'>
-          <p class='text-regular text-dark' *ngIf="item.name">
+          <p class='text-regular text-dark' *ngIf="item.name || item.airlineId || item.flightId || item.userId">
             {{ item?.name }}
             {{ item?.airlineId }}
+            {{ item?.flightId }}
+            {{ item?.userId }}
           </p>
           <p class='text-regular text-dark' *ngIf="item.model">
             {{ item?.model }}

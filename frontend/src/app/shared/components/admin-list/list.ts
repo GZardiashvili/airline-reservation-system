@@ -14,6 +14,8 @@ export interface List {
   status?: string;
   description?: string;
   flightIds?: string[];
+  flightId?: string;
+  userId?: string;
   airlineId?: string;
   planeId?: string;
   ticketId?: string;

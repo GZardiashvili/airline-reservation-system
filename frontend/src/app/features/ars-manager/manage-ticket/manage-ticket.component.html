@@ -1,1 +1,20 @@
-<p>manage-ticket works!</p>
+<form class="app-airline__form" [formGroup]="ticketForm">
+  <mat-form-field class="app-login__form-field">
+    <mat-label [ngClass]="ticketForm.get('flightId')?.value!==''? 'not-empty' :''">Flight</mat-label>
+    <input matInput type="text" name="flightId" formControlName="flightId">
+  </mat-form-field>
+  <mat-form-field class="app-airline__form-field">
+    <mat-label [ngClass]="ticketForm.get('userId')?.value!==''? 'not-empty' :''">User</mat-label>
+    <input matInput
+           type="text" name="userId" formControlName="userId">
+  </mat-form-field>
+  <mat-form-field class="app-airline__form-field">
+    <mat-label [ngClass]="ticketForm.get('price')?.value!==''? 'not-empty' :''">Price
+    </mat-label>
+    <input matInput
+           type="text" name="price" formControlName="price">
+  </mat-form-field>
+</form>
+<button mat-raised-button class="app-airline__button" color="primary" (click)="addTicket()">Add</button>
+
+<app-admin-list class="app-airline__list" [list]="tickets$ | async" [filters]="status"></app-admin-list>
