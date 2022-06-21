@@ -18,6 +18,8 @@ import { MatSliderModule } from "@angular/material/slider";
 import { MatStepperModule } from "@angular/material/stepper";
 import { MatChipsModule } from "@angular/material/chips";
 import { MatIconModule } from "@angular/material/icon";
+import { AdminListComponent } from './components/admin-list/admin-list.component';
+import { RouterModule } from "@angular/router";
 
 const materialModules = [
   FontAwesomeModule,
@@ -41,14 +43,18 @@ const materialModules = [
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AdminListComponent
+  ],
   imports: [
     CommonModule,
     ...materialModules,
+    RouterModule,
   ],
-  exports: [
-    ...materialModules,
-  ],
+    exports: [
+        ...materialModules,
+        AdminListComponent,
+    ],
 })
 export class SharedModule {
 }

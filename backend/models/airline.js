@@ -6,8 +6,8 @@ const airlineSchema = new mongoose.Schema(
     airlineCode: { type: String },
     airlineLogo: { type: String },
     airlineDescription: { type: String },
-    flightId: {
-      type: String,
+    flightIds: {
+      type: [String],
     },
   },
   { timestamps: true },
