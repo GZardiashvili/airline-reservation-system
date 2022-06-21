@@ -31,6 +31,7 @@
         <div *ngFor='let item of list'>
           <p class='text-regular text-dark' *ngIf="item.name">
             {{ item?.name }}
+            {{ item?.airlineId }}
           </p>
           <p class='text-regular text-dark' *ngIf="item.model">
             {{ item?.model }}

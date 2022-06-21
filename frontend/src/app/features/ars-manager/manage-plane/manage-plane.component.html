@@ -1,1 +1,22 @@
-<app-admin-list [list]="planes$ | async" [filters]="status"></app-admin-list>
+<div class="app-plane">
+  <form class="app-airline__form" [formGroup]="planeForm">
+    <mat-form-field class="app-login__form-field">
+      <mat-label [ngClass]="planeForm.get('airlineId')?.value!==''? 'not-empty' :''">Airline Name</mat-label>
+      <input matInput type="text" name="airlineId" formControlName="airlineId">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="planeForm.get('model')?.value!==''? 'not-empty' :''">Model</mat-label>
+      <input matInput
+             type="text" name="model" formControlName="model">
+    </mat-form-field>
+    <mat-form-field class="app-airline__form-field">
+      <mat-label [ngClass]="planeForm.get('seats')?.value!==''? 'not-empty' :''">Seats
+      </mat-label>
+      <input matInput
+             type="text" name="seats" formControlName="seats">
+    </mat-form-field>
+  </form>
+  <button mat-raised-button class="app-airline__button" color="primary" (click)="addPlane()">Add</button>
+  <app-admin-list [list]="planes$ | async" [filters]="status"></app-admin-list>
+</div>
+

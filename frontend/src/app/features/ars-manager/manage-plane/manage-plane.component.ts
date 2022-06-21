@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ManagePlaneService } from "./services/manage-plane.service";
 import {
   BehaviorSubject,
@@ -13,7 +13,6 @@ import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { CommonService } from "../../../shared/common/common.service";
 import { takeUntil } from "rxjs/operators";
-import { Airline } from "../manage-airline/airline";
 import { Plane } from "./plane";
 
 @Component({
@@ -21,10 +20,10 @@ import { Plane } from "./plane";
   templateUrl: './manage-plane.component.html',
   styleUrls: ['./manage-plane.component.scss']
 })
-export class ManagePlaneComponent implements OnInit {
+export class ManagePlaneComponent implements OnInit, OnDestroy {
   private componentIsDestroyed$ = new Subject<boolean>();
   private readonly reloadPlanes$ = new BehaviorSubject(true);
-  planes$!: Observable<any[]>;
+  planes$!: Observable<Plane[]>;
   status = ['All'];
 
   planeForm = this.fb.group({
