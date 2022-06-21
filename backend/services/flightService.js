@@ -14,7 +14,7 @@ const getAllFlights = async (query) => {
   if (arrivalCity != null) query.arrivalCity = arrivalCity;
   // if (price != null) query.price = price; agregate
 
-  const flights = await Flight.find({ ...query });
+  const flights = await Flight.find({ ...query }).sort({ createdAt: -1 });
   return flights;
 };
 

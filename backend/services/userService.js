@@ -25,7 +25,7 @@ const getAllUsers = async (query) => {
   if (role != null) query.role = role;
   if (country != null) query.country = country;
   if (city != null) query.city = city;
-  const users = await User.find({ ...query });
+  const users = await User.find({ ...query }).sort({ createdAt: -1 });
   return users;
 };
 
