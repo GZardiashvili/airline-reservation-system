@@ -32,24 +32,30 @@
           <p class='text-regular text-dark' *ngIf="item.name">
             {{ item?.name }}
           </p>
+          <p class='text-regular text-dark' *ngIf="item.model">
+            {{ item?.model }}
+          </p>
+          <p class='text-regular text-dark' *ngIf="item.flightNumber">
+            {{ item?.flightNumber }}
+            {{ item?.departureCity + ' - ' + item?.arrivalCity }}
+            {{ item?.departureTime | date: 'dd/MM/yyyy' }}
+          </p>
           <p class='text-regular text-dark' *ngIf="item.firstName">
             {{ item?.firstName + ' ' + item?.lastName }}
           </p>
           <div class='items'>
             <p class='text-regular text-dark'>
               {{ item?.airlineCode }}
-              <span class='text-regular text-light'>Due date</span>
             </p>
             <p class='text-regular text-dark'>
-              ${{ item?.description | number }}
-              <span class='text-regular text-light'>Amount</span>
+              {{ item?.description | number }}
             </p>
-            <p (click)='filterByStatus(item.status)'>
+            <p (click)='filterByStatus(item.status)' *ngIf="filters">
                         <span
                           [ngClass]="
-                            item.status == 'Pending'
+                            item.status == filters[0]
                               ? 'pending'
-                              : item.status == 'Paid'
+                              : item.status == filters[1]
                               ? 'paid'
                               : 'cancelled'
                           "

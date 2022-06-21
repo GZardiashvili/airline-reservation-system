@@ -1,6 +1,7 @@
 export interface List {
   _id?: string;
   name?: string;
+  model?: string;
   firstName?: string;
   lastName?: string;
   email?: string;

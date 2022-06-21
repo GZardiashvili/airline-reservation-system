@@ -35,9 +35,6 @@ const planeSchema = new mongoose.Schema(
     maxRange: {
       type: Number,
     },
-    maxAltitude: {
-      type: Number,
-    },
   },
   { timestamps: true },
 );
