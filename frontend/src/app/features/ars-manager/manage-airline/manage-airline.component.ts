@@ -29,7 +29,7 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
   airlines$!: Observable<Airline[]>;
   status = ['All', 'Commercial', 'Business'];
   flights$!: Observable<Flight[]>;
-  airlineFormGroup = this.fb.group({
+  airlineForm = this.fb.group({
     name: [''],
     airlineCode: [''],
     airlineDescription: [''],
@@ -62,7 +62,7 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
   }
 
   addAirline() {
-    return this.manageAirlineService.addAirline(<Airline>this.airlineFormGroup.value)
+    return this.manageAirlineService.addAirline(<Airline>this.airlineForm.value)
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
         () => this.reloadAirlines()

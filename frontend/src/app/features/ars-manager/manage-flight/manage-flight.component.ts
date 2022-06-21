@@ -3,6 +3,8 @@ import { Observable } from "rxjs";
 import { Flight } from "../../flight/flight";
 import { ManageFlightService } from "./services/manage-flight.service";
 import { FormBuilder } from "@angular/forms";
+import { ActivatedRoute } from "@angular/router";
+import { CommonService } from "../../../shared/common/common.service";
 
 @Component({
   selector: 'app-manage-flight',
@@ -27,7 +29,10 @@ export class ManageFlightComponent implements OnInit {
     arrivalTime: [''],
   });
 
-  constructor(private flightManageService: ManageFlightService, private fb: FormBuilder) {
+  constructor(private flightManageService: ManageFlightService,
+              private fb: FormBuilder,
+              private route: ActivatedRoute,
+              private commonService: CommonService) {
   }
 
   addFlight() {
