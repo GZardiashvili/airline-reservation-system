@@ -31,7 +31,7 @@ export class ManageFlightComponent implements OnInit {
   }
 
   addFlight() {
-    this.flightManageService.addFlight(<Flight>this.flightFormGroup.value);
+    this.flightManageService.addFlight(<Flight>this.flightFormGroup.value).subscribe();
   }
 
   ngOnInit(): void {
