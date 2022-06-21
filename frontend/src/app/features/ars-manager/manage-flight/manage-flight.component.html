@@ -58,8 +58,4 @@
   </form>
   <button mat-raised-button class="app-airline__button" color="primary" (click)="addFlight()">Add</button>
 </div>
-
-<div *ngFor="let flight of flights$ | async">
-  <p>{{flight.flightNumber}} :: {{flight.departureCity}} :: {{flight.arrivalCity}}
-    :: {{flight.departureTime | date}}</p>
-</div>
+<app-admin-list [list]="flights$ | async"></app-admin-list>

@@ -1,3 +1,1 @@
-<div *ngFor="let plane of planes$ | async">
-  <p>{{plane.model}} :: {{plane.airlineId}}</p>
-</div>
+<app-admin-list [list]="planes$ | async"></app-admin-list>
