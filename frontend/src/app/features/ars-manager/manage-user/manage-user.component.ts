@@ -11,6 +11,7 @@ import { ManageUserService } from "./services/manage-user.service";
 export class ManageUserComponent implements OnInit {
 
   users$!: Observable<User[]>;
+  status = ['All', 'Active', 'Inactive'];
 
   constructor(private manageUserService: ManageUserService) {
   }

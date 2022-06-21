@@ -14,6 +14,7 @@ import { Airline } from "./airline";
 export class ManageAirlineComponent implements OnInit {
 
   airlines$!: Observable<Airline[]>;
+  status = ['All', 'Commercial', 'Business'];
   flights$!: Observable<Flight[]>;
   airlineFormGroup = this.fb.group({
     name: [''],

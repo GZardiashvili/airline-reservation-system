@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 export class ManagePlaneComponent implements OnInit {
 
   planes$!: Observable<any[]>;
+  status = ['All'];
 
   constructor(private managePlaneService: ManagePlaneService) {
   }

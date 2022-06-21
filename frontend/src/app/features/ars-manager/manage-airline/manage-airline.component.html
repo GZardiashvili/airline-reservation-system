@@ -24,6 +24,6 @@
   </form>
   <button mat-raised-button class="app-airline__button" color="primary" (click)="addAirline()">Add</button>
   <ng-container *ngIf="airlines$">
-    <app-admin-list class="app-airline__list" [list]="airlines$ | async"></app-admin-list>
+    <app-admin-list class="app-airline__list" [list]="airlines$ | async" [filters]="status"></app-admin-list>
   </ng-container>
 </div>

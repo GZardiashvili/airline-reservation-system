@@ -3,7 +3,7 @@
     <div [className]="'header'">
       <ul>
         <li
-          *ngFor='let value of statuses'
+          *ngFor='let value of filters'
           [ngClass]='{ active: currentStatus === value }'
           (click)='filterByStatus(value)'
         >
@@ -26,12 +26,14 @@
     <ng-container *ngIf='list'>
       <div [className]="'list'">
         <ng-container *ngIf='list.length == 0'>
-          <p>no airline found</p>
+          <p>No items to display</p>
         </ng-container>
         <div *ngFor='let item of list'>
-          <p class='text-regular text-dark'>
+          <p class='text-regular text-dark' *ngIf="item.name">
             {{ item?.name }}
-            <span class='text-regular text-light'> Invoice</span>
+          </p>
+          <p class='text-regular text-dark' *ngIf="item.firstName">
+            {{ item?.firstName + ' ' + item?.lastName }}
           </p>
           <div class='items'>
             <p class='text-regular text-dark'>
@@ -39,7 +41,7 @@
               <span class='text-regular text-light'>Due date</span>
             </p>
             <p class='text-regular text-dark'>
-              ${{ item.description | number }}
+              ${{ item?.description | number }}
               <span class='text-regular text-light'>Amount</span>
             </p>
             <p (click)='filterByStatus(item.status)'>

@@ -2,7 +2,7 @@
 
 .sub-container {
   grid-column: 1/2;
-  transform: translateX(-30%);
+  transform: translateX(-27%);
   background: linear-gradient(#fff 87%, #f1f1f1);
   line-height: 20px;
   grid-row: 1/-1;
@@ -58,7 +58,7 @@
       display: none;
     }
 
-    height: 442px;
+    height: 505px;
     overflow: auto;
     width: 90%;
     display: grid;

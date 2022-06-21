@@ -12,6 +12,7 @@ import { FormBuilder } from "@angular/forms";
 export class ManageFlightComponent implements OnInit {
 
   flights$!: Observable<Flight[]>;
+  status = ['All', 'Active', 'Cancelled'];
   flightFormGroup = this.fb.group({
     flightNumber: [''],
     description: [''],

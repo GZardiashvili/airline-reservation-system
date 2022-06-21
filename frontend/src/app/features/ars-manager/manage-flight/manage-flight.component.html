@@ -58,4 +58,4 @@
   </form>
   <button mat-raised-button class="app-airline__button" color="primary" (click)="addFlight()">Add</button>
 </div>
-<app-admin-list [list]="flights$ | async"></app-admin-list>
+<app-admin-list [list]="flights$ | async" [filters]="status"></app-admin-list>

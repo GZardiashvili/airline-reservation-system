@@ -8,14 +8,14 @@ import { List } from "./list";
   styleUrls: ['./admin-list.component.scss']
 })
 export class AdminListComponent implements OnInit {
-  statuses = ['All', 'Paid', 'Pending', 'Cancelled'];
-  currentStatus = this.statuses[0];
   total = 0;
   totalAmount = [];
   template: FormControl = new FormControl('Select template');
   showError = false;
 
   @Input() list!: List[] | null;
+  @Input() filters!: string[] | null;
+  currentStatus: string | undefined;
 
   constructor() {
   }
