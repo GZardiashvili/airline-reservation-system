@@ -1,0 +1,85 @@
+@use "../../../shared/styles/palette" as var_1;
+
+.app-airline {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+
+  &__button {
+    grid-column: 2/3;
+    background: var_1.$btn-menu-blue;
+    color: var_1.$btn-menu-text;
+    width: 150px;
+    border-radius: 10px;
+  }
+
+  &__form {
+    grid-column: 2/3;
+    display: flex;
+    flex-direction: column;
+
+    &-field {
+      position: relative;
+
+      .not-empty {
+        font-size: 18px;
+        padding: 20px 25px;
+        max-width: 100px;
+        text-align: center;
+        color: #fff;
+        border-radius: 4px;
+      }
+
+      a {
+        position: absolute;
+        right: 70px;
+        top: 20px;
+        cursor: pointer;
+        text-transform: uppercase;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+
+    ::ng-deep .mat-form-field {
+
+      .mat-form-field-label {
+        margin: 0.48rem 1rem;
+        padding-top: 0.2rem;
+      }
+
+      &.mat-focused .mat-form-field-label {
+        font-size: 18px;
+        padding: 3px 15px;
+        max-width: 150px;
+        text-align: center;
+        background-color: var_1.$btn-menu-blue;
+        color: #fff;
+        border-radius: 4px;
+      }
+
+      .mat-form-field-underline {
+        display: none;
+      }
+
+      .mat-input-element {
+        border: 1px solid var_1.$border-color;
+        border-radius: 5px;
+        min-height: 40px;
+        min-width: 250px;
+        padding: 2px 15px;
+        font-size: 16px;
+      }
+    }
+  }
+
+  &__list {
+    grid-column: 1/2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+

@@ -14,7 +14,6 @@ const flightSchema = new mongoose.Schema(
     },
     ticketId: {
       type: String,
-      required: true,
     },
     departureCity: {
       type: String,
@@ -26,8 +25,8 @@ const flightSchema = new mongoose.Schema(
     },
     departureAirport: { type: String, required: true },
     arrivalAirport: { type: String, required: true },
-    departureTime: { type: Date, required: true },
-    arrivalTime: { type: Date, required: true },
+    departureTime: { type: Date },
+    arrivalTime: { type: Date },
   },
   { timestamps: true },
 );

@@ -17,7 +17,7 @@ const getAllPlanes = async (query) => {
 
   const planes = await Plane.find({
     ...query,
-  });
+  }).sort({ createdAt: -1 });
   return planes;
 };
 

@@ -8,11 +8,14 @@ const ticketSchema = new mongoose.Schema(
     },
     userId: {
       type: String,
-      required: true,
     },
     price: {
       type: Number,
       required: true,
+    },
+    status: {
+      type: String,
+      default: 'all',
     },
   },
   { timestamps: true },

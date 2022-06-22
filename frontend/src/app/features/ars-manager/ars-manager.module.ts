@@ -7,6 +7,8 @@ import { ManageFlightComponent } from './manage-flight/manage-flight.component';
 import { ManageTicketComponent } from './manage-ticket/manage-ticket.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManagePlaneComponent } from './manage-plane/manage-plane.component';
+import { SharedModule } from "../../shared/shared.module";
+import { ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { ManagePlaneComponent } from './manage-plane/manage-plane.component';
       {path: 'users', component: ManageUserComponent},
       {path: 'planes', component: ManagePlaneComponent}
     ]),
+    SharedModule,
+    ReactiveFormsModule,
   ]
 })
 export class ArsManagerModule {

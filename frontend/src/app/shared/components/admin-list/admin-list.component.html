@@ -1,0 +1,78 @@
+<ng-container *ngIf="list">
+  <div class='sub-container'>
+    <div [className]="'header'">
+      <ul>
+        <li
+          *ngFor='let value of filters'
+          [ngClass]='{ active: currentStatus === value }'
+          (click)='filterByStatus(value)'
+        >
+          {{ value }}
+        </li>
+
+      </ul>
+      <div class='date-filter'>
+        <mat-form-field appearance="fill">
+          <mat-label>Enter a date range</mat-label>
+          <mat-date-range-input [rangePicker]="picker">
+            <input matStartDate placeholder="Start date">
+            <input matEndDate placeholder="End date">
+          </mat-date-range-input>
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+      </div>
+    </div>
+    <ng-container *ngIf='list'>
+      <div [className]="'list'">
+        <ng-container *ngIf='list.length == 0'>
+          <p>No items to display</p>
+        </ng-container>
+        <div *ngFor='let item of list'>
+          <p class='text-regular text-dark' *ngIf="item.name || item.airlineId || item.flightId || item.userId">
+            {{ item?.name }}
+            {{ item?.airlineId }}
+            {{ item?.flightId }}
+            {{ item?.userId }}
+          </p>
+          <p class='text-regular text-dark' *ngIf="item.model">
+            {{ item?.model }}
+          </p>
+          <p class='text-regular text-dark' *ngIf="item.flightNumber">
+            {{ item?.flightNumber }}
+            {{ item?.departureCity + ' - ' + item?.arrivalCity }}
+            {{ item?.departureTime | date: 'dd/MM/yyyy' }}
+          </p>
+          <p class='text-regular text-dark' *ngIf="item.firstName">
+            {{ item?.firstName + ' ' + item?.lastName }}
+          </p>
+          <div class='items'>
+            <p class='text-regular text-dark'>
+              {{ item?.airlineCode }}
+            </p>
+            <p class='text-regular text-dark'>
+              {{ item?.description | number }}
+            </p>
+            <p (click)='filterByStatus(item.status)' *ngIf="filters">
+                        <span
+                          [ngClass]="
+                            item.status == filters[0]
+                              ? 'pending'
+                              : item.status == filters[1]
+                              ? 'paid'
+                              : 'cancelled'
+                          "
+                        ></span>
+              {{ item.status }}
+            </p>
+            <p>
+              <a [routerLink]="['details/', item?._id]"
+              ><i class='fas fa-ellipsis-h'></i
+              ></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</ng-container>

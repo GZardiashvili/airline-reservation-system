@@ -9,6 +9,7 @@ import { AuthService } from "../../auth/services/auth.service";
 import { User } from "../../register/user";
 import { Observable, Subject } from "rxjs";
 import { UserService } from "./services/user.service";
+import { faUser } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-header',
@@ -19,9 +20,15 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private componentIsDestroyed$ = new Subject<boolean>();
   user: Observable<User> = this.userService.getUserProfile();
   menu: MenuItem[] = MENU_CONFIG;
+  notSignIn: boolean = true;
   currentRoute: string = '/';
+  faUser = faUser;
+
   profile: Profile = {
-    name: '',
+    sign: {
+      in: 'Sign In',
+      up: 'Sign Up',
+    },
     pfpUrl: '',
     account: {
       label: 'Account settings',
@@ -40,7 +47,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.currentRoute = event.url;
     });
     this.user.pipe(takeUntil(this.componentIsDestroyed$)).subscribe((user) => {
-      this.profile.name = user.firstName + ' ' + user.lastName;
+      this.profile.sign.in = user.firstName + ' ' + user.lastName;
+      this.notSignIn = false;
       this.profile.pfpUrl =
         user.pfpUrl == '' ? user.pfpUrl : '../../../assets/default-pfp.png';
       this.profile.account.url = '/account';

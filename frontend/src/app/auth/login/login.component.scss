@@ -43,9 +43,10 @@
 
     .app-main__button-primary {
       grid-column: 1/2;
+      border-radius: 10px;
       width: 430px;
-      height: 40px;
-      background-color: rgba(67, 60, 95, 0.93);
+      height: 50px;
+      background: var_1.$btn-menu;
       color: #FFF;
 
       &:hover {
@@ -104,7 +105,7 @@
           padding: 20px 25px;
           max-width: 150px;
           text-align: center;
-          background-color: #433C5F;
+          background-color: var_1.$btn-menu;
           color: #fff;
           border-radius: 4px;
         }
@@ -134,7 +135,7 @@
           padding: 3px 15px;
           max-width: 150px;
           text-align: center;
-          background-color: #433C5F;
+          background-color: var_1.$btn-menu;
           color: #fff;
           border-radius: 4px;
         }

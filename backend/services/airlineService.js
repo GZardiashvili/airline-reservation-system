@@ -11,7 +11,7 @@ const getAllAirlines = async (query) => {
   const { name } = query;
   query = {};
   if (name != null) query.name = name;
-  const airlines = await Airline.find({ ...query });
+  const airlines = await Airline.find({ ...query }).sort({ createdAt: -1 });
   return airlines;
 };
 

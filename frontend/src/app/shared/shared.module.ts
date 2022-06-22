@@ -16,6 +16,10 @@ import { MatRadioModule } from "@angular/material/radio";
 import { MatCheckboxModule } from "@angular/material/checkbox";
 import { MatSliderModule } from "@angular/material/slider";
 import { MatStepperModule } from "@angular/material/stepper";
+import { MatChipsModule } from "@angular/material/chips";
+import { MatIconModule } from "@angular/material/icon";
+import { AdminListComponent } from './components/admin-list/admin-list.component';
+import { RouterModule } from "@angular/router";
 
 const materialModules = [
   FontAwesomeModule,
@@ -34,17 +38,23 @@ const materialModules = [
   MatCheckboxModule,
   MatSliderModule,
   MatStepperModule,
+  MatChipsModule,
+  MatIconModule,
 ];
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    AdminListComponent
+  ],
   imports: [
     CommonModule,
     ...materialModules,
+    RouterModule,
   ],
-  exports: [
-    ...materialModules,
-  ],
+    exports: [
+        ...materialModules,
+        AdminListComponent,
+    ],
 })
 export class SharedModule {
 }
