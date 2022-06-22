@@ -1,6 +1,17 @@
 @use "../../../shared/styles/palette" as var_1;
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-template-areas: 'list content';
+
+  .admin-list {
+    grid-area: list;
+  }
+}
+
 .app-airline {
+  grid-area: content;
   display: flex;
   flex-direction: column;
   align-items: center;

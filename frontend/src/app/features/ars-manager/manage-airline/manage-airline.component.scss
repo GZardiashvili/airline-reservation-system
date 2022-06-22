@@ -1,6 +1,18 @@
 @use "../../../shared/styles/palette" as var_1;
 
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  justify-content: start;
+  grid-template-areas: 'list content';
+
+  .app-airline__list {
+    grid-area: list;
+  }
+}
+
 .app-airline {
+  grid-area: content;
   display: grid;
   grid-template-columns: 4fr 1fr;
 
@@ -10,6 +22,7 @@
     color: var_1.$btn-menu-text;
     width: 150px;
     border-radius: 10px;
+    height: 50px;
   }
 
   &__form {

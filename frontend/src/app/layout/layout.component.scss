@@ -1,7 +1,7 @@
 .layout {
   width: 96%;
   display: grid;
-  grid-template-columns: 220px 4fr;
+  grid-template-columns: auto 4fr;
   grid-template-rows: 64px 1fr;
   grid-template-areas:
     "header header "
@@ -32,6 +32,6 @@
     margin-top: 30px;
     width: 90%;
     justify-self: start;
-
+    //margin-left: 15%;
   }
 }

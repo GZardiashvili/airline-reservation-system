@@ -28,50 +28,31 @@
         <ng-container *ngIf='list.length == 0'>
           <p>No items to display</p>
         </ng-container>
-        <div *ngFor='let item of list'>
-          <p class='text-regular text-dark' *ngIf="item.name || item.airlineId || item.flightId || item.userId">
-            {{ item?.name }}
-            {{ item?.airlineId }}
-            {{ item?.flightId }}
-            {{ item?.userId }}
-          </p>
-          <p class='text-regular text-dark' *ngIf="item.model">
-            {{ item?.model }}
-          </p>
-          <p class='text-regular text-dark' *ngIf="item.flightNumber">
-            {{ item?.flightNumber }}
-            {{ item?.departureCity + ' - ' + item?.arrivalCity }}
-            {{ item?.departureTime | date: 'dd/MM/yyyy' }}
-          </p>
-          <p class='text-regular text-dark' *ngIf="item.firstName">
-            {{ item?.firstName + ' ' + item?.lastName }}
-          </p>
-          <div class='items'>
-            <p class='text-regular text-dark'>
-              {{ item?.airlineCode }}
-            </p>
-            <p class='text-regular text-dark'>
-              {{ item?.description | number }}
-            </p>
-            <p (click)='filterByStatus(item.status)' *ngIf="filters">
-                        <span
-                          [ngClass]="
-                            item.status == filters[0]
-                              ? 'pending'
-                              : item.status == filters[1]
-                              ? 'paid'
-                              : 'cancelled'
-                          "
-                        ></span>
-              {{ item.status }}
-            </p>
-            <p>
-              <a [routerLink]="['details/', item?._id]"
-              ><i class='fas fa-ellipsis-h'></i
-              ></a>
-            </p>
-          </div>
-        </div>
+        <table>
+          <tr class="list-header">
+            <th class="list-header--title" *ngFor="let header of headers">{{header}}</th>
+            <th class="list-header--title">details</th>
+          </tr>
+          <tr *ngFor='let item of list' class="list-items">
+            <td *ngIf="item.name || item.airlineId || item.flightId || item.userId">
+              {{ item?.name }}
+              {{ item?.airlineId }}
+              {{ item?.flightId }}
+              {{ item?.userId }}
+            </td>
+            <td *ngIf="item.model"> {{ item?.model }} model</td>
+            <td *ngIf="item.flightNumber">
+              {{ item?.flightNumber }}
+              {{ item?.departureCity + ' - ' + item?.arrivalCity }}
+              {{ item?.departureTime | date: 'dd/MM/yyyy' }}
+            </td>
+            <td *ngIf="item.firstName">{{ item?.firstName + ' ' + item?.lastName }}</td>
+            <td> {{ item?.airlineCode }}</td>
+            <td class="details">
+              <fa-icon [icon]="faDetails"></fa-icon>
+            </td>
+          </tr>
+        </table>
       </div>
     </ng-container>
   </div>

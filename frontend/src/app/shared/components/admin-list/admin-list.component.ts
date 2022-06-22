@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import { List } from "./list";
+import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
 
 @Component({
   selector: 'app-admin-list',
@@ -8,6 +9,8 @@ import { List } from "./list";
   styleUrls: ['./admin-list.component.scss']
 })
 export class AdminListComponent implements OnInit {
+  readonly faDetails = faEllipsis
+
   total = 0;
   totalAmount = [];
   template: FormControl = new FormControl('Select template');
@@ -15,6 +18,7 @@ export class AdminListComponent implements OnInit {
 
   @Input() list!: List[] | null;
   @Input() filters!: string[] | null;
+  @Input() headers: string[] = ['name', 'id', 'flightNumber',]
   currentStatus: string | undefined;
 
   constructor() {
@@ -31,3 +35,4 @@ export class AdminListComponent implements OnInit {
 
   }
 }
+
