@@ -34,6 +34,7 @@ const ticketsRouter = require('./controllers/tickets');
 const planesRouter = require('./controllers/planes');
 const airlinesRouter = require('./controllers/airlines');
 const { adminGuard } = require('./guards/admin-guard');
+const locationRouter = require('./controllers/locations');
 
 app.use('/api/signup', registerRouter);
 app.use('/api/login', loginRouter);
@@ -42,6 +43,7 @@ app.use('/api/airlines', auth, airlinesRouter);
 app.use('/api/flights', flightsRouter);
 app.use('/api/tickets', auth, adminGuard, ticketsRouter);
 app.use('/api/planes', auth, adminGuard, planesRouter);
+app.use('/api/locations', locationRouter);
 
 app.use(errorHandler);
 
