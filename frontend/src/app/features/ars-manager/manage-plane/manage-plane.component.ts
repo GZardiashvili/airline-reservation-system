@@ -24,7 +24,8 @@ export class ManagePlaneComponent implements OnInit, OnDestroy {
   private componentIsDestroyed$ = new Subject<boolean>();
   private readonly reloadPlanes$ = new BehaviorSubject(true);
   planes$!: Observable<Plane[]>;
-  status = ['All'];
+  status = ['All', 'Commercial', 'Business'];
+  headers = ['Airline', 'Model'];
 
   planeForm = this.fb.group({
     airlineId: [''],

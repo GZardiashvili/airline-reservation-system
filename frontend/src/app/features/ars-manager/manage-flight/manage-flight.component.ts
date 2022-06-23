@@ -15,6 +15,7 @@ export class ManageFlightComponent implements OnInit {
 
   flights$!: Observable<Flight[]>;
   status = ['All', 'Active', 'Cancelled'];
+  headers = ['Flight Code', 'From - To', 'Duration', 'Flight Status'];
   flightFormGroup = this.fb.group({
     flightNumber: [''],
     description: [''],

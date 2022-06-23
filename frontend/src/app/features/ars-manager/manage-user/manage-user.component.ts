@@ -14,7 +14,8 @@ import { CommonService } from "../../../shared/common/common.service";
 export class ManageUserComponent implements OnInit {
 
   users$!: Observable<User[]>;
-  status = ['All', 'Active', 'Inactive'];
+  status = ['All', 'Active', 'Inactive', 'admin'];
+  headers = ['Name', 'Email', 'Status'];
 
   constructor(private manageUserService: ManageUserService, private fb: FormBuilder,
               private route: ActivatedRoute,

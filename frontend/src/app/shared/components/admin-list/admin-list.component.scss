@@ -98,7 +98,8 @@ table {
 
 .details {
   cursor: pointer;
-
+  width: 30px;
+  height: 30px;
   fa-icon {
     &:hover {
       color: #F9325B;

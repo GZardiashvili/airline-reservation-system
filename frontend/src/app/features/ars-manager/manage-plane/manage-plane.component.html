@@ -20,5 +20,5 @@
     <button mat-raised-button class="app-airline__button" color="primary" (click)="addPlane()">Add</button>
   </div>
 
-  <app-admin-list class='admin-list' [list]="planes$ | async" [filters]="status"></app-admin-list>
+  <app-admin-list class='admin-list' [list]="planes$ | async" [filters]="status" [headers]="headers"></app-admin-list>
 </div>

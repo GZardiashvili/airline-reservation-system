@@ -28,9 +28,10 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
   private readonly reloadAirlines$ = new BehaviorSubject(true);
   airlines$!: Observable<Airline[]>;
   status = ['All', 'Commercial', 'Business'];
+  headers = ['Company', 'Code'];
   flights$!: Observable<Flight[]>;
   airlineForm = this.fb.group({
-    name: [''],
+    company: [''],
     airlineCode: [''],
     airlineDescription: [''],
     flightId: [''],

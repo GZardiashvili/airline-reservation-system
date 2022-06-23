@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 
 const airlineValidator = [
-  body('name').isString().isLength({ min: 3 }),
+  body('company').isString().isLength({ min: 1 }),
 ];
 
 module.exports = airlineValidator;

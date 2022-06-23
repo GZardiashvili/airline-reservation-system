@@ -18,7 +18,7 @@ export class AdminListComponent implements OnInit {
 
   @Input() list!: List[] | null;
   @Input() filters!: string[] | null;
-  @Input() headers: string[] = ['name', 'id', 'flightNumber',]
+  @Input() headers!: string[] | null;
   currentStatus: string | undefined;
 
   constructor() {

@@ -1,6 +1,6 @@
 export interface List {
   _id?: string;
-  name?: string;
+  company?: string;
   model?: string;
   firstName?: string;
   lastName?: string;
@@ -18,7 +18,9 @@ export interface List {
   userId?: string;
   airlineId?: string;
   planeId?: string;
+  seats?: number;
   ticketId?: string;
+  price?: number;
   departureCity?: string;
   arrivalCity?: string;
   departureAirport?: string;

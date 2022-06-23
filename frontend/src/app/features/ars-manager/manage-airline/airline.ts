@@ -1,6 +1,6 @@
 export interface Airline {
   _id?: string;
-  name?: string;
+  company?: string;
   airlineCode?: string;
   description?: string;
   flightIds?: string[];
