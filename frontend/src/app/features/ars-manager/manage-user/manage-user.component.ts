@@ -15,7 +15,7 @@ export class ManageUserComponent implements OnInit {
 
   users$!: Observable<User[]>;
   status = ['All', 'Active', 'Inactive', 'admin'];
-  headers = ['Name', 'Email', 'Status'];
+  headers = ['Name', 'Email'];
 
   constructor(private manageUserService: ManageUserService, private fb: FormBuilder,
               private route: ActivatedRoute,

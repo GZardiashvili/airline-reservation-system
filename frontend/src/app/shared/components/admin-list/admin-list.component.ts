@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl } from "@angular/forms";
 import { List } from "./list";
 import { faEllipsis } from "@fortawesome/free-solid-svg-icons";
@@ -16,9 +16,10 @@ export class AdminListComponent implements OnInit {
   template: FormControl = new FormControl('Select template');
   showError = false;
 
-  @Input() list!: List[] | null;
+  @Input() item!: List | null;
   @Input() filters!: string[] | null;
   @Input() headers!: string[] | null;
+  @Output() onClick = new EventEmitter<any>();
   currentStatus: string | undefined;
 
   constructor() {

@@ -19,6 +19,7 @@
     </form>
     <button mat-raised-button class="app-airline__button" color="primary" (click)="addPlane()">Add</button>
   </div>
-
-  <app-admin-list class='admin-list' [list]="planes$ | async" [filters]="status" [headers]="headers"></app-admin-list>
+  <ng-container *ngFor="let plane of planes$ | async">
+    <app-admin-list class='admin-list' [item]="plane" [filters]="status" [headers]="headers"></app-admin-list>
+  </ng-container>
 </div>

@@ -7,7 +7,8 @@
                type="text" name="airlineId" formControlName="airlineId">
       </mat-form-field>
       <mat-form-field class="app-login__form-field">
-        <mat-label [ngClass]="flightFormGroup.get('flightNumber')?.value!==''? 'not-empty' :''">Flight Number</mat-label>
+        <mat-label [ngClass]="flightFormGroup.get('flightNumber')?.value!==''? 'not-empty' :''">Flight Number
+        </mat-label>
         <input matInput type="text" name="flightNumber" formControlName="flightNumber">
       </mat-form-field>
       <mat-form-field class="app-airline__form-field">
@@ -59,5 +60,7 @@
     </form>
     <button mat-raised-button class="app-airline__button" color="primary" (click)="addFlight()">Add</button>
   </div>
-  <app-admin-list class="admin-list" [list]="flights$ | async" [filters]="status" [headers]="headers"></app-admin-list>
+  <ng-container *ngFor="let flight of flights$ | async">
+    <app-admin-list class="admin-list" [item]="flight" [filters]="status" [headers]="headers"></app-admin-list>
+  </ng-container>
 </div>

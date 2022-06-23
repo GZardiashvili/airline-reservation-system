@@ -1,4 +1,4 @@
-<ng-container *ngIf="list">
+<ng-container *ngIf="item">
   <div class='sub-container'>
     <div [className]="'header'">
       <ul>
@@ -23,14 +23,14 @@
         </mat-form-field>
       </div>
     </div>
-    <ng-container *ngIf='list'>
+    <ng-container *ngIf='item'>
       <div [className]="'list'">
         <table>
           <tr class="list-header">
             <th class="list-header--title" *ngFor="let header of headers">{{header}}</th>
             <th class="list-header--title">details</th>
           </tr>
-          <tr *ngFor='let item of list' class="list-items">
+          <tr *ngIf='item' class="list-items">
             <td *ngIf="item.firstName">{{ item?.firstName + ' ' + item?.lastName }}</td>
             <td *ngIf="item.company || item.airlineId || item.flightId">
               {{ item?.company }}
@@ -57,12 +57,12 @@
             <td *ngIf="item.flightNumber">
               {{ item?.departureTime | date: 'dd/MM/yyyy' }} - {{item?.arrivalTime | date: 'dd/MM/yyyy'}}
             </td>
-            <td class="details">
+            <td class="details" (click)="onClick.emit()">
               <fa-icon [icon]="faDetails"></fa-icon>
             </td>
           </tr>
         </table>
-        <ng-container *ngIf='list.length == 0'>
+        <ng-container *ngIf='!item'>
           <p>No items to display</p>
         </ng-container>
       </div>

@@ -27,6 +27,7 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
   private componentIsDestroyed$ = new Subject<boolean>();
   private readonly reloadAirlines$ = new BehaviorSubject(true);
   airlines$!: Observable<Airline[]>;
+  airline$!: Observable<Airline>;
   status = ['All', 'Commercial', 'Business'];
   headers = ['Company', 'Code'];
   flights$!: Observable<Flight[]>;
@@ -36,6 +37,7 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
     airlineDescription: [''],
     flightId: [''],
   });
+  view: 'details' | 'edit' | 'create' | 'none' = 'none';
 
   constructor(private manageAirlineService: ManageAirlineService,
               private manageFlightService: ManageFlightService,
@@ -43,6 +45,19 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute,
               private commonService: CommonService) {
 
+  }
+
+  editView() {
+    this.view = 'edit';
+    this.airlineForm.reset();
+  }
+
+  showDetails() {
+    this.view = 'details';
+  }
+
+  createAirline() {
+    this.view = 'create';
   }
 
   ngOnInit(): void {
@@ -64,6 +79,18 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
 
   addAirline() {
     return this.manageAirlineService.addAirline(<Airline>this.airlineForm.value)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.reloadAirlines()
+      )
+  }
+
+  getAirline(id: string) {
+    this.airline$ = this.manageAirlineService.getAirline(id);
+  }
+
+  updateAirline() {
+    return this.manageAirlineService.updateAirline('123', <Airline>this.airlineForm.value)
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
         () => this.reloadAirlines()

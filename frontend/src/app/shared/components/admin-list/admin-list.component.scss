@@ -2,12 +2,11 @@
 
 .sub-container {
   grid-column: 1/2;
-  //transform: translateX(-27%);
   background: linear-gradient(#fff 87%, #f1f1f1);
-  //background: linear-gradient( transparent 0%, transparent calc(100% - .05em), #f1f1f1 calc(100% - .05em), #f1f1f1 100%);;
   line-height: 20px;
   grid-row: 1/-1;
   width: 100%;
+  max-width: 700px;
 
   div.header {
     display: flex;
@@ -100,6 +99,7 @@ table {
   cursor: pointer;
   width: 30px;
   height: 30px;
+
   fa-icon {
     &:hover {
       color: #F9325B;
