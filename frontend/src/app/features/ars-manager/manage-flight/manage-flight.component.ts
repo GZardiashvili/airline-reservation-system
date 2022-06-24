@@ -14,8 +14,11 @@ import { CommonService } from "../../../shared/common/common.service";
 export class ManageFlightComponent implements OnInit {
 
   flights$!: Observable<Flight[]>;
+  flight$!: Observable<Flight>;
   status = ['All', 'Active', 'Cancelled'];
   headers = ['Flight Code', 'From - To', 'Duration', 'Flight Status'];
+  view: 'details' | 'edit' | 'create' | 'none' = 'none';
+
   flightFormGroup = this.fb.group({
     flightNumber: [''],
     description: [''],
@@ -30,18 +33,35 @@ export class ManageFlightComponent implements OnInit {
     arrivalTime: [''],
   });
 
-  constructor(private flightManageService: ManageFlightService,
+  constructor(private manageFlightService: ManageFlightService,
               private fb: FormBuilder,
               private route: ActivatedRoute,
               private commonService: CommonService) {
   }
 
+  editView() {
+    this.view = 'edit';
+    this.flightFormGroup.reset();
+  }
+
+  showDetails() {
+    this.view = 'details';
+  }
+
+  createView() {
+    this.view = 'create';
+  }
+
   addFlight() {
-    this.flightManageService.addFlight(<Flight>this.flightFormGroup.value).subscribe();
+    this.manageFlightService.addFlight(<Flight>this.flightFormGroup.value).subscribe();
+  }
+
+  getFlight(id: string) {
+    this.flight$ = this.manageFlightService.getFlight(id);
   }
 
   ngOnInit(): void {
-    this.flights$ = this.flightManageService.getFlights();
+    this.flights$ = this.manageFlightService.getFlights();
   }
 
 }

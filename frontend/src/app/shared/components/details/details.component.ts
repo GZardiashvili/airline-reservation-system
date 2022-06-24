@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder } from "@angular/forms";
 import { List } from "../admin-list/list";
 
@@ -9,6 +9,7 @@ import { List } from "../admin-list/list";
 })
 export class DetailsComponent implements OnInit {
   @Input() details!: List | null;
+  @Output() onClick = new EventEmitter<any>();
   detailsForm = this.fb.group({
     company: [''],
     model: [''],

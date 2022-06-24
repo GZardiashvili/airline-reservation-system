@@ -25,7 +25,7 @@ const flightSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      required: true,
+      default: 'active',
     },
     departureAirport: { type: String, required: true },
     arrivalAirport: { type: String, required: true },

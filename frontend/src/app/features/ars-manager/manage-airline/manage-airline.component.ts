@@ -30,6 +30,8 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
   airline$!: Observable<Airline>;
   status = ['All', 'Commercial', 'Business'];
   headers = ['Company', 'Code'];
+  view: 'details' | 'edit' | 'create' | 'none' = 'none';
+
   flights$!: Observable<Flight[]>;
   airlineForm = this.fb.group({
     company: [''],
@@ -37,7 +39,6 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
     airlineDescription: [''],
     flightId: [''],
   });
-  view: 'details' | 'edit' | 'create' | 'none' = 'none';
 
   constructor(private manageAirlineService: ManageAirlineService,
               private manageFlightService: ManageFlightService,
@@ -56,7 +57,7 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
     this.view = 'details';
   }
 
-  createAirline() {
+  createView() {
     this.view = 'create';
   }
 

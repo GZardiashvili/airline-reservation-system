@@ -27,6 +27,8 @@ export class ManageTicketComponent implements OnInit {
   tickets$!: Observable<Ticket[]>;
   status = ['All'];
   headers = ['Flight', 'User', 'Price'];
+  view: 'details' | 'edit' | 'create' | 'none' = 'none';
+
   flights$!: Observable<Flight[]>;
   ticketForm = this.fb.group({
     flightId: [''],
@@ -56,6 +58,19 @@ export class ManageTicketComponent implements OnInit {
         return this.manageTicketService.getTickets();
       })
     );
+  }
+
+  editView() {
+    this.view = 'edit';
+    this.ticketForm.reset();
+  }
+
+  showDetails() {
+    this.view = 'details';
+  }
+
+  createView() {
+    this.view = 'create';
   }
 
   addTicket() {

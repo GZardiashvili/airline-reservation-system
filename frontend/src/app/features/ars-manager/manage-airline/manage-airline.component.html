@@ -1,5 +1,4 @@
 <div class="grid">
-  <ng-container>
     <ng-container *ngIf="view==='create'">
       <div class="app-airline">
         <form class="app-airline__form" [formGroup]="airlineForm">
@@ -30,7 +29,7 @@
     </ng-container>
 
     <ng-container *ngIf="view==='details'">
-      <app-details [details]="airline$ | async"></app-details>
+      <app-details [details]="airline$ | async" (onClick)="editView()"></app-details>
     </ng-container>
 
     <ng-container *ngIf="view==='edit'">
@@ -62,7 +61,6 @@
       </div>
     </ng-container>
 
-  </ng-container>
   <ng-container *ngFor="let airline of airlines$ | async">
     <ng-container *ngIf="airline._id">
       <app-admin-list class="app-airline__list" [item]="airline" [filters]="status"
