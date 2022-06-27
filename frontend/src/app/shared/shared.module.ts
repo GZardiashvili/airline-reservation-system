@@ -53,11 +53,11 @@ const materialModules = [
     ...materialModules,
     RouterModule,
   ],
-    exports: [
-        ...materialModules,
-        AdminListComponent,
-        DetailsComponent,
-    ],
+  exports: [
+    ...materialModules,
+    AdminListComponent,
+    DetailsComponent,
+  ],
 })
 export class SharedModule {
 }

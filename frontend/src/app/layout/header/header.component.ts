@@ -10,6 +10,8 @@ import { User } from "../../register/user";
 import { Observable, Subject } from "rxjs";
 import { UserService } from "./services/user.service";
 import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { MatDialog } from "@angular/material/dialog";
+import { UserDialogComponent } from "./user-dialog/user-dialog.component";
 
 @Component({
   selector: 'app-header',
@@ -34,14 +36,14 @@ export class HeaderComponent implements OnInit, OnDestroy {
       label: 'Account settings',
       url: '',
     },
-    display: {
-      label: 'Display settings',
+    bookings: {
+      label: 'My bookings',
       url: '',
     },
     logout: 'Log out',
   };
 
-  constructor(private authService: AuthService, private userService: UserService, private router: Router) {
+  constructor(private authService: AuthService, private userService: UserService, private router: Router, private dialog: MatDialog) {
     router.events.pipe(filter((event: any) => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.currentRoute = event.url;
@@ -52,8 +54,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.profile.pfpUrl =
         user.pfpUrl == '' ? user.pfpUrl : '../../../assets/default-pfp.png';
       this.profile.account.url = '/account';
-      this.profile.display.url = '/display';
+      this.profile.bookings.url = '/booked-flights';
     });
+  }
+
+  openDialog() {
+    this.dialog.open(UserDialogComponent);
   }
 
   logout() {

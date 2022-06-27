@@ -29,6 +29,13 @@ const routes: Routes = [
       canActivate: [AuthGuard],
     },
     {
+      path: 'booked-flights',
+      loadChildren: () =>
+        import('../features/booked/booked.module').then(
+          (m) => m.BookedModule
+        ),
+    },
+    {
       path: 'ars-manager',
       loadChildren: () =>
         import('../features/ars-manager/ars-manager.module').then(

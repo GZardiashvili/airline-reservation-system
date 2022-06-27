@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { MatMenuModule } from "@angular/material/menu";
 import { SubMenuComponent } from './header/sub-menu/sub-menu.component';
+import { UserDialogComponent } from './header/user-dialog/user-dialog.component';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { SubMenuComponent } from './header/sub-menu/sub-menu.component';
     SearchComponent,
     LayoutComponent,
     SubMenuComponent,
+    UserDialogComponent,
   ],
   exports: [],
   imports: [
