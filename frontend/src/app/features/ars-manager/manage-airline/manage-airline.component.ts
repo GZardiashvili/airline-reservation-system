@@ -13,7 +13,7 @@ import { FormBuilder, } from "@angular/forms";
 import { Flight } from "../../flight/flight";
 import { ManageFlightService } from "../manage-flight/services/manage-flight.service";
 import { Airline } from "./airline";
-import { takeUntil, tap } from "rxjs/operators";
+import { takeUntil } from "rxjs/operators";
 import { ActivatedRoute } from "@angular/router";
 import { CommonService } from "../../../shared/common/common.service";
 
@@ -50,7 +50,6 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
 
   editView() {
     this.view = 'edit';
-    this.airlineForm.reset();
   }
 
   showDetails() {
@@ -88,10 +87,22 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
 
   getAirline(id: string) {
     this.airline$ = this.manageAirlineService.getAirline(id);
+    this.airline$.pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(airline => {
+        this.airlineForm.patchValue(airline);
+      })
   }
 
-  updateAirline() {
-    return this.manageAirlineService.updateAirline('123', <Airline>this.airlineForm.value)
+  updateAirline(id: string | undefined) {
+    return this.manageAirlineService.updateAirline(String(id), <Airline>this.airlineForm.value)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.reloadAirlines()
+      )
+  }
+
+  deleteAirline(id: string | undefined) {
+    return this.manageAirlineService.deleteAirline(String(id))
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
         () => this.reloadAirlines()
