@@ -13,6 +13,6 @@ export class HomeService {
   }
 
   getLocations(value: String): Observable<Location[]> {
-    return this.http.get<Location[]>(new URL(`${environment.apiUrl}locations?q=${value}`).href);
+    return this.http.get<Location[]>(new URL(`${environment.apiUrl}airports?q=${value}`).href);
   }
 }
