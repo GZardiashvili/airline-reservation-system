@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import { map, Observable, startWith } from "rxjs";
+import { debounceTime, map, Observable, startWith } from "rxjs";
 import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
-
+import { HomeService } from "./services/home.service";
+import { Location } from "./location";
 
 @Component({
   selector: 'app-home',
@@ -12,32 +13,29 @@ import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-ic
 export class HomeComponent implements OnInit {
   fromCityControl = new FormControl('');
   toCityControl = new FormControl('');
-  options: string[] = ['USA', 'UK', 'France', 'Germany', 'Italy', 'Spain'];
-  filteredOptions: Observable<string[]> | null = null;
+  locations$!: Observable<Location[]>;
   faPlaneDeparture = faPlaneDeparture
   faPlaneArrival = faPlaneArrival
 
-  constructor() {
-
+  constructor(private homeService: HomeService) {
   }
 
   ngOnInit(): void {
-
-    this.filteredOptions = this.fromCityControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
+    this.fromCityControl.valueChanges.pipe(
+      debounceTime(300),
+    ).subscribe(value => {
+        if (value!.length > 1) {
+          this.locations$ = this.homeService.getLocations(String(value));
+        }
+      }
     );
-
-    this.filteredOptions = this.toCityControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter(value || '')),
+    this.toCityControl.valueChanges.pipe(
+      debounceTime(300),
+    ).subscribe(value => {
+        if (value!.length > 1) {
+          this.locations$ = this.homeService.getLocations(String(value));
+        }
+      }
     );
   }
-
-  private _filter(value: string): string[] {
-    const filterValue = value.toLowerCase();
-
-    return this.options.filter(option => option.toLowerCase().includes(filterValue));
-  }
-
 }

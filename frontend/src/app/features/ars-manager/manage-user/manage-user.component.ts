@@ -14,7 +14,9 @@ import { CommonService } from "../../../shared/common/common.service";
 export class ManageUserComponent implements OnInit {
 
   users$!: Observable<User[]>;
-  status = ['All', 'Active', 'Inactive'];
+  status = ['All', 'Active', 'Inactive', 'admin'];
+  headers = ['Name', 'Email'];
+  view: 'details' | 'edit' | 'create' | 'none' = 'none';
 
   constructor(private manageUserService: ManageUserService, private fb: FormBuilder,
               private route: ActivatedRoute,
@@ -23,7 +25,9 @@ export class ManageUserComponent implements OnInit {
 
   ngOnInit(): void {
     this.users$ = this.manageUserService.getUsers();
-
   }
 
+  showDetails() {
+    this.view = 'details';
+  }
 }

@@ -12,7 +12,7 @@ export class HomeService {
   constructor(private http: HttpClient) {
   }
 
-  getLocations(): Observable<Location[]> {
-    return this.http.get<Location[]>(`${environment.apiUrl}locations`);
+  getLocations(value: String): Observable<Location[]> {
+    return this.http.get<Location[]>(new URL(`${environment.apiUrl}locations?q=${value}`).href);
   }
 }

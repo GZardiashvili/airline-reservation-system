@@ -12,12 +12,14 @@ import { HomeComponent } from './features/home/home.component';
 import { LayoutModule } from "./layout/layout.module";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "./auth/interceptors/auth.interceptor";
+import { BookedComponent } from './features/booked/booked.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     HomeComponent,
+    BookedComponent,
   ],
   imports: [
     BrowserModule,

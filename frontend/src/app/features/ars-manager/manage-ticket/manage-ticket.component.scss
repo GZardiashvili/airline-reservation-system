@@ -1,7 +1,6 @@
 .grid {
   display: grid;
   grid-template-columns: repeat(2, auto);
-  justify-content: start;
   grid-template-areas: 'list content';
   justify-content: space-between;
 

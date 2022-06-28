@@ -1,24 +1,36 @@
 <div class="grid">
-  <div class="app-plane">
-    <form class="app-airline__form" [formGroup]="planeForm">
-      <mat-form-field class="app-login__form-field">
-        <mat-label [ngClass]="planeForm.get('airlineId')?.value!==''? 'not-empty' :''">Airline Name</mat-label>
-        <input matInput type="text" name="airlineId" formControlName="airlineId">
-      </mat-form-field>
-      <mat-form-field class="app-airline__form-field">
-        <mat-label [ngClass]="planeForm.get('model')?.value!==''? 'not-empty' :''">Model</mat-label>
-        <input matInput
-               type="text" name="model" formControlName="model">
-      </mat-form-field>
-      <mat-form-field class="app-airline__form-field">
-        <mat-label [ngClass]="planeForm.get('seats')?.value!==''? 'not-empty' :''">Seats
-        </mat-label>
-        <input matInput
-               type="text" name="seats" formControlName="seats">
-      </mat-form-field>
-    </form>
-    <button mat-raised-button class="app-airline__button" color="primary" (click)="addPlane()">Add</button>
-  </div>
+  <ng-container *ngIf="view==='create'">
+    <div class="app-plane">
+      <form class="app-airline__form" [formGroup]="planeForm">
+        <mat-form-field class="app-login__form-field">
+          <mat-label [ngClass]="planeForm.get('airlineId')?.value!==''? 'not-empty' :''">Airline Name</mat-label>
+          <input matInput type="text" name="airlineId" formControlName="airlineId">
+        </mat-form-field>
+        <mat-form-field class="app-airline__form-field">
+          <mat-label [ngClass]="planeForm.get('model')?.value!==''? 'not-empty' :''">Model</mat-label>
+          <input matInput
+                 type="text" name="model" formControlName="model">
+        </mat-form-field>
+        <mat-form-field class="app-airline__form-field">
+          <mat-label [ngClass]="planeForm.get('seats')?.value!==''? 'not-empty' :''">Seats
+          </mat-label>
+          <input matInput
+                 type="text" name="seats" formControlName="seats">
+        </mat-form-field>
+      </form>
+      <button mat-raised-button class="app-airline__button" color="primary" (click)="addPlane()">Add</button>
+    </div>
+  </ng-container>
 
-  <app-admin-list class='admin-list' [list]="planes$ | async" [filters]="status"></app-admin-list>
+  <ng-container *ngIf="view==='details'">
+    <app-details [details]="plane$ | async" (onClick)="editView()"></app-details>
+  </ng-container>
+
+  <ng-container *ngFor="let plane of planes$ | async">
+    <ng-container *ngIf="plane._id">
+      <app-admin-list class='admin-list' [item]="plane" [filters]="status" [headers]="headers"
+                      (onClick)="showDetails(); getPlane(plane._id)"></app-admin-list>
+    </ng-container>
+  </ng-container>
+
 </div>

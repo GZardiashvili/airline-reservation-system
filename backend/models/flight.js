@@ -23,6 +23,10 @@ const flightSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: String,
+      default: 'active',
+    },
     departureAirport: { type: String, required: true },
     arrivalAirport: { type: String, required: true },
     departureTime: { type: Date },

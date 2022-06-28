@@ -1,4 +1,4 @@
-<ng-container *ngIf="list">
+<ng-container *ngIf="item">
   <div class='sub-container'>
     <div [className]="'header'">
       <ul>
@@ -23,36 +23,48 @@
         </mat-form-field>
       </div>
     </div>
-    <ng-container *ngIf='list'>
+    <ng-container *ngIf='item'>
       <div [className]="'list'">
-        <ng-container *ngIf='list.length == 0'>
-          <p>No items to display</p>
-        </ng-container>
         <table>
           <tr class="list-header">
             <th class="list-header--title" *ngFor="let header of headers">{{header}}</th>
             <th class="list-header--title">details</th>
           </tr>
-          <tr *ngFor='let item of list' class="list-items">
-            <td *ngIf="item.name || item.airlineId || item.flightId || item.userId">
-              {{ item?.name }}
+          <tr *ngIf='item' class="list-items">
+            <td *ngIf="item.firstName">{{ item?.firstName + ' ' + item?.lastName }}</td>
+            <td *ngIf="item.company || item.airlineId || item.flightId">
+              {{ item?.company }}
               {{ item?.airlineId }}
               {{ item?.flightId }}
-              {{ item?.userId }}
             </td>
             <td *ngIf="item.model"> {{ item?.model }} model</td>
             <td *ngIf="item.flightNumber">
               {{ item?.flightNumber }}
               {{ item?.departureCity + ' - ' + item?.arrivalCity }}
-              {{ item?.departureTime | date: 'dd/MM/yyyy' }}
             </td>
-            <td *ngIf="item.firstName">{{ item?.firstName + ' ' + item?.lastName }}</td>
-            <td> {{ item?.airlineCode }}</td>
-            <td class="details">
+            <td *ngIf="item.airlineCode">
+              {{ item?.airlineCode }}
+            </td>
+            <td *ngIf="item.userId">
+              {{ item?.userId}}
+            </td>
+            <td *ngIf="item.email">
+              {{ item?.email}}
+            </td>
+            <td *ngIf="item.price">
+              {{ item?.price}}
+            </td>
+            <td *ngIf="item.flightNumber">
+              {{ item?.departureTime | date: 'dd/MM/yyyy' }} - {{item?.arrivalTime | date: 'dd/MM/yyyy'}}
+            </td>
+            <td class="details" (click)="onClick.emit()">
               <fa-icon [icon]="faDetails"></fa-icon>
             </td>
           </tr>
         </table>
+        <ng-container *ngIf='!item'>
+          <p>No items to display</p>
+        </ng-container>
       </div>
     </ng-container>
   </div>

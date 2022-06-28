@@ -8,7 +8,7 @@ export interface Profile {
     label: string;
     url: string;
   };
-  display: {
+  bookings: {
     label: string;
     url: string;
   };

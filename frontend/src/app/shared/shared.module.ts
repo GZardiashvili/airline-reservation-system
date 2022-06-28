@@ -20,6 +20,7 @@ import { MatChipsModule } from "@angular/material/chips";
 import { MatIconModule } from "@angular/material/icon";
 import { AdminListComponent } from './components/admin-list/admin-list.component';
 import { RouterModule } from "@angular/router";
+import { DetailsComponent } from './components/details/details.component';
 
 const materialModules = [
   FontAwesomeModule,
@@ -44,17 +45,19 @@ const materialModules = [
 
 @NgModule({
   declarations: [
-    AdminListComponent
+    AdminListComponent,
+    DetailsComponent
   ],
   imports: [
     CommonModule,
     ...materialModules,
     RouterModule,
   ],
-    exports: [
-        ...materialModules,
-        AdminListComponent,
-    ],
+  exports: [
+    ...materialModules,
+    AdminListComponent,
+    DetailsComponent,
+  ],
 })
 export class SharedModule {
 }

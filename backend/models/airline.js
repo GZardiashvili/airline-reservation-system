@@ -2,10 +2,10 @@ const mongoose = require('mongoose');
 
 const airlineSchema = new mongoose.Schema(
   {
-    name: { type: String, required: true },
+    company: { type: String, required: true },
     airlineCode: { type: String },
     airlineLogo: { type: String },
-    airlineDescription: { type: String },
+    description: { type: String },
     flightIds: {
       type: [String],
     },

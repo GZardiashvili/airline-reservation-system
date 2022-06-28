@@ -15,7 +15,6 @@ import { Flight } from "../../flight/flight";
 import { Ticket } from "./ticket";
 import { takeUntil } from "rxjs/operators";
 import { ManageTicketService } from "./services/manage-ticket.service";
-import { Airline } from "../manage-airline/airline";
 
 @Component({
   selector: 'app-manage-ticket',
@@ -26,7 +25,10 @@ export class ManageTicketComponent implements OnInit {
   private componentIsDestroyed$ = new Subject<boolean>();
   private readonly reloadTickets$ = new BehaviorSubject(true);
   tickets$!: Observable<Ticket[]>;
-  status = ['All', 'ordered', 'canceled'];
+  status = ['All'];
+  headers = ['Flight', 'User', 'Price'];
+  view: 'details' | 'edit' | 'create' | 'none' = 'none';
+
   flights$!: Observable<Flight[]>;
   ticketForm = this.fb.group({
     flightId: [''],
@@ -56,6 +58,19 @@ export class ManageTicketComponent implements OnInit {
         return this.manageTicketService.getTickets();
       })
     );
+  }
+
+  editView() {
+    this.view = 'edit';
+    this.ticketForm.reset();
+  }
+
+  showDetails() {
+    this.view = 'details';
+  }
+
+  createView() {
+    this.view = 'create';
   }
 
   addTicket() {

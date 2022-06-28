@@ -11,8 +11,8 @@
            [formControl]="fromCityControl"
            [matAutocomplete]="auto">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
+      <mat-option *ngFor="let location of locations$ | async" [value]="location._id">
+        {{location.city + ', ' + location.country}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
@@ -28,8 +28,8 @@
            [formControl]="toCityControl"
            [matAutocomplete]="auto">
     <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
-      <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
-        {{option}}
+      <mat-option *ngFor="let location of locations$ | async" [value]="location._id">
+        {{location.city + ', ' + location.country}}
       </mat-option>
     </mat-autocomplete>
   </mat-form-field>
