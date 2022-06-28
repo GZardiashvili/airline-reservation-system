@@ -24,13 +24,17 @@ export class HomeComponent implements OnInit {
     this.fromCityControl.valueChanges.pipe(
       debounceTime(300),
     ).subscribe(value => {
-        this.locations$ = this.homeService.getLocations(String(value));
+        if (value!.length > 1) {
+          this.locations$ = this.homeService.getLocations(String(value));
+        }
       }
     );
     this.toCityControl.valueChanges.pipe(
       debounceTime(300),
     ).subscribe(value => {
-        this.locations$ = this.homeService.getLocations(String(value));
+        if (value!.length > 1) {
+          this.locations$ = this.homeService.getLocations(String(value));
+        }
       }
     );
   }
