@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from "@angular/forms";
-import { map, Observable, startWith } from "rxjs";
+import { debounceTime, map, Observable, startWith } from "rxjs";
 import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
 import { HomeService } from "./services/home.service";
 import { Location } from "./location";
@@ -18,12 +18,20 @@ export class HomeComponent implements OnInit {
   faPlaneArrival = faPlaneArrival
 
   constructor(private homeService: HomeService) {
-    this.locations$ = this.homeService.getLocations();
   }
 
   ngOnInit(): void {
-
+    this.fromCityControl.valueChanges.pipe(
+      debounceTime(300),
+    ).subscribe(value => {
+        this.locations$ = this.homeService.getLocations(String(value));
+      }
+    );
+    this.toCityControl.valueChanges.pipe(
+      debounceTime(300),
+    ).subscribe(value => {
+        this.locations$ = this.homeService.getLocations(String(value));
+      }
+    );
   }
-
-
 }
