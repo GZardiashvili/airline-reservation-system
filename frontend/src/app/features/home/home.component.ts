@@ -3,7 +3,7 @@ import { FormControl } from "@angular/forms";
 import { debounceTime, map, Observable, startWith } from "rxjs";
 import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
 import { HomeService } from "./services/home.service";
-import { Location } from "./location";
+import { Airport } from "./airport";
 
 @Component({
   selector: 'app-home',
@@ -13,7 +13,7 @@ import { Location } from "./location";
 export class HomeComponent implements OnInit {
   fromCityControl = new FormControl('');
   toCityControl = new FormControl('');
-  locations$!: Observable<Location[]>;
+  airports$!: Observable<Airport[]>;
   faPlaneDeparture = faPlaneDeparture
   faPlaneArrival = faPlaneArrival
 
@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit {
       debounceTime(300),
     ).subscribe(value => {
         if (value!.length > 1) {
-          this.locations$ = this.homeService.getLocations(String(value));
+          this.airports$ = this.homeService.getAirports(String(value));
         }
       }
     );
@@ -33,7 +33,7 @@ export class HomeComponent implements OnInit {
       debounceTime(300),
     ).subscribe(value => {
         if (value!.length > 1) {
-          this.locations$ = this.homeService.getLocations(String(value));
+          this.airports$ = this.homeService.getAirports(String(value));
         }
       }
     );
