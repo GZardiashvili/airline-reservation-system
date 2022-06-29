@@ -6,16 +6,16 @@ import { BehaviorSubject, Observable } from "rxjs";
 })
 export class CommonService {
 
-  private searchTerm$ = new BehaviorSubject<string>('');
+  private update$ = new BehaviorSubject<string>('');
 
   constructor() {
   }
 
-  sendSearchTerm(message: string) {
-    this.searchTerm$.next(message);
+  sendUpdate(message: any) {
+    this.update$.next(message);
   }
 
-  getSearchTerm(): Observable<string> {
-    return this.searchTerm$.asObservable();
+  getUpdate(): Observable<any> {
+    return this.update$.asObservable();
   }
 }

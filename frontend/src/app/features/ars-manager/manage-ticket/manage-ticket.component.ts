@@ -47,7 +47,7 @@ export class ManageTicketComponent implements OnInit {
   ngOnInit(): void {
     this.tickets$ = combineLatest([
       this.route.paramMap,
-      this.commonService.getSearchTerm().pipe(
+      this.commonService.getUpdate().pipe(
         takeUntil(this.componentIsDestroyed$),
         debounceTime(300),
         distinctUntilChanged(),
