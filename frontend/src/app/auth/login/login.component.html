@@ -13,7 +13,7 @@
       </mat-form-field>
       <mat-form-field class="app-login__form-field">
         <mat-label [ngClass]="loginFormGroup.get('passwordControl')?.value!==''? 'not-empty' :''">Password</mat-label>
-        <input matInput [type]="type.type" name="password" formControlName="passwordControl">
+        <input matInput [type]="type.type" (keyup)="onKeyUp($event)" name="password" formControlName="passwordControl">
         <a *ngIf="loginFormGroup.get('passwordControl')?.value" (click)="showHide()">{{type.label}}</a>
       </mat-form-field>
     </form>
