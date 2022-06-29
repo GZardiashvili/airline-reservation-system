@@ -56,6 +56,10 @@ export class ManageFlightComponent implements OnInit {
     this.manageFlightService.addFlight(<Flight>this.flightFormGroup.value).subscribe();
   }
 
+  editFlight() {
+
+  }
+
   getFlight(id: string) {
     this.flight$ = this.manageFlightService.getFlight(id);
   }

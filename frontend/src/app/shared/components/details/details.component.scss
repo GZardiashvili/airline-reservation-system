@@ -1,5 +1,17 @@
-.details {
-  display: flex;
-  flex-direction: column;
+.details-container {
+  background-color: #fff;
+  width: 750px;
+  height: 600px;
+  border-radius: 7px;
+}
+
+fa-icon {
+  font-size: 1.1rem;
   cursor: pointer;
+}
+
+.icon {
+  padding: 10px;
+  display: flex;
+  gap: 10px;
 }
