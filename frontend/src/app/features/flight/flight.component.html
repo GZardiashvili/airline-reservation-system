@@ -11,7 +11,7 @@
         </p>
       </mat-card-content>
       <mat-card-actions>
-        <button mat-button [routerLink]="'/book-flight'">
+        <button mat-button (click)="getFlight(flight._id)" [routerLink]="'/book-flight'">
           Book Now
         </button>
       </mat-card-actions>

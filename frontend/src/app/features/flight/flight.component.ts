@@ -36,4 +36,7 @@ export class FlightComponent implements OnInit {
 
   }
 
+  getFlight(id: string | undefined) {
+    this.flight$ = this.flightService.getFlight(String(id));
+  }
 }
