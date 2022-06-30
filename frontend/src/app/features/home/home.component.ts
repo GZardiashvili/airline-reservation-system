@@ -20,6 +20,26 @@ export class HomeComponent implements OnInit {
   constructor(private homeService: HomeService) {
   }
 
+  airports: Airport[] = [];
+  selectedAirports: Airport[] = [];
+  filteredAirports: Airport[] = [];
+
+  getAirport(event: any) {
+    let filtered: Airport[] = [];
+    let query = event.query;
+    this.homeService.getAirports(query).subscribe(data => {
+      this.airports = data;
+    });
+    for (let i = 0; i < this.airports.length; i++) {
+      let airport = this.airports[i];
+      if (airport.city.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(airport);
+      }
+    }
+
+    this.filteredAirports = filtered;
+  }
+
   ngOnInit(): void {
     this.fromCityControl.valueChanges.pipe(
       debounceTime(300),

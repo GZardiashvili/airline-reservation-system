@@ -8,10 +8,18 @@ const addAirline = async (airline) => {
 };
 
 const getAllAirlines = async (query) => {
-  const { company } = query;
+  const { search, sort } = query;
   query = {};
-  if (company != null) query.company = company;
-  const airlines = await Airline.find({ ...query }).sort({ createdAt: -1 });
+  if (search != null) {
+    query.$or = [
+      { company: { $regex: search, $options: 'i' } },
+      { airlineCode: { $regex: search, $options: 'i' } },
+    ];
+  }
+  if (sort === null) {
+    query.sort = { createdAt: -1 };
+  }
+  const airlines = await Airline.find({ ...query });
   return airlines;
 };
 

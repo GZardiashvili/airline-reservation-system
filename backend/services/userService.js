@@ -10,22 +10,23 @@ const addUser = async (user) => {
 };
 
 const getAllUsers = async (query) => {
-  const {
-    firstName,
-    lastName,
-    email,
-    role,
-    country,
-    city,
-  } = query;
+  const { search, sort } = query;
   query = {};
-  if (firstName != null) query.firstName = firstName;
-  if (lastName != null) query.lastName = lastName;
-  if (email != null) query.email = email;
-  if (role != null) query.role = role;
-  if (country != null) query.country = country;
-  if (city != null) query.city = city;
-  const users = await User.find({ ...query }).sort({ createdAt: -1 });
+  if (search != null) {
+    query.$or = [
+      { firstName: { $regex: search, $options: 'i' } },
+      { lastName: { $regex: search, $options: 'i' } },
+      { email: { $regex: search, $options: 'i' } },
+      { role: { $regex: search, $options: 'i' } },
+      { country: { $regex: search, $options: 'i' } },
+      { state: { $regex: search, $options: 'i' } },
+      { city: { $regex: search, $options: 'i' } },
+    ];
+  }
+  if (sort === null) {
+    query.sort = { createdAt: -1 };
+  }
+  const users = await User.find({ ...query }).sort({ sort });
   return users;
 };
 

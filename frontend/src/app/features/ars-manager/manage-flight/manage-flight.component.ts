@@ -5,6 +5,8 @@ import { ManageFlightService } from "./services/manage-flight.service";
 import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
 import { CommonService } from "../../../shared/common/common.service";
+import { ManageAirlineService } from "../manage-airline/services/manage-airline.service";
+import { Airline } from "../manage-airline/airline";
 
 @Component({
   selector: 'app-manage-flight',
@@ -34,6 +36,7 @@ export class ManageFlightComponent implements OnInit {
   });
 
   constructor(private manageFlightService: ManageFlightService,
+              private manageAirlineService: ManageAirlineService,
               private fb: FormBuilder,
               private route: ActivatedRoute,
               private commonService: CommonService) {
@@ -62,6 +65,26 @@ export class ManageFlightComponent implements OnInit {
 
   getFlight(id: string) {
     this.flight$ = this.manageFlightService.getFlight(id);
+  }
+
+  airlines: Airline[] = [];
+  filteredAirline: Airline[] = [];
+
+  getAirlines(event: any) {
+    let filtered: Airline[] = [];
+    let query = event.query;
+    this.manageAirlineService.getAirlines(query).subscribe(data => {
+      this.airlines = data;
+    });
+    for (let i = 0; i < this.airlines.length; i++) {
+      let airline = this.airlines[i];
+      // @ts-ignore
+      if (airline.company.toLowerCase().indexOf(query.toLowerCase()) == 0) {
+        filtered.push(airline);
+      }
+    }
+
+    this.filteredAirline = filtered;
   }
 
   ngOnInit(): void {

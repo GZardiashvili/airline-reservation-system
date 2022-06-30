@@ -12,7 +12,7 @@ export class HomeService {
   constructor(private http: HttpClient) {
   }
 
-  getAirports(value: String): Observable<Airport[]> {
-    return this.http.get<Airport[]>(new URL(`${environment.apiUrl}airports?q=${value}`).href);
+  getAirports(query: String): Observable<Airport[]> {
+    return this.http.get<Airport[]>(new URL(`${environment.apiUrl}airports?q=${query}`).href);
   }
 }

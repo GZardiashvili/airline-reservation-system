@@ -71,7 +71,7 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
       this.reloadAirlines$,
     ]).pipe(
       switchMap(([params]) => {
-        return this.manageAirlineService.getAirlines();
+        return this.manageAirlineService.getAirlines('');
       })
     );
     this.flights$ = this.manageFlightService.getFlights();

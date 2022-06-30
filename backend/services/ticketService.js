@@ -8,18 +8,15 @@ const addTicket = async (ticket) => {
 };
 
 const getAllTickets = async (query) => {
-  const {
-    user,
-    flight,
-    seat,
-    price,
-  } = query;
+  const { gte, lte, sort } = query;
   query = {};
-  if (user != null) query.user = user;
-  if (flight != null) query.flight = flight;
-  if (seat != null) query.seat = seat;
-  if (price != null) query.price = { $gte: price };
-  const tickets = await Ticket.find({ ...query }).sort({ createdAt: -1 });
+  if (gte != null && lte != null) {
+    query.$and = [{ gte: { $gte: gte } }, { lte: { $lte: lte } }];
+  }
+  if (sort === null) {
+    query.sort = { createdAt: -1 };
+  }
+  const tickets = await Ticket.find({ ...query }).sort({ sort });
   return tickets;
 };
 

@@ -8,16 +8,18 @@ const addPlane = async (plane) => {
 };
 
 const getAllPlanes = async (query) => {
-  const {
-    airline,
-    model,
-  } = query;
-  if (airline != null) query.airline = airline;
-  if (model != null) query.model = model;
-
-  const planes = await Plane.find({
-    ...query,
-  }).sort({ createdAt: -1 });
+  const { search, sort } = query;
+  query = {};
+  if (search != null) {
+    query.$or = [
+      { model: { $regex: search, $options: 'i' } },
+      { planeCode: { $regex: search, $options: 'i' } },
+    ];
+  }
+  if (sort === null) {
+    query.sort = sort;
+  }
+  const planes = await Plane.find({ ...query }).sort(sort);
   return planes;
 };
 

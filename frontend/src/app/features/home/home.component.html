@@ -43,3 +43,9 @@
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
 </form>
+
+<span class="p-fluid">
+    <p-autoComplete [formControl]="fromCityControl" [suggestions]="filteredAirports"
+                    (completeMethod)="getAirport($event)" field="city" [multiple]="true">
+    </p-autoComplete>
+</span>

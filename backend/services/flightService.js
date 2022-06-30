@@ -8,13 +8,22 @@ const addFlight = async (flight) => {
 };
 
 const getAllFlights = async (query) => {
-  const { departureCity, arrivalCity } = query;
+  const { search, sort } = query;
   query = {};
-  if (departureCity != null) query.departureCity = departureCity;
-  if (arrivalCity != null) query.arrivalCity = arrivalCity;
-  // if (price != null) query.price = price; agregate
+  if (search != null) {
+    query.$or = [
+      { departureCity: { $regex: search, $options: 'i' } },
+      { arrivalCity: { $regex: search, $options: 'i' } },
+      { departureTime: { $regex: search, $options: 'i' } },
+      { arrivalTime: { $regex: search, $options: 'i' } },
+      { flightNumber: { $regex: search, $options: 'i' } },
+    ];
+  }
+  if (sort === null) {
+    query.sort = { departureTime: -1 };
+  }
 
-  const flights = await Flight.find({ ...query }).sort({ createdAt: -1 });
+  const flights = await Flight.find({ ...query }).sort(sort);
   return flights;
 };
 
