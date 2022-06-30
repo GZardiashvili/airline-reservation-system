@@ -89,6 +89,7 @@ export class ManageFlightComponent implements OnInit {
 
   ngOnInit(): void {
     this.flights$ = this.manageFlightService.getFlights();
+
   }
 
 }

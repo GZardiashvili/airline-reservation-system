@@ -1,14 +1,29 @@
 <ng-container *ngIf="item">
   <div class="card" (click)="onClick.emit()">
-    <div class="flight" *ngIf="item.arrivalCity">
+    <div class="flight">
       <div class="arrivalCity">
         <h1 class="title" *ngIf="item.arrivalCity">{{item.arrivalCity}} </h1>
+        <h1 class="title" *ngIf="item.airlineCode">{{item.airlineCode}} </h1>
+        <h1 class="title" *ngIf="item.price">{{item.price}} </h1>
+        <h1 class="title" *ngIf="item.model">{{item.model}}</h1>
+        <h1 class="title" *ngIf="item.firstName">{{item.firstName}}</h1>
+
         <h2 class="sub-title" *ngIf="item.arrivalTime">{{item.arrivalTime}}</h2>
+        <h2 class="sub-title" *ngIf="item.company">{{item.company}}</h2>
+        <h2 class="sub-title" *ngIf="item.seats">{{item.seats}}</h2>
+        <h2 class="sub-title" *ngIf="item.status">{{item.status}}</h2>
+        <h2 class="sub-title" *ngIf="item.email">{{item.email}}</h2>
+        <h2 class="sub-title" *ngIf="item.phone">{{item.phone}}</h2>
       </div>
-      <fa-icon [icon]="faJetFighter"></fa-icon>
+      <fa-icon *ngIf="item.arrivalCity&&item.departureCity" [icon]="faJetFighter"></fa-icon>
       <div class="departureCity">
         <h1 class="title" *ngIf="item.departureCity">{{item.departureCity}} </h1>
+        <h1 class="title" *ngIf="item.lastName">{{item.lastName}}</h1>
+
         <h2 class="sub-title" *ngIf="item.departureTime">{{item.departureTime}}</h2>
+        <h2 class="sub-title" *ngIf="item.country">{{item.country}}</h2>
+        <h2 class="sub-title" *ngIf="item.city">{{item.city}}</h2>
+
       </div>
     </div>
   </div>
