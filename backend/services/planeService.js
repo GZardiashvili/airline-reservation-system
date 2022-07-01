@@ -8,7 +8,7 @@ const addPlane = async (plane) => {
 };
 
 const getAllPlanes = async (query) => {
-  const { search, sort } = query;
+  const { search, sort = { createdAt: -1 } } = query;
   query = {};
   if (search != null) {
     query.$or = [
@@ -16,9 +16,7 @@ const getAllPlanes = async (query) => {
       { planeCode: { $regex: search, $options: 'i' } },
     ];
   }
-  if (sort === null) {
-    query.sort = sort;
-  }
+
   const planes = await Plane.find({ ...query }).sort(sort);
   return planes;
 };

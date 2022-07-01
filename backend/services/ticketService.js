@@ -8,14 +8,12 @@ const addTicket = async (ticket) => {
 };
 
 const getAllTickets = async (query) => {
-  const { gte, lte, sort } = query;
+  const { gte, lte, sort = { createdAt: -1 } } = query;
   query = {};
   if (gte != null && lte != null) {
     query.$and = [{ gte: { $gte: gte } }, { lte: { $lte: lte } }];
   }
-  if (sort === null) {
-    query.sort = { createdAt: -1 };
-  }
+
   const tickets = await Ticket.find({ ...query }).sort({ sort });
   return tickets;
 };
