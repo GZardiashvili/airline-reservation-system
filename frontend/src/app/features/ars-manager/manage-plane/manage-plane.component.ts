@@ -32,6 +32,7 @@ export class ManagePlaneComponent implements OnInit, OnDestroy {
   planeForm = this.fb.group({
     airlineId: [''],
     model: [''],
+    planeCode: [''],
     seats: [''],
   });
 

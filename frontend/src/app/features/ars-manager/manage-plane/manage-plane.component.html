@@ -27,6 +27,11 @@
                type="text" name="model" formControlName="model">
       </mat-form-field>
       <mat-form-field class="app-airline__form-field">
+        <mat-label [ngClass]="planeForm.get('planeCode')?.value!==''? 'not-empty' :''">Code</mat-label>
+        <input matInput
+               type="text" name="planeCode" formControlName="planeCode">
+      </mat-form-field>
+      <mat-form-field class="app-airline__form-field">
         <mat-label [ngClass]="planeForm.get('seats')?.value!==''? 'not-empty' :''">Seats
         </mat-label>
         <input matInput

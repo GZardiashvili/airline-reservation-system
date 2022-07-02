@@ -11,16 +11,16 @@ const getAllFlights = async (query) => {
   const { search, sort = { createdAt: -1 } } = query;
   query = {};
   if (search) {
-    query.$or = [
-      { departureCity: { $regex: search, $options: 'i' } },
-      { arrivalCity: { $regex: search, $options: 'i' } },
-      { departureTime: { $regex: search, $options: 'i' } },
-      { arrivalTime: { $regex: search, $options: 'i' } },
-      { flightNumber: { $regex: search, $options: 'i' } },
+    query.search.$or = [
+      { departureCity: { $in: [search] } },
+      { arrivalCity: { $in: [search] } },
+      { departureTime: { $in: [search] } },
     ];
   }
 
-  const flights = await Flight.find({ ...query }).sort(sort);
+  const flights = await Flight.find({
+    departureCity: { $in: ['Alaska', 'California'] },
+  }).sort(sort);
   return flights;
 };
 

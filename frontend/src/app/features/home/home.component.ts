@@ -4,6 +4,7 @@ import { debounceTime, map, Observable, startWith } from "rxjs";
 import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
 import { HomeService } from "./services/home.service";
 import { Airport } from "./airport";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -17,27 +18,7 @@ export class HomeComponent implements OnInit {
   faPlaneDeparture = faPlaneDeparture
   faPlaneArrival = faPlaneArrival
 
-  constructor(private homeService: HomeService) {
-  }
-
-  airports: Airport[] = [];
-  selectedAirports: Airport[] = [];
-  filteredAirports: Airport[] = [];
-
-  getAirport(event: any) {
-    let filtered: Airport[] = [];
-    let query = event.query;
-    this.homeService.getAirports(query).subscribe(data => {
-      this.airports = data;
-    });
-    for (let i = 0; i < this.airports.length; i++) {
-      let airport = this.airports[i];
-      if (airport.city.toLowerCase().indexOf(query.toLowerCase()) == 0) {
-        filtered.push(airport);
-      }
-    }
-
-    this.filteredAirports = filtered;
+  constructor(private homeService: HomeService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -57,5 +38,23 @@ export class HomeComponent implements OnInit {
         }
       }
     );
+  }
+
+  searchFlights() {
+    console.log(this.fromCity);
+    console.log(this.toCity);
+    this.router.navigate(['/flights'], {queryParams: {departureCity: this.fromCity, arrivalCity: this.toCity}});
+
+  }
+
+  fromCity!: string[];
+  toCity!: string[];
+
+  results!: string[];
+
+  search(event: any) {
+    this.homeService.getAirports(event.query).subscribe(data => {
+      this.results = data.map(item => item.city);
+    })
   }
 }
