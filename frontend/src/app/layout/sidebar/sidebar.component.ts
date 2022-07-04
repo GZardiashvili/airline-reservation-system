@@ -4,6 +4,7 @@ import { NavigationEnd, Router } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { FormBuilder } from "@angular/forms";
 import { Profile } from "../header/models/profile";
+import { CommonService } from "../../shared/common/common.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -46,7 +47,7 @@ export class SidebarComponent {
     {value: 'duration', viewValue: 'Duration'},
   ];
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private router: Router, private formBuilder: FormBuilder, private commonService: CommonService) {
     router.events.pipe(filter((event: any) => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.currentRoute = event.url;
@@ -64,6 +65,7 @@ export class SidebarComponent {
     if (this.flightClass.classItem == null) {
       return false;
     }
+    this.commonService.sendUpdate(this.flightClass.classItem.filter(t => t.completed).length > 0 && !this.allComplete);
     return this.flightClass.classItem.filter(t => t.completed).length > 0 && !this.allComplete;
   }
 

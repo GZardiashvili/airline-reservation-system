@@ -1,6 +1,6 @@
 <div class="grid">
   <div class="app-airline-details">
-    <ng-container *ngIf="view==='details'; else create">
+    <ng-container *ngIf="view==='details'">
       <ng-container *ngIf="ticket$ | async as ticket">
         <app-details [details]="ticket" (onClick)="editView(); "></app-details>
         <button mat-raised-button class="app-airline__button" color="warn" (click)="deleteTicket(ticket._id)">

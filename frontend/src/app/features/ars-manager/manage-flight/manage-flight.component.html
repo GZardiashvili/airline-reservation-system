@@ -15,33 +15,67 @@
 
 <ng-template #EditOrCreate>
   <div class="app-airline app-airline__form">
+    <span class="flex">
+    <h5>Set flight number</h5>
     <input type="text" pInputText [(ngModel)]="flightNumber"/>
+    </span>
+    <span class="flex">
+    <h5>Choose Airways</h5>
     <p-autoComplete [(ngModel)]="airlineCo" [suggestions]="results"
                     (completeMethod)="chooseAirlines($event)"
                     [dropdown]="true">
     </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Choose Plane</h5>
     <p-autoComplete [(ngModel)]="planes" [suggestions]="results"
                     (completeMethod)="choosePlane($event)"
                     [dropdown]="true">
     </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure City</h5>
     <p-autoComplete [(ngModel)]="fromCity" [suggestions]="results"
                     (completeMethod)="chooseDestinations($event)"
     >
     </p-autoComplete>
-    <p-autoComplete [(ngModel)]="toCity" [suggestions]="results"
-                    (completeMethod)="chooseDestinations($event)"
-    >
-    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure Airport</h5>
     <p-autoComplete [(ngModel)]="fromAirport" [suggestions]="results"
                     (completeMethod)="chooseAirport($event)"
     >
     </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Arrival City</h5>
+    <p-autoComplete [(ngModel)]="toCity" [suggestions]="results"
+                    (completeMethod)="chooseDestinations($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Arrival Airport</h5>
+    <p-autoComplete [(ngModel)]="fromAirport" [suggestions]="results"
+                    (completeMethod)="chooseAirport($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure Airport</h5>
     <p-autoComplete [(ngModel)]="toAirport" [suggestions]="results"
                     (completeMethod)="chooseAirport($event)"
     >
     </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure Date</h5>
     <p-calendar [(ngModel)]="departureTime" [showTime]="true" inputId="time"></p-calendar>
+    </span>
+    <span class="flex">
+    <h5>Arrival Date</h5>
     <p-calendar [(ngModel)]="arrivalTime" [showTime]="true" inputId="time"></p-calendar>
+    </span>
     <button mat-raised-button class="app-airline__button" color="primary"
             (click)="view==='create'?addFlight():editFlight()">Save
     </button>

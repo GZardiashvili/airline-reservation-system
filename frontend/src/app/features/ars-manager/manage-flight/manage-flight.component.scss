@@ -1,5 +1,15 @@
 @use "../../../shared/styles/palette" as var_1;
 
+.flex {
+  display: grid;
+  grid-template-columns: 2fr 3fr;
+  margin: 3px 0;
+
+  &:nth-child(1) {
+    margin-top: 20px;
+  }
+}
+
 .grid {
   display: grid;
   grid-template-columns: 1fr 2fr;
