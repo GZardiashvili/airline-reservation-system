@@ -83,6 +83,14 @@ export class ManagePlaneComponent implements OnInit, OnDestroy {
     this.plane$ = this.managePlaneService.getPlane(id);
   }
 
+  updatePlane(id: string | undefined) {
+    return this.managePlaneService.updatePlane(String(id), this.planeForm.value as unknown as Plane)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.reloadPlanes()
+      )
+  }
+
   private reloadPlanes(): void {
     this.reloadPlanes$.next(true);
   }

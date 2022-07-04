@@ -43,12 +43,14 @@ export class HomeComponent implements OnInit {
   searchFlights() {
     console.log(this.fromCity);
     console.log(this.toCity);
+    console.log(this.rangeDates);
     this.router.navigate(['/flights'], {queryParams: {departureCity: this.fromCity, arrivalCity: this.toCity}});
 
   }
 
   fromCity!: string[];
   toCity!: string[];
+  rangeDates: Date[] = [];
 
   results!: string[];
 

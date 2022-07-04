@@ -1,7 +1,54 @@
 <div class="grid">
   <div class="app-airline-details">
+    <ng-container *ngIf="view==='details'; else create">
+      <ng-container *ngIf="ticket$ | async as ticket">
+        <app-details [details]="ticket" (onClick)="editView(); "></app-details>
+        <button mat-raised-button class="app-airline__button" color="warn" (click)="deleteTicket(ticket._id)">
+          Delete
+        </button>
+      </ng-container>
+    </ng-container>
 
+  </div>
+  <div class="app-airline__list">
+    <ng-container *ngFor="let ticket of tickets$ | async">
+      <app-admin-list *ngIf="ticket._id" class="admin-list" [item]="ticket" [filters]="status"
+                      [headers]="headers" (onClick)="showDetails(); getTicket(ticket._id)"></app-admin-list>
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #create>
+  <ng-container *ngIf="!(ticket$ | async); else edit">
     <div class="app-tickets">
+      <ng-container>
+        <form class="app-airline__form" [formGroup]="ticketForm">
+          <mat-form-field class="app-login__form-field">
+            <mat-label [ngClass]="ticketForm.get('flightId')?.value!==''? 'not-empty' :''">Flight</mat-label>
+            <input matInput type="text" name="flightId" formControlName="flightId">
+          </mat-form-field>
+          <mat-form-field class="app-airline__form-field">
+            <mat-label [ngClass]="ticketForm.get('userId')?.value!==''? 'not-empty' :''">User</mat-label>
+            <input matInput
+                   type="text" name="userId" formControlName="userId">
+          </mat-form-field>
+          <mat-form-field class="app-airline__form-field">
+            <mat-label [ngClass]="ticketForm.get('price')?.value!==''? 'not-empty' :''">Price
+            </mat-label>
+            <input matInput
+                   type="text" name="price" formControlName="price">
+          </mat-form-field>
+        </form>
+        <button mat-raised-button class="app-airline__button" color="primary" (click)="addTicket()">Add</button>
+      </ng-container>
+    </div>
+  </ng-container>
+</ng-template>
+
+
+<ng-template #edit>
+  <div class="app-tickets">
+    <ng-container>
       <form class="app-airline__form" [formGroup]="ticketForm">
         <mat-form-field class="app-login__form-field">
           <mat-label [ngClass]="ticketForm.get('flightId')?.value!==''? 'not-empty' :''">Flight</mat-label>
@@ -19,13 +66,14 @@
                  type="text" name="price" formControlName="price">
         </mat-form-field>
       </form>
-      <button mat-raised-button class="app-airline__button" color="primary" (click)="addTicket()">Add</button>
-    </div>
-  </div>
-  <div class="app-airline__list">
-    <ng-container *ngFor="let ticket of tickets$ | async">
-      <app-admin-list *ngIf="ticket._id" class="admin-list" [item]="ticket" [filters]="status"
-                      [headers]="headers"></app-admin-list>
+      <ng-container *ngIf="ticket$ | async as ticket">
+        <button mat-raised-button class="app-airline__button" color="primary" (click)="updateTicket(ticket._id)">
+          Update
+        </button>
+        <button mat-raised-button class="app-airline__button" color="primary" (click)="showDetails()">
+          Cancel
+        </button>
+      </ng-container>
     </ng-container>
   </div>
-</div>
+</ng-template>

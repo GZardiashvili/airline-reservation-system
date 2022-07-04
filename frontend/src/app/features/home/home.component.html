@@ -6,6 +6,7 @@
                 (completeMethod)="search($event)"
                 [multiple]="true">
 </p-autoComplete>
+<p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
 <button (click)="searchFlights()">search</button>
 
 
