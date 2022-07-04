@@ -1,5 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-import { debounceTime, distinctUntilChanged, Observable, switchMap } from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import {
+  BehaviorSubject,
+  combineLatest,
+  debounceTime,
+  distinctUntilChanged,
+  Observable,
+  Subject,
+  switchMap
+} from "rxjs";
 import { Flight } from "../../flight/flight";
 import { ManageFlightService } from "./services/manage-flight.service";
 import { FormBuilder } from "@angular/forms";
@@ -9,14 +17,16 @@ import { ManageAirlineService } from "../manage-airline/services/manage-airline.
 import { Airline } from "../manage-airline/airline";
 import { ManagePlaneService } from "../manage-plane/services/manage-plane.service";
 import { HomeService } from "../../home/services/home.service";
+import { takeUntil } from "rxjs/operators";
 
 @Component({
   selector: 'app-manage-flight',
   templateUrl: './manage-flight.component.html',
   styleUrls: ['./manage-flight.component.scss']
 })
-export class ManageFlightComponent implements OnInit {
-
+export class ManageFlightComponent implements OnInit, OnDestroy {
+  private readonly reloadFlights$ = new BehaviorSubject(true);
+  private componentIsDestroyed$ = new Subject<boolean>();
   flights$!: Observable<Flight[]>;
   flight$!: Observable<Flight>;
   status = ['All', 'Active', 'Cancelled'];
@@ -59,9 +69,6 @@ export class ManageFlightComponent implements OnInit {
     this.view = 'create';
   }
 
-  addFlight() {
-    this.manageFlightService.addFlight(<Flight>this.sendIt).subscribe(x => console.log('x'));
-  }
 
   editFlight() {
 
@@ -82,7 +89,6 @@ export class ManageFlightComponent implements OnInit {
     });
     for (let i = 0; i < this.airlines.length; i++) {
       let airline = this.airlines[i];
-      // @ts-ignore
       if (airline.company.toLowerCase().indexOf(query.toLowerCase()) == 0) {
         filtered.push(airline);
       }
@@ -92,31 +98,48 @@ export class ManageFlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.flights$ = this.manageFlightService.getFlights();
+    this.flights$ = combineLatest(
+      [
+        this.route.paramMap,
+        this.reloadFlights$
+      ]
+    ).pipe(
+      switchMap(([params]) => {
+        return this.manageFlightService.getFlights();
+      }),
+    )
 
   }
 
-  flightNumber!: string;
-  airlineCo!: string[];
-  planes!: string[];
-  fromCity!: string[];
-  toCity!: string[];
-  fromAirport!: string[];
-  toAirport!: string[];
-  departureTime!: Date;
-  arrivalTime!: Date;
-  results!: string[];
+  flightObj = {
+    flightNumber: '',
+    airlineId: [],
+    planeId: [],
+    departureCity: [],
+    arrivalCity: [],
+    departureAirport: [],
+    arrivalAirport: [],
+    departureTime: '',
+    arrivalTime: '',
+    results: [''],
+  }
 
-  sendIt = {
-    a: this.flightNumber,
-    b: this.airlineCo,
-    c: this.planes,
-    d: this.fromCity,
-    e: this.toCity,
-    f: this.fromAirport,
-    g: this.toAirport,
-    h: this.departureTime,
-    i: this.arrivalTime,
+  addFlight() {
+    this.manageFlightService.addFlight(<any>this.flightObj)
+      .pipe(takeUntil(this.componentIsDestroyed$),)
+      .subscribe(() => this.reloadFlights());
+    this.flightObj = {
+      flightNumber: '',
+      airlineId: [],
+      planeId: [],
+      departureCity: [],
+      arrivalCity: [],
+      departureAirport: [],
+      arrivalAirport: [],
+      departureTime: '',
+      arrivalTime: '',
+      results: [''],
+    }
   }
 
   chooseAirlines(event: any) {
@@ -124,8 +147,8 @@ export class ManageFlightComponent implements OnInit {
       debounceTime(3000),
       distinctUntilChanged(),
       switchMap(data => {
-        this.results = data.map(airline => airline.company);
-        return this.results;
+        this.flightObj.results = data.map(airline => airline.company);
+        return this.flightObj.results;
       })
     ).subscribe();
   }
@@ -135,8 +158,8 @@ export class ManageFlightComponent implements OnInit {
       debounceTime(3000),
       distinctUntilChanged(),
       switchMap(data => {
-        this.results = data.map(plane => plane.planeCode);
-        return this.results;
+        this.flightObj.results = data.map(plane => plane.planeCode);
+        return this.flightObj.results;
       })
     ).subscribe();
   }
@@ -145,7 +168,7 @@ export class ManageFlightComponent implements OnInit {
     this.homeService.getAirports(event.query).pipe(
       debounceTime(300))
       .subscribe(data => {
-        this.results = data.map(item => item.city);
+        this.flightObj.results = data.map(item => item.city);
       })
   }
 
@@ -153,16 +176,24 @@ export class ManageFlightComponent implements OnInit {
     this.homeService.getAirports(event.query).pipe(
       debounceTime(300))
       .subscribe(data => {
-        this.results = data.map(item => item.name);
+        this.flightObj.results = data.map(item => item.name);
       })
   }
 
   chooseDepartureTime(event: any) {
-    this.departureTime = event;
+    this.flightObj.departureTime = event;
   }
 
   chooseArrivalTime(event: any) {
-    this.arrivalTime = event;
+    this.flightObj.arrivalTime = event;
   }
 
+  private reloadFlights(): void {
+    this.reloadFlights$.next(true);
+  }
+
+  ngOnDestroy() {
+    this.componentIsDestroyed$.next(true);
+    this.componentIsDestroyed$.complete();
+  }
 }

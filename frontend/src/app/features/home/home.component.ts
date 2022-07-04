@@ -5,6 +5,7 @@ import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-ic
 import { HomeService } from "./services/home.service";
 import { Airport } from "./airport";
 import { Router } from "@angular/router";
+import { CommonService } from "../../shared/common/common.service";
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   faPlaneDeparture = faPlaneDeparture
   faPlaneArrival = faPlaneArrival
 
-  constructor(private homeService: HomeService, private router: Router) {
+  constructor(private homeService: HomeService, private commonService: CommonService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -44,6 +45,7 @@ export class HomeComponent implements OnInit {
     console.log(this.fromCity);
     console.log(this.toCity);
     console.log(this.rangeDates);
+    this.commonService.sendUpdate(this.fromCity);
     this.router.navigate(['/flights'], {queryParams: {departureCity: this.fromCity, arrivalCity: this.toCity}});
 
   }
