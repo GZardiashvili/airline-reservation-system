@@ -53,8 +53,10 @@ export class HomeComponent implements OnInit {
   results!: string[];
 
   search(event: any) {
-    this.homeService.getAirports(event.query).subscribe(data => {
-      this.results = data.map(item => item.city);
-    })
+    this.homeService.getAirports(event.query).pipe(
+      debounceTime(300))
+      .subscribe(data => {
+        this.results = data.map(item => item.city);
+      })
   }
 }

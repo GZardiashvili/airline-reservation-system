@@ -24,7 +24,7 @@ const getAllUsers = async (query) => {
     ];
   }
 
-  const users = await User.find({ ...query }).sort({ sort });
+  const users = await User.find({ ...query }).sort(sort);
   return users;
 };
 

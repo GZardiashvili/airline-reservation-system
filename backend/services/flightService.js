@@ -19,7 +19,7 @@ const getAllFlights = async (query) => {
   }
 
   const flights = await Flight.find({
-    departureCity: { $in: ['Alaska', 'California'] },
+    ...query,
   }).sort(sort);
   return flights;
 };

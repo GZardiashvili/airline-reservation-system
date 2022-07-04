@@ -8,7 +8,7 @@ import { ManageTicketComponent } from './manage-ticket/manage-ticket.component';
 import { ManageUserComponent } from './manage-user/manage-user.component';
 import { ManagePlaneComponent } from './manage-plane/manage-plane.component';
 import { SharedModule } from "../../shared/shared.module";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -32,6 +32,7 @@ import { ReactiveFormsModule } from "@angular/forms";
     ]),
     SharedModule,
     ReactiveFormsModule,
+    FormsModule,
   ]
 })
 export class ArsManagerModule {

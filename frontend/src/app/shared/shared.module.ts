@@ -22,6 +22,8 @@ import { AdminListComponent } from './components/admin-list/admin-list.component
 import { RouterModule } from "@angular/router";
 import { DetailsComponent } from './components/details/details.component';
 import { AutoCompleteModule } from "primeng/autocomplete";
+import { CalendarModule } from "primeng/calendar";
+import { InputTextModule } from "primeng/inputtext";
 
 const materialModules = [
   FontAwesomeModule,
@@ -45,6 +47,8 @@ const materialModules = [
 ];
 const primeModules = [
   AutoCompleteModule,
+  CalendarModule,
+  InputTextModule,
 ]
 
 @NgModule({

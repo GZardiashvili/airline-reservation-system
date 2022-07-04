@@ -14,7 +14,7 @@ const getAllTickets = async (query) => {
     query.$and = [{ gte: { $gte: gte } }, { lte: { $lte: lte } }];
   }
 
-  const tickets = await Ticket.find({ ...query }).sort({ sort });
+  const tickets = await Ticket.find({ ...query }).sort(sort);
   return tickets;
 };
 
