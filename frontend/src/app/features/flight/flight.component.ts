@@ -4,6 +4,8 @@ import { FlightService } from "./services/flight.service";
 import { FormBuilder } from "@angular/forms";
 import { Flight } from "./flight";
 import { Observable } from "rxjs";
+import { ManageUserService } from "../ars-manager/manage-user/services/manage-user.service";
+import { CommonService } from "../../shared/common/common.service";
 
 @Component({
   selector: 'app-flight',
@@ -27,13 +29,25 @@ export class FlightComponent implements OnInit {
     arrivalTime: [''],
   })
 
-  constructor(private fb: FormBuilder, private flightService: FlightService) {
+  constructor(private fb: FormBuilder,
+              private flightService: FlightService,
+              private userService: ManageUserService,
+              private commonService: CommonService) {
 
   }
 
   ngOnInit(): void {
     this.flights$ = this.flightService.getFlights();
 
+  }
+
+  getFlight(id: string | undefined) {
+    this.userService.getUser(String(localStorage.getItem('userId'))).subscribe(
+      user => {
+        this.commonService.sendUpdate(user);
+      }
+    )
+    this.flight$ = this.flightService.getFlight(String(id));
   }
 
 }

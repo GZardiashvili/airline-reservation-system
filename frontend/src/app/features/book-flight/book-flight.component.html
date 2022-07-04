@@ -22,10 +22,10 @@
         </div>
       </form>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup" label="Fill out your address">
+    <mat-step [stepControl]="secondFormGroup" label="Fill out flight details">
       <form [formGroup]="secondFormGroup">
         <mat-form-field appearance="fill">
-          <mat-label>Address</mat-label>
+          <mat-label>Ticket details</mat-label>
           <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
                  required>
         </mat-form-field>
@@ -40,7 +40,7 @@
       <p>You are now done.</p>
       <div>
         <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Book</button>
+        <button mat-button (click)="bookFlight()">Book</button>
       </div>
     </mat-step>
   </mat-stepper>

@@ -16,12 +16,12 @@ export class ManagePlaneService {
     return this.http.post<Plane>(`${environment.apiUrl}planes`, plane);
   }
 
-  getPlanes(): Observable<Plane[]> {
-    return this.http.get<Plane[]>(`${environment.apiUrl}planes`);
+  getPlanes(query: string): Observable<Plane[]> {
+    return this.http.get<Plane[]>(`${environment.apiUrl}planes?search=${query}`);
   }
 
-  getPlane(id: string) {
-    return this.http.get(`${environment.apiUrl}planes/${id}`);
+  getPlane(id: string): Observable<Plane> {
+    return this.http.get<Plane>(`${environment.apiUrl}planes/${id}`);
   }
 
   updatePlane(id: string, plane: Plane) {

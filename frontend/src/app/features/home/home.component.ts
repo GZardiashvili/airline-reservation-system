@@ -3,7 +3,9 @@ import { FormControl } from "@angular/forms";
 import { debounceTime, map, Observable, startWith } from "rxjs";
 import { faPlaneArrival, faPlaneDeparture } from "@fortawesome/free-solid-svg-icons";
 import { HomeService } from "./services/home.service";
-import { Location } from "./location";
+import { Airport } from "./airport";
+import { Router } from "@angular/router";
+import { CommonService } from "../../shared/common/common.service";
 
 @Component({
   selector: 'app-home',
@@ -13,11 +15,11 @@ import { Location } from "./location";
 export class HomeComponent implements OnInit {
   fromCityControl = new FormControl('');
   toCityControl = new FormControl('');
-  locations$!: Observable<Location[]>;
+  airports$!: Observable<Airport[]>;
   faPlaneDeparture = faPlaneDeparture
   faPlaneArrival = faPlaneArrival
 
-  constructor(private homeService: HomeService) {
+  constructor(private homeService: HomeService, private commonService: CommonService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -25,7 +27,7 @@ export class HomeComponent implements OnInit {
       debounceTime(300),
     ).subscribe(value => {
         if (value!.length > 1) {
-          this.locations$ = this.homeService.getLocations(String(value));
+          this.airports$ = this.homeService.getAirports(String(value));
         }
       }
     );
@@ -33,9 +35,32 @@ export class HomeComponent implements OnInit {
       debounceTime(300),
     ).subscribe(value => {
         if (value!.length > 1) {
-          this.locations$ = this.homeService.getLocations(String(value));
+          this.airports$ = this.homeService.getAirports(String(value));
         }
       }
     );
+  }
+
+  searchFlights() {
+    console.log(this.fromCity);
+    console.log(this.toCity);
+    console.log(this.rangeDates);
+    this.commonService.sendUpdate(this.fromCity);
+    this.router.navigate(['/flights'], {queryParams: {departureCity: this.fromCity, arrivalCity: this.toCity}});
+
+  }
+
+  fromCity!: string[];
+  toCity!: string[];
+  rangeDates: Date[] = [];
+
+  results!: string[];
+
+  search(event: any) {
+    this.homeService.getAirports(event.query).pipe(
+      debounceTime(300))
+      .subscribe(data => {
+        this.results = data.map(item => item.city);
+      })
   }
 }

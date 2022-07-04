@@ -21,6 +21,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { AdminListComponent } from './components/admin-list/admin-list.component';
 import { RouterModule } from "@angular/router";
 import { DetailsComponent } from './components/details/details.component';
+import { AutoCompleteModule } from "primeng/autocomplete";
+import { CalendarModule } from "primeng/calendar";
+import { InputTextModule } from "primeng/inputtext";
 
 const materialModules = [
   FontAwesomeModule,
@@ -42,6 +45,11 @@ const materialModules = [
   MatChipsModule,
   MatIconModule,
 ];
+const primeModules = [
+  AutoCompleteModule,
+  CalendarModule,
+  InputTextModule,
+]
 
 @NgModule({
   declarations: [
@@ -51,10 +59,12 @@ const materialModules = [
   imports: [
     CommonModule,
     ...materialModules,
+    ...primeModules,
     RouterModule,
   ],
   exports: [
     ...materialModules,
+    ...primeModules,
     AdminListComponent,
     DetailsComponent,
   ],

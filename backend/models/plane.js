@@ -10,6 +10,10 @@ const planeSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    planeCode: {
+      type: String,
+      required: true,
+    },
     seats: {
       type: Number,
       required: true,

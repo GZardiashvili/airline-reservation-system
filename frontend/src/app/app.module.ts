@@ -7,7 +7,7 @@ import { AuthModule } from "./auth/auth.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { RegisterComponent } from "./register/register.component";
 import { SharedModule } from "./shared/shared.module";
-import { ReactiveFormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HomeComponent } from './features/home/home.component';
 import { LayoutModule } from "./layout/layout.module";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
@@ -29,6 +29,7 @@ import { BookedComponent } from './features/booked/booked.component';
     SharedModule,
     ReactiveFormsModule,
     LayoutModule,
+    FormsModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

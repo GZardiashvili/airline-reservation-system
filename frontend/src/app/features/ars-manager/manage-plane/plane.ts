@@ -1,6 +1,7 @@
 export interface Plane {
   _id?: string;
-  airlineId?: string;
-  model?: string;
-  seats?: number;
+  airlineId: string;
+  model: string;
+  planeCode: string;
+  seats: number;
 }

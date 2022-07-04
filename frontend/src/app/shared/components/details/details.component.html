@@ -1,12 +1,19 @@
 <ng-container *ngIf="details">
-  <div class="details" type="button" (click)="onClick.emit()">
-    <p *ngIf="details.company">{{ details.company }}</p>
-    <p *ngIf="details.airlineId">{{ details.airlineId }}</p>
-    <p *ngIf="details.airlineCode">{{ details.airlineCode }}</p>
-    <p *ngIf="details.description">{{ details.description }}</p>
-    <p *ngIf="details.flightIds">{{ details.flightIds }}</p>
-    <p *ngIf="details.model">{{ details.model }}</p>
-    <p *ngIf="details.description">{{ details.description }}</p>
+  <div class="details-container">
+    <div class="icon">
+      <fa-icon [icon]="cancel"></fa-icon>
+      <fa-icon [icon]="edit" (click)="onClick.emit()"></fa-icon>
+    </div>
+    <div class="details" type="button">
+      <p *ngIf="details.company">{{ details.company }}</p>
+      <p *ngIf="details.airlineId">{{ details.airlineId }}</p>
+      <p *ngIf="details.airlineCode">{{ details.airlineCode }}</p>
+      <p *ngIf="details.description">{{ details.description }}</p>
+      <p *ngIf="details.flightIds">{{ details.flightIds }}</p>
+      <p *ngIf="details.model">{{ details.model }}</p>
+      <p *ngIf="details.description">{{ details.description }}</p>
+    </div>
   </div>
 </ng-container>
+
 

@@ -1,71 +1,30 @@
 <ng-container *ngIf="item">
-  <div class='sub-container'>
-    <div [className]="'header'">
-      <ul>
-        <li
-          *ngFor='let value of filters'
-          [ngClass]='{ active: currentStatus === value }'
-          (click)='filterByStatus(value)'
-        >
-          {{ value }}
-        </li>
+  <div class="card" (click)="onClick.emit()">
+    <div class="flight">
+      <div class="arrivalCity">
+        <h1 class="title" *ngIf="item.arrivalCity">{{item.arrivalCity}} </h1>
+        <h1 class="title" *ngIf="item.airlineCode">{{item.airlineCode}} </h1>
+        <h1 class="title" *ngIf="item.price">{{item.price}} </h1>
+        <h1 class="title" *ngIf="item.model">{{item.model}}</h1>
+        <h1 class="title" *ngIf="item.firstName">{{item.firstName}}</h1>
 
-      </ul>
-      <div class='date-filter'>
-        <mat-form-field appearance="fill">
-          <mat-label>Enter a date range</mat-label>
-          <mat-date-range-input [rangePicker]="picker">
-            <input matStartDate placeholder="Start date">
-            <input matEndDate placeholder="End date">
-          </mat-date-range-input>
-          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-          <mat-date-range-picker #picker></mat-date-range-picker>
-        </mat-form-field>
+        <h2 class="sub-title" *ngIf="item.arrivalTime">{{item.arrivalTime}}</h2>
+        <h2 class="sub-title" *ngIf="item.company">{{item.company}}</h2>
+        <h2 class="sub-title" *ngIf="item.seats">{{item.seats}}</h2>
+        <h2 class="sub-title" *ngIf="item.status">{{item.status}}</h2>
+        <h2 class="sub-title" *ngIf="item.email">{{item.email}}</h2>
+        <h2 class="sub-title" *ngIf="item.phone">{{item.phone}}</h2>
+      </div>
+      <fa-icon *ngIf="item.arrivalCity&&item.departureCity" [icon]="faJetFighter"></fa-icon>
+      <div class="departureCity">
+        <h1 class="title" *ngIf="item.departureCity">{{item.departureCity}} </h1>
+        <h1 class="title" *ngIf="item.lastName">{{item.lastName}}</h1>
+
+        <h2 class="sub-title" *ngIf="item.departureTime">{{item.departureTime}}</h2>
+        <h2 class="sub-title" *ngIf="item.country">{{item.country}}</h2>
+        <h2 class="sub-title" *ngIf="item.city">{{item.city}}</h2>
+
       </div>
     </div>
-    <ng-container *ngIf='item'>
-      <div [className]="'list'">
-        <table>
-          <tr class="list-header">
-            <th class="list-header--title" *ngFor="let header of headers">{{header}}</th>
-            <th class="list-header--title">details</th>
-          </tr>
-          <tr *ngIf='item' class="list-items">
-            <td *ngIf="item.firstName">{{ item?.firstName + ' ' + item?.lastName }}</td>
-            <td *ngIf="item.company || item.airlineId || item.flightId">
-              {{ item?.company }}
-              {{ item?.airlineId }}
-              {{ item?.flightId }}
-            </td>
-            <td *ngIf="item.model"> {{ item?.model }} model</td>
-            <td *ngIf="item.flightNumber">
-              {{ item?.flightNumber }}
-              {{ item?.departureCity + ' - ' + item?.arrivalCity }}
-            </td>
-            <td *ngIf="item.airlineCode">
-              {{ item?.airlineCode }}
-            </td>
-            <td *ngIf="item.userId">
-              {{ item?.userId}}
-            </td>
-            <td *ngIf="item.email">
-              {{ item?.email}}
-            </td>
-            <td *ngIf="item.price">
-              {{ item?.price}}
-            </td>
-            <td *ngIf="item.flightNumber">
-              {{ item?.departureTime | date: 'dd/MM/yyyy' }} - {{item?.arrivalTime | date: 'dd/MM/yyyy'}}
-            </td>
-            <td class="details" (click)="onClick.emit()">
-              <fa-icon [icon]="faDetails"></fa-icon>
-            </td>
-          </tr>
-        </table>
-        <ng-container *ngIf='!item'>
-          <p>No items to display</p>
-        </ng-container>
-      </div>
-    </ng-container>
   </div>
 </ng-container>

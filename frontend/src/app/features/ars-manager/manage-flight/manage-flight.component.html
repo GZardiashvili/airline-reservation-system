@@ -1,66 +1,76 @@
 <div class="grid">
-  <ng-container *ngIf="view==='create'">
-    <div class="app-airline">
-      <form class="app-airline__form" [formGroup]="flightFormGroup">
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="flightFormGroup.get('airlineId')?.value!==''? 'not-empty' :''">Airline</mat-label>
-          <input matInput
-                 type="text" name="airlineId" formControlName="airlineId">
-        </mat-form-field>
-        <mat-form-field class="app-login__form-field">
-          <mat-label [ngClass]="flightFormGroup.get('flightNumber')?.value!==''? 'not-empty' :''">Flight Number
-          </mat-label>
-          <input matInput type="text" name="flightNumber" formControlName="flightNumber">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="flightFormGroup.get('description')?.value!==''? 'not-empty' :''">description</mat-label>
-          <input matInput
-                 type="text" name="description" formControlName="description">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="flightFormGroup.get('planeId')?.value!==''? 'not-empty' :''">Plane
-          </mat-label>
-          <input matInput
-                 type="text" name="planeId" formControlName="planeId">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="flightFormGroup.get('departureCity')?.value!==''? 'not-empty' :''">Departure City
-          </mat-label>
-          <input matInput
-                 type="text" name="departureCity" formControlName="departureCity">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="flightFormGroup.get('arrivalCity')?.value!==''? 'not-empty' :''">Arrival City
-          </mat-label>
-          <input matInput
-                 type="text" name="arrivalCity" formControlName="arrivalCity">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="flightFormGroup.get('departureAirport')?.value!==''? 'not-empty' :''">Departure Airport
-          </mat-label>
-          <input matInput
-                 type="text" name="departureAirport" formControlName="departureAirport">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="flightFormGroup.get('arrivalAirport')?.value!==''? 'not-empty' :''">Arrival Airport
-          </mat-label>
-          <input matInput
-                 type="text" name="arrivalAirport" formControlName="arrivalAirport">
-        </mat-form-field>
-      </form>
-      <button mat-raised-button class="app-airline__button" color="primary" (click)="addFlight()">Add</button>
-    </div>
-  </ng-container>
+  <div class="app-airline-details">
+    <ng-container *ngIf="view==='details'; else EditOrCreate">
+      <app-details [details]="flight$ | async" (onClick)="editView()"></app-details>
+    </ng-container>
+  </div>
+  <div class="app-airline__list">
+    <ng-container *ngFor="let flight of flights$ | async">
 
-  <ng-container *ngIf="view==='details'">
-    <app-details [details]="flight$ | async" (onClick)="editView()"></app-details>
-  </ng-container>
-
-  <ng-container *ngFor="let flight of flights$ | async">
-    <ng-container *ngIf="flight._id">
-      <app-admin-list class="app-airline__list" [item]="flight" [filters]="status"
+      <app-admin-list *ngIf="flight._id" [item]="flight" [filters]="status"
                       [headers]="headers" (onClick)="showDetails(); getFlight(flight._id)"></app-admin-list>
     </ng-container>
-  </ng-container>
-
+  </div>
 </div>
+
+<ng-template #EditOrCreate>
+  <div class="app-airline app-airline__form">
+    <span class="flex">
+    <h5>Set flight number</h5>
+    <input type="text" pInputText [(ngModel)]="flightObj.flightNumber"/>
+    </span>
+    <span class="flex">
+    <h5>Choose Airways</h5>
+    <p-autoComplete [(ngModel)]="flightObj.airlineId" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseAirlines($event)"
+                    [dropdown]="true">
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Choose Plane</h5>
+    <p-autoComplete [(ngModel)]="flightObj.planeId" [suggestions]="flightObj.results"
+                    (completeMethod)="choosePlane($event)"
+                    [dropdown]="true">
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure City</h5>
+    <p-autoComplete [(ngModel)]="flightObj.departureCity" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseDestinations($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure Airport</h5>
+    <p-autoComplete [(ngModel)]="flightObj.departureAirport" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseAirport($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Arrival City</h5>
+    <p-autoComplete [(ngModel)]="flightObj.arrivalCity" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseDestinations($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Arrival Airport</h5>
+    <p-autoComplete [(ngModel)]="flightObj.arrivalAirport" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseAirport($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure Date</h5>
+    <p-calendar [(ngModel)]="flightObj.departureTime" [showTime]="true" inputId="time"></p-calendar>
+    </span>
+    <span class="flex">
+    <h5>Arrival Date</h5>
+    <p-calendar [(ngModel)]="flightObj.arrivalTime" [showTime]="true" inputId="time"></p-calendar>
+    </span>
+    <button mat-raised-button class="app-airline__button" color="primary"
+            (click)="addFlight()">Save
+    </button>
+  </div>
+</ng-template>

@@ -11,7 +11,6 @@
 
   .app-login {
     background: rgba(255, 255, 255, 0.9);
-    //background: rgba(#1e9bf0, 0.2);
     box-shadow: 0 8px 32px 0 rgba(44, 38, 71, 0.85);
     backdrop-filter: blur(4px);
     border: 1px solid rgba(205, 233, 244, 0.18);
@@ -44,7 +43,7 @@
     .app-main__button-primary {
       grid-column: 1/2;
       border-radius: 10px;
-      width: 430px;
+      width: 380px;
       height: 50px;
       background: var_1.$btn-menu;
       color: #FFF;
@@ -112,7 +111,7 @@
 
         a {
           position: absolute;
-          right: 70px;
+          right: 15px;
           top: 20px;
           cursor: pointer;
           text-transform: uppercase;
@@ -148,7 +147,7 @@
           border: 1px solid var_1.$border-color;
           border-radius: 5px;
           height: 40px;
-          max-width: 400px;
+          max-width: 350px;
           padding: 2px 15px;
           font-size: 16px;
         }

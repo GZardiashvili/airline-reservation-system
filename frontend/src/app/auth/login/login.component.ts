@@ -31,6 +31,12 @@ export class LoginComponent implements OnDestroy {
   ) {
   }
 
+  onKeyUp(event: KeyboardEvent) {
+    if (event.key === 'Enter') {
+      this.login();
+    }
+  }
+
   login() {
     if (this.loginFormGroup.invalid) {
       this.loginClicked = true;

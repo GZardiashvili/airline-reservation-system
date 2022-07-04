@@ -19,7 +19,7 @@
       <li *ngFor="let classItem of flightClass.classItem">
         <mat-checkbox [(ngModel)]="classItem.completed"
                       [color]="classItem.color"
-                      (ngModelChange)="updateAllComplete()">
+                      (ngModelChange)="someComplete()">
           {{classItem.type}}
         </mat-checkbox>
       </li>

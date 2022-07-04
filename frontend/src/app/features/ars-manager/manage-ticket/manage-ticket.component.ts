@@ -25,6 +25,8 @@ export class ManageTicketComponent implements OnInit {
   private componentIsDestroyed$ = new Subject<boolean>();
   private readonly reloadTickets$ = new BehaviorSubject(true);
   tickets$!: Observable<Ticket[]>;
+  ticket$!: Observable<Ticket>;
+
   status = ['All'];
   headers = ['Flight', 'User', 'Price'];
   view: 'details' | 'edit' | 'create' | 'none' = 'none';
@@ -47,7 +49,7 @@ export class ManageTicketComponent implements OnInit {
   ngOnInit(): void {
     this.tickets$ = combineLatest([
       this.route.paramMap,
-      this.commonService.getSearchTerm().pipe(
+      this.commonService.getUpdate().pipe(
         takeUntil(this.componentIsDestroyed$),
         debounceTime(300),
         distinctUntilChanged(),
@@ -75,6 +77,34 @@ export class ManageTicketComponent implements OnInit {
 
   addTicket() {
     return this.manageTicketService.addTicket(<Ticket>this.ticketForm.value)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.reloadTickets()
+      )
+  }
+
+  getTicket(id: string) {
+    this.ticket$ = this.manageTicketService.getTicket(String(id));
+    this.ticket$.pipe(
+      takeUntil(this.componentIsDestroyed$)
+    ).subscribe(
+      (ticket: any) => {
+        this.ticketForm.patchValue(ticket);
+
+      }
+    )
+  }
+
+  updateTicket(id: string | undefined) {
+    return this.manageTicketService.updateTicket(String(id), <Ticket>this.ticketForm.value)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.reloadTickets()
+      )
+  }
+
+  deleteTicket(id: string | undefined) {
+    return this.manageTicketService.deleteTicket(String(id))
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
         () => this.reloadTickets()

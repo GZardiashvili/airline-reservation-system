@@ -32,6 +32,7 @@ export class ManagePlaneComponent implements OnInit, OnDestroy {
   planeForm = this.fb.group({
     airlineId: [''],
     model: [''],
+    planeCode: [''],
     seats: [''],
   });
 
@@ -57,7 +58,7 @@ export class ManagePlaneComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.planes$ = combineLatest([
       this.route.paramMap,
-      this.commonService.getSearchTerm().pipe(
+      this.commonService.getUpdate().pipe(
         takeUntil(this.componentIsDestroyed$),
         debounceTime(300),
         distinctUntilChanged(),
@@ -65,13 +66,13 @@ export class ManagePlaneComponent implements OnInit, OnDestroy {
       this.reloadPlanes$,
     ]).pipe(
       switchMap(([params]) => {
-        return this.managePlaneService.getPlanes();
+        return this.managePlaneService.getPlanes('');
       })
     );
   }
 
   addPlane() {
-    return this.managePlaneService.addPlane(<Plane>this.planeForm.value)
+    return this.managePlaneService.addPlane(this.planeForm.value as unknown as Plane)
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
         () => this.reloadPlanes()
@@ -80,6 +81,14 @@ export class ManagePlaneComponent implements OnInit, OnDestroy {
 
   getPlane(id: string) {
     this.plane$ = this.managePlaneService.getPlane(id);
+  }
+
+  updatePlane(id: string | undefined) {
+    return this.managePlaneService.updatePlane(String(id), this.planeForm.value as unknown as Plane)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.reloadPlanes()
+      )
   }
 
   private reloadPlanes(): void {

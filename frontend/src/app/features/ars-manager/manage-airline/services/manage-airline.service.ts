@@ -16,12 +16,12 @@ export class ManageAirlineService {
     return this.http.post<Airline>(`${environment.apiUrl}airlines`, airline);
   }
 
-  getAirlines(): Observable<Airline[]> {
-    return this.http.get<Airline[]>(`${environment.apiUrl}airlines`);
+  getAirlines(query: string): Observable<Airline[]> {
+    return this.http.get<Airline[]>(`${environment.apiUrl}airlines/?search=${query}`);
   }
 
-  getAirline(id: string) {
-    return this.http.get(`${environment.apiUrl}airlines/${id}`);
+  getAirline(id: string): Observable<Airline> {
+    return this.http.get<Airline>(`${environment.apiUrl}airlines/${id}`);
   }
 
   updateAirline(id: string, airline: Airline) {

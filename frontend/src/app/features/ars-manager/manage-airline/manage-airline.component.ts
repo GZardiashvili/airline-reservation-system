@@ -63,7 +63,7 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.airlines$ = combineLatest([
       this.route.paramMap,
-      this.commonService.getSearchTerm().pipe(
+      this.commonService.getUpdate().pipe(
         takeUntil(this.componentIsDestroyed$),
         debounceTime(300),
         distinctUntilChanged(),
@@ -71,7 +71,7 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
       this.reloadAirlines$,
     ]).pipe(
       switchMap(([params]) => {
-        return this.manageAirlineService.getAirlines();
+        return this.manageAirlineService.getAirlines('');
       })
     );
     this.flights$ = this.manageFlightService.getFlights();

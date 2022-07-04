@@ -1,10 +1,60 @@
+@use "../../../shared/styles/palette" as var_1;
+
 .grid {
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  grid-template-areas: 'list content';
-  justify-content: space-between;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "list details";
+  height: 600px;
+  background-color: #ccccff;
+  padding: 10px 15px;
+  border-radius: 7px;
 
-  .admin-list {
+  .app-airline__list {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
     grid-area: list;
+    height: 100%;
+    width: fit-content;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+    scroll-snap-align: none;
+    padding-right: 5px;
+
+    &::-webkit-scrollbar {
+      width: 8px;
+
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: rgba(24, 25, 26, 0.3);
+
+    }
+
+    &::-webkit-scrollbar-thumb {
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+      background-color: rgba(24, 25, 26, 0.5);
+      border-radius: 5px;
+    }
+  }
+
+  .app-airline-details {
+    grid-area: details;
+    justify-self: right;
+
+  }
+}
+
+.app-airline {
+  grid-area: details;
+  background-color: #fff;
+  border-radius: 7px;
+  padding: 0 100px;
+  width: 550px;
+  height: 600px;
+
+  &__form {
+    display: flex;
+    flex-direction: column;
   }
 }
