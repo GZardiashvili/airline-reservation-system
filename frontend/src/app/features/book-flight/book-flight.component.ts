@@ -1,32 +1,44 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { Plane } from "../ars-manager/manage-plane/plane";
-import { Observable } from "rxjs";
+import { map, Observable } from "rxjs";
 import { CommonService } from "../../shared/common/common.service";
-import { ManageFlightService } from "../ars-manager/manage-flight/services/manage-flight.service";
 import { BookFlightService } from "./services/book-flight.service";
 import { Router } from "@angular/router";
+import { STEPPER_GLOBAL_OPTIONS, StepperOrientation } from "@angular/cdk/stepper";
+import { BreakpointObserver } from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-book-flight',
   templateUrl: './book-flight.component.html',
-  styleUrls: ['./book-flight.component.scss']
+  styleUrls: ['./book-flight.component.scss'],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {showError: true},
+    },
+  ],
 })
 export class BookFlightComponent implements OnInit {
   plane$!: Observable<Plane>;
+  stepperOrientation: Observable<StepperOrientation>;
   firstFormGroup = this._formBuilder.group({
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: ['', Validators.required],
+    ticketCount: ['1', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', Validators.required],
   });
-  isLinear = true;
-
 
   constructor(private _formBuilder: FormBuilder, private commonService: CommonService,
-              private bookingService: BookFlightService, private router: Router) {
+              private bookingService: BookFlightService, private router: Router, private breakpointObserver: BreakpointObserver) {
+    this.stepperOrientation = breakpointObserver
+      .observe('(min-width: 800px)')
+      .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
   }
 
   ngOnInit(): void {
@@ -73,9 +85,7 @@ export class BookFlightComponent implements OnInit {
         }
       );
     });
-    setTimeout(() => {
-      this.router.navigate(['/booked-flights']);
-    }, 1000);
+    this.router.navigate(['/booked-flights']);
   }
 
 }
