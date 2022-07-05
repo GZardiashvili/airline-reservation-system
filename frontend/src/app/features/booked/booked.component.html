@@ -1,1 +1,10 @@
-<p>{{bookings$ | async | json}}</p>
+<ng-container *ngIf="bookings$ | async as bookings">
+  <ng-container *ngIf="flightInfo$ | async as flightInfo">
+    <p>{{bookings[0].firstName}}</p>
+    <p>{{bookings[0].lastName}}</p>
+    <p>{{bookings[0].email}}</p>
+    <p>{{bookings[0].class}}</p>
+    <p>{{flightInfo.flightNumber}}</p>
+    <p>{{flightInfo.departureTime | date}}</p>
+  </ng-container>
+</ng-container>

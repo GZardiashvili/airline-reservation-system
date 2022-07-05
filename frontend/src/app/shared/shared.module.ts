@@ -24,6 +24,7 @@ import { DetailsComponent } from './components/details/details.component';
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { CalendarModule } from "primeng/calendar";
 import { InputTextModule } from "primeng/inputtext";
+import { DropdownModule } from "primeng/dropdown";
 
 const materialModules = [
   FontAwesomeModule,
@@ -49,6 +50,7 @@ const primeModules = [
   AutoCompleteModule,
   CalendarModule,
   InputTextModule,
+  DropdownModule,
 ]
 
 @NgModule({

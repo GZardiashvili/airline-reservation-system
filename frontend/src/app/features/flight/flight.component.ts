@@ -6,6 +6,8 @@ import { Flight } from "./flight";
 import { Observable } from "rxjs";
 import { ManageUserService } from "../ars-manager/manage-user/services/manage-user.service";
 import { CommonService } from "../../shared/common/common.service";
+import { ManageTicketService } from "../ars-manager/manage-ticket/services/manage-ticket.service";
+import { Ticket } from "../ars-manager/manage-ticket/ticket";
 
 @Component({
   selector: 'app-flight',
@@ -15,6 +17,7 @@ import { CommonService } from "../../shared/common/common.service";
 export class FlightComponent implements OnInit {
   flights$!: Observable<Flight[]>;
   flight$!: Observable<Flight>;
+  ticket$!: Observable<Ticket>
   faHeart = faHeart
   faLocation = faLocationDot
   flightForm = this.fb.group({
@@ -32,13 +35,13 @@ export class FlightComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private flightService: FlightService,
               private userService: ManageUserService,
+              private ticketService: ManageTicketService,
               private commonService: CommonService) {
 
   }
 
   ngOnInit(): void {
     this.flights$ = this.flightService.getFlights();
-
   }
 
   getFlight(id: string | undefined) {

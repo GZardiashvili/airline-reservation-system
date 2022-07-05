@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
 import { Plane } from "../ars-manager/manage-plane/plane";
-import { map, Observable } from "rxjs";
+import { Observable } from "rxjs";
 import { CommonService } from "../../shared/common/common.service";
 import { BookFlightService } from "./services/book-flight.service";
 import { Router } from "@angular/router";
-import { STEPPER_GLOBAL_OPTIONS, StepperOrientation } from "@angular/cdk/stepper";
-import { BreakpointObserver } from "@angular/cdk/layout";
+import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
 
 @Component({
   selector: 'app-book-flight',
@@ -21,33 +20,19 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 })
 export class BookFlightComponent implements OnInit {
   plane$!: Observable<Plane>;
-  stepperOrientation: Observable<StepperOrientation>;
-  firstFormGroup = this._formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', Validators.required],
-    ticketCount: ['1', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', Validators.required],
-  });
+  selectedClass!: string;
 
   constructor(private _formBuilder: FormBuilder, private commonService: CommonService,
-              private bookingService: BookFlightService, private router: Router, private breakpointObserver: BreakpointObserver) {
-    this.stepperOrientation = breakpointObserver
-      .observe('(min-width: 800px)')
-      .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
+              private bookingService: BookFlightService, private router: Router) {
   }
 
   ngOnInit(): void {
     if (this.isAuthenticated()) {
       this.commonService.getUpdate().subscribe(
         user => {
-          this.firstFormGroup.patchValue({
-            ...user,
-          });
+          this.bookingObj.firstName = user.firstName;
+          this.bookingObj.lastName = user.lastName;
+          this.bookingObj.email = user.email;
         }
       );
     }
@@ -60,31 +45,30 @@ export class BookFlightComponent implements OnInit {
     return false;
   }
 
-  bookedFlightObj = {
+  chooseTicketClass = [
+    {value: 'Economy', viewValue: 'Economy'},
+    {value: 'Business', viewValue: 'Business'},
+    {value: 'First', viewValue: 'First'},
+  ]
+  bookingObj = {
     firstName: '',
     lastName: '',
     email: '',
     flightId: '',
     class: 'First Class',
+  };
+  passengers = [this.bookingObj];
+
+  addPassenger() {
+    this.passengers.push(this.bookingObj);
   }
 
   bookFlight() {
-    this.commonService.getUpdate().subscribe(
-      user => {
-        this.bookedFlightObj.firstName = user.firstName;
-        this.bookedFlightObj.lastName = user.lastName;
-        this.bookedFlightObj.email = user.email;
-      }
-    );
     this.commonService.getValue().subscribe(flight => {
-      this.bookedFlightObj.flightId = flight._id;
-      console.log(this.bookedFlightObj);
-      this.bookingService.bookFlight(this.bookedFlightObj).subscribe(
-        () => {
-          alert('Flight booked successfully');
-        }
-      );
-    });
+      this.bookingObj.flightId = flight._id;
+    })
+
+    this.bookingService.bookFlight(this.bookingObj).subscribe();
     this.router.navigate(['/booked-flights']);
   }
 

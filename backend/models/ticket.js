@@ -13,10 +13,6 @@ const ticketSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    status: {
-      type: String,
-      default: 'all',
-    },
   },
   { timestamps: true },
 );

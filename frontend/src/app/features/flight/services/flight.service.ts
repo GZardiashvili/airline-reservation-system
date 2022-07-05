@@ -20,8 +20,8 @@ export class FlightService {
     return this.http.get<Flight[]>(`${environment.apiUrl}flights`);
   }
 
-  getFlight(id: string) {
-    return this.http.get(`${environment.apiUrl}flights/${id}`);
+  getFlight(id: string): Observable<Flight> {
+    return this.http.get<Flight>(`${environment.apiUrl}flights/${id}`);
   }
 
   updateFlight(id: string, flight: Flight) {
