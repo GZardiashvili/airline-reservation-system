@@ -48,14 +48,34 @@ export class BookFlightComponent implements OnInit {
     return false;
   }
 
+  bookedFlightObj = {
+    firstName: '',
+    lastName: '',
+    email: '',
+    flightId: '',
+    class: 'First Class',
+  }
+
   bookFlight() {
+    this.commonService.getUpdate().subscribe(
+      user => {
+        this.bookedFlightObj.firstName = user.firstName;
+        this.bookedFlightObj.lastName = user.lastName;
+        this.bookedFlightObj.email = user.email;
+      }
+    );
     this.commonService.getValue().subscribe(flight => {
-      this.bookingService.bookFlight(flight).subscribe(
+      this.bookedFlightObj.flightId = flight._id;
+      console.log(this.bookedFlightObj);
+      this.bookingService.bookFlight(this.bookedFlightObj).subscribe(
         () => {
           alert('Flight booked successfully');
         }
       );
     });
+    setTimeout(() => {
+      this.router.navigate(['/booked-flights']);
+    }, 1000);
   }
 
 }
