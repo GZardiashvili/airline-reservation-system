@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from "@angular/forms";
-import { ManagePlaneService } from "../ars-manager/manage-plane/services/manage-plane.service";
 import { Plane } from "../ars-manager/manage-plane/plane";
 import { Observable } from "rxjs";
 import { CommonService } from "../../shared/common/common.service";
+import { ManageFlightService } from "../ars-manager/manage-flight/services/manage-flight.service";
+import { BookFlightService } from "./services/book-flight.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-book-flight',
@@ -23,7 +25,8 @@ export class BookFlightComponent implements OnInit {
   isLinear = true;
 
 
-  constructor(private _formBuilder: FormBuilder, private commonService: CommonService, private planeService: ManagePlaneService) {
+  constructor(private _formBuilder: FormBuilder, private commonService: CommonService,
+              private bookingService: BookFlightService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -46,11 +49,12 @@ export class BookFlightComponent implements OnInit {
   }
 
   bookFlight() {
-    this.plane$ = this.planeService.getPlane('62b5ba26661dace0bcb30b45');
-    this.plane$.subscribe(plane => {
-      if (plane.seats) {
-        this.planeService.updatePlane('62b5ba26661dace0bcb30b45', {...plane, seats: plane.seats - 1}).subscribe();
-      }
+    this.commonService.getValue().subscribe(flight => {
+      this.bookingService.bookFlight(flight).subscribe(
+        () => {
+          alert('Flight booked successfully');
+        }
+      );
     });
   }
 

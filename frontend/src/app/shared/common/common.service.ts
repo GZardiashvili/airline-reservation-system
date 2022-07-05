@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable } from "rxjs";
 export class CommonService {
 
   private update$ = new BehaviorSubject<string>('');
+  private value$ = new BehaviorSubject<any>('');
 
   constructor() {
   }
@@ -15,7 +16,15 @@ export class CommonService {
     this.update$.next(message);
   }
 
+  sendValue(message: any) {
+    this.value$.next(message);
+  }
+
   getUpdate(): Observable<any> {
     return this.update$.asObservable();
+  }
+
+  getValue(): Observable<any> {
+    return this.value$.asObservable();
   }
 }

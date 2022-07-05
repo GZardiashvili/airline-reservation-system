@@ -47,7 +47,11 @@ export class FlightComponent implements OnInit {
         this.commonService.sendUpdate(user);
       }
     )
+
     this.flight$ = this.flightService.getFlight(String(id));
+    this.flight$.subscribe(flight => {
+      this.commonService.sendValue(flight);
+    });
   }
 
 }
