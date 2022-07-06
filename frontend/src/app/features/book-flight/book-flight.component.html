@@ -10,4 +10,14 @@
               optionLabel="viewValue"
               [showClear]="true"></p-dropdown>
 </div>
-<button pButton pRipple type="button" label="Primary" (click)="bookFlight()"></button>
+<div class="flex" *ngIf="ticketCount > 1">
+  <h5>First Name</h5>
+  <input type="text" pInputText [(ngModel)]="bookingObj.firstName"/>
+  <h5>Last Name</h5>
+  <input type="text" pInputText [(ngModel)]="bookingObj.lastName"/>
+  <h5>Flight Class</h5>
+  <p-dropdown [options]="chooseTicketClass" [(ngModel)]="selectedClass" placeholder="Select a Class"
+              optionLabel="viewValue"
+              [showClear]="true"></p-dropdown>
+</div>
+<button pButton pRipple type="button" label="Book Flight" (click)="bookFlight()"></button>

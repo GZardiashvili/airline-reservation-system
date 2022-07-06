@@ -21,6 +21,7 @@ import { STEPPER_GLOBAL_OPTIONS } from "@angular/cdk/stepper";
 export class BookFlightComponent implements OnInit {
   plane$!: Observable<Plane>;
   selectedClass!: string;
+  ticketCount = 2
 
   constructor(private _formBuilder: FormBuilder, private commonService: CommonService,
               private bookingService: BookFlightService, private router: Router) {
@@ -59,6 +60,7 @@ export class BookFlightComponent implements OnInit {
   };
   passengers = [this.bookingObj];
 
+
   addPassenger() {
     this.passengers.push(this.bookingObj);
   }
@@ -67,8 +69,10 @@ export class BookFlightComponent implements OnInit {
     this.commonService.getValue().subscribe(flight => {
       this.bookingObj.flightId = flight._id;
     })
-
-    this.bookingService.bookFlight(this.bookingObj).subscribe();
+    this.passengers.forEach(passenger => {
+      console.log(passenger);
+      this.bookingService.bookFlight(passenger).subscribe();
+    })
     this.router.navigate(['/booked-flights']);
   }
 

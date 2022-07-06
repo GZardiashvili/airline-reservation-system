@@ -7,7 +7,7 @@
                     (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
         <span class="p-input-icon-left p-mb-2 p-mb-md-0">
                   <i class="pi pi-search"></i>
-                  <input type="search" pInputText placeholder="Search by Name">
+                  <input type="search" pInputText placeholder="Search by anything">
               </span>
         <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
       </div>
@@ -16,7 +16,7 @@
       <div class="p-col-12">
         <div class="product-list-item">
           <div class="product-list-detail">
-            <div class="product-name">{{flight.flightNumber}}</div>
+            <div class="product-name">{{flight.departureCity}}</div>
             <div class="product-description">{{flight.description}}</div>
             <p-rating [ngModel]="flight.rating" [readonly]="true" [cancel]="false"></p-rating>
             <i class="pi pi-tag product-category-icon"></i><span
@@ -24,6 +24,9 @@
           </div>
           <div class="product-list-action">
             <span class="product-price">${{flight.price}}</span>
+            <p-inputNumber [(ngModel)]="quantity" mode="decimal" [showButtons]="true" inputId="minmax-buttons"
+                           [min]="0" [max]="100">
+            </p-inputNumber>
             <p-button label="Add to Cart"
                       [disabled]="flight.inventoryStatus === 'OUTOFSTOCK'"></p-button>
             <span
@@ -50,8 +53,13 @@
           </div>
           <div class="product-grid-item-bottom">
             <span class="product-price">${{flight.planeId}}</span>
-            <p-button icon="pi pi-shopping-cart" [disabled]="flight.airlineId === 'OUTOFSTOCK'"
-                      (click)="getFlight(flight._id)" [routerLink]="'/book-flight'"></p-button>
+            <div class="field col-12 md:col-3">
+              <p-inputNumber [(ngModel)]="quantity" mode="decimal" [showButtons]="true" inputId="minmax-buttons"
+                             [min]="0" [max]="100">
+              </p-inputNumber>
+              <p-button icon="pi pi-shopping-cart" [disabled]="flight.airlineId === 'OUTOFSTOCK'"
+                        (click)="getFlight(flight._id)" [routerLink]="'/book-flight'"></p-button>
+            </div>
           </div>
         </div>
       </div>

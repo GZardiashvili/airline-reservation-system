@@ -32,6 +32,7 @@ export class FlightComponent implements OnInit {
     departureTime: [''],
     arrivalTime: [''],
   })
+  quantity: number = 1;
 
   products!: any [];
 
