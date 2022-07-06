@@ -25,6 +25,12 @@ import { AutoCompleteModule } from "primeng/autocomplete";
 import { CalendarModule } from "primeng/calendar";
 import { InputTextModule } from "primeng/inputtext";
 import { DropdownModule } from "primeng/dropdown";
+import { DataViewModule } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
 
 const materialModules = [
   FontAwesomeModule,
@@ -51,6 +57,12 @@ const primeModules = [
   CalendarModule,
   InputTextModule,
   DropdownModule,
+  DataViewModule,
+  PanelModule,
+  DialogModule,
+  ButtonModule,
+  RippleModule,
+  RatingModule,
 ]
 
 @NgModule({

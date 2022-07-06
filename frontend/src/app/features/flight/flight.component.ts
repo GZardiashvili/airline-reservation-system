@@ -8,6 +8,7 @@ import { ManageUserService } from "../ars-manager/manage-user/services/manage-us
 import { CommonService } from "../../shared/common/common.service";
 import { ManageTicketService } from "../ars-manager/manage-ticket/services/manage-ticket.service";
 import { Ticket } from "../ars-manager/manage-ticket/ticket";
+import { PrimeNGConfig, SelectItem } from "primeng/api";
 
 @Component({
   selector: 'app-flight',
@@ -32,15 +33,33 @@ export class FlightComponent implements OnInit {
     arrivalTime: [''],
   })
 
+  products!: any [];
+
+  sortOptions!: SelectItem[];
+
+  sortOrder!: number;
+
+  sortField!: string;
+  sortKey: any;
+
   constructor(private fb: FormBuilder,
               private flightService: FlightService,
               private userService: ManageUserService,
               private ticketService: ManageTicketService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private primengConfig: PrimeNGConfig) {
 
   }
 
   ngOnInit(): void {
+    this.flightService.getFlights().subscribe(data => this.products = data);
+
+    this.sortOptions = [
+      {label: 'Price High to Low', value: '!price'},
+      {label: 'Price Low to High', value: 'price'}
+    ];
+
+    this.primengConfig.ripple = true;
     this.flights$ = this.flightService.getFlights();
   }
 
@@ -57,4 +76,15 @@ export class FlightComponent implements OnInit {
     });
   }
 
+  onSortChange(event: any) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
+    } else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
+  }
 }

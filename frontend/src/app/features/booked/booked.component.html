@@ -1,10 +1,63 @@
 <ng-container *ngIf="bookings$ | async as bookings">
   <ng-container *ngIf="flightInfo$ | async as flightInfo">
-    <p>{{bookings[0].firstName}}</p>
-    <p>{{bookings[0].lastName}}</p>
-    <p>{{bookings[0].email}}</p>
-    <p>{{bookings[0].class}}</p>
-    <p>{{flightInfo.flightNumber}}</p>
-    <p>{{flightInfo.departureTime | date}}</p>
+    <p-dataView #dv [value]="bookings" [paginator]="true" [rows]="9" filterBy="name"
+                [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
+      <ng-template pTemplate="header">
+        <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
+          <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By Price"
+                      (onChange)="onSortChange($event)" styleClass="p-mb-2 p-mb-md-0"></p-dropdown>
+          <span class="p-input-icon-left p-mb-2 p-mb-md-0">
+                  <i class="pi pi-search"></i>
+                  <input type="search" pInputText placeholder="Search by anything">
+              </span>
+          <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+        </div>
+      </ng-template>
+      <ng-template let-booking pTemplate="listItem">
+        <div class="p-col-12">
+          <div class="product-list-item">
+            <div class="product-list-detail">
+              <div class="product-name">{{booking.firstName}}</div>
+              <div class="product-description">{{booking.lastName}}</div>
+              <p-rating [ngModel]="booking.rating" [readonly]="true" [cancel]="false"></p-rating>
+              <i class="pi pi-tag product-category-icon"></i><span
+              class="product-category">{{booking.email}}</span>
+            </div>
+            <div class="product-list-action">
+              <span class="product-price">{{booking.class}}</span>
+              <p-button icon="pi pi-undo" label="Cancel ticket"
+                        [disabled]="booking.status !== 'active'"></p-button>
+              <span
+                [class]="'product-badge status-' + booking.firstName.toLowerCase()">{{booking.firstName}}</span>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+      <ng-template let-booking pTemplate="gridItem">
+        <div class="p-col-12 p-md-4">
+          <div class="product-grid-item card">
+            <div class="product-grid-item-top">
+              <div>
+                <i class="pi pi-tag product-category-icon"></i>
+                <span class="product-category">{{booking.firstName}}</span>
+              </div>
+              <span
+                [class]="'product-badge status-' + booking.firstName.toLowerCase()">{{booking.lastName}}</span>
+            </div>
+            <div class="product-grid-item-content">
+              <div class="product-name">{{booking.email}}</div>
+              <div class="product-description">{{booking.email}}</div>
+              <p-rating [ngModel]="booking.class" [readonly]="true" [cancel]="false"></p-rating>
+            </div>
+            <div class="product-grid-item-bottom">
+              <span class="product-price">${{booking.class}}</span>
+              <p-button icon="pi pi-undo" [disabled]="booking.status !== 'active'"
+                        (click)="cancelFlight()"></p-button>
+            </div>
+          </div>
+        </div>
+      </ng-template>
+    </p-dataView>
   </ng-container>
 </ng-container>
+
