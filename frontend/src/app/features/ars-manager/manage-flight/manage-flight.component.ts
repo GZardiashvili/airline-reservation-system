@@ -4,7 +4,6 @@ import {
   combineLatest,
   debounceTime,
   distinctUntilChanged,
-  Observable,
   Subject,
   switchMap
 } from "rxjs";
@@ -18,6 +17,7 @@ import { Airline } from "../manage-airline/airline";
 import { ManagePlaneService } from "../manage-plane/services/manage-plane.service";
 import { HomeService } from "../../home/services/home.service";
 import { takeUntil } from "rxjs/operators";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-manage-flight',
@@ -27,8 +27,8 @@ import { takeUntil } from "rxjs/operators";
 export class ManageFlightComponent implements OnInit, OnDestroy {
   private readonly reloadFlights$ = new BehaviorSubject(true);
   private componentIsDestroyed$ = new Subject<boolean>();
-  flights$!: Observable<Flight[]>;
-  flight$!: Observable<Flight>;
+  flights!: Flight[];
+  flight!: Flight;
   status = ['All', 'Active', 'Cancelled'];
   headers = ['Flight Code', 'From - To', 'Duration', 'Flight Status'];
   view: 'details' | 'edit' | 'create' | 'none' = 'none';
@@ -46,6 +46,9 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     departureTime: [''],
     arrivalTime: [''],
   });
+  productDialog!: boolean;
+  selectedProducts!: Flight[] | null;
+  submitted!: boolean;
 
   constructor(private manageFlightService: ManageFlightService,
               private manageAirlineService: ManageAirlineService,
@@ -53,29 +56,19 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
               private homeService: HomeService,
               private fb: FormBuilder,
               private route: ActivatedRoute,
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService,
               private commonService: CommonService) {
   }
-
-  editView() {
-    this.view = 'edit';
-    this.flightFormGroup.reset();
-  }
-
-  showDetails() {
-    this.view = 'details';
-  }
-
-  createView() {
-    this.view = 'create';
-  }
-
 
   editFlight() {
 
   }
 
   getFlight(id: string) {
-    this.flight$ = this.manageFlightService.getFlight(id);
+    this.manageFlightService.getFlight(id).subscribe(data => {
+      this.flight = data;
+    });
   }
 
   airlines: Airline[] = [];
@@ -98,7 +91,7 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.flights$ = combineLatest(
+    combineLatest(
       [
         this.route.paramMap,
         this.reloadFlights$
@@ -107,7 +100,9 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
       switchMap(([params]) => {
         return this.manageFlightService.getFlights();
       }),
-    )
+    ).subscribe(data => {
+      this.flights = data;
+    })
 
   }
 
@@ -123,6 +118,7 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     arrivalTime: '',
     results: [''],
   }
+  Delete: any;
 
   addFlight() {
     this.manageFlightService.addFlight(<any>this.flightObj)
@@ -186,6 +182,88 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
 
   chooseArrivalTime(event: any) {
     this.flightObj.arrivalTime = event;
+  }
+
+  openNew() {
+    this.flight = {};
+    this.submitted = false;
+    this.productDialog = true;
+  }
+
+  deleteSelectedProducts() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected products?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.flights = this.flights.filter(val => !this.selectedProducts?.includes(val));
+        this.selectedProducts = null;
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
+      }
+    });
+  }
+
+  editProduct(flight: Flight) {
+    this.flight = {...flight};
+    this.productDialog = true;
+  }
+
+  deleteProduct(flight: Flight) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + flight.flightNumber + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.flights = this.flights.filter(val => val._id !== flight._id);
+        this.flight = {};
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
+      }
+    });
+  }
+
+  hideDialog() {
+    this.productDialog = false;
+    this.submitted = false;
+  }
+
+  saveProduct() {
+    this.submitted = true;
+
+    if (this.flight.flightNumber?.trim()) {
+      if (this.flight._id) {
+        this.flights[this.findIndexById(this.flight._id)] = this.flight;
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+      } else {
+        this.flight._id = this.createId();
+        this.flights.push(this.flight);
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+      }
+
+      this.flights = [...this.flights];
+      this.productDialog = false;
+      this.flight = {};
+    }
+  }
+
+  findIndexById(id: string): number {
+    let index = -1;
+    for (let i = 0; i < this.flights.length; i++) {
+      if (this.flights[i]._id === id) {
+        index = i;
+        break;
+      }
+    }
+
+    return index;
+  }
+
+  createId(): string {
+    let id = '';
+    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (var i = 0; i < 5; i++) {
+      id += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return id;
   }
 
   private reloadFlights(): void {
