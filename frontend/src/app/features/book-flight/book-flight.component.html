@@ -1,23 +1,32 @@
-<div class="flex">
-  <h5>First Name</h5>
-  <input type="text" pInputText [(ngModel)]="bookingObj.firstName"/>
-  <h5>Last Name</h5>
-  <input type="text" pInputText [(ngModel)]="bookingObj.lastName"/>
-  <h5>Email</h5>
-  <input type="text" pInputText [(ngModel)]="bookingObj.email"/>
-  <h5>Flight Class</h5>
-  <p-dropdown [options]="chooseTicketClass" [(ngModel)]="selectedClass" placeholder="Select a Class"
-              optionLabel="viewValue"
-              [showClear]="true"></p-dropdown>
-</div>
-<div class="flex" *ngIf="ticketCount > 1">
-  <h5>First Name</h5>
-  <input type="text" pInputText [(ngModel)]="bookingObj.firstName"/>
-  <h5>Last Name</h5>
-  <input type="text" pInputText [(ngModel)]="bookingObj.lastName"/>
-  <h5>Flight Class</h5>
-  <p-dropdown [options]="chooseTicketClass" [(ngModel)]="selectedClass" placeholder="Select a Class"
-              optionLabel="viewValue"
-              [showClear]="true"></p-dropdown>
+<div class="flex" [formGroup]="bookingObj">
+  <ng-container *ngIf="bookingObj.controls">
+    <div formArrayName="firstName">
+      <ng-container *ngFor="let firstNameArrayControl of firstName['controls']; index as i ">
+        <h5>First Name</h5>
+        <input type="text" pInputText [formControlName]="i"/>
+      </ng-container>
+    </div>
+    <div formArrayName="lastName">
+      <ng-container *ngFor="let lastNameArrayControl of lastName['controls']; index as i ">
+        <h5>Last Name</h5>
+        <input type="text" pInputText [formControlName]="i"/>
+      </ng-container>
+    </div>
+    <!--    <div formArrayName="email">-->
+    <!--      <ng-container *ngFor="let emailArrayControl of email['controls']; index as i ">-->
+    <!--        <h5>Email</h5>-->
+    <!--        <input type="text" pInputText [formControlName]="i"/>-->
+    <!--      </ng-container>-->
+    <!--    </div>-->
+    <div formArrayName="class">
+      <ng-container *ngFor="let classArrayControl of class['controls']; index as i ">
+        <h5>Flight Class</h5>
+        <p-dropdown [options]="chooseTicketClass" [formControlName]="i" placeholder="Select a Class"
+                    optionLabel="viewValue"
+                    [showClear]="true"></p-dropdown>
+      </ng-container>
+    </div>
+  </ng-container>
+
 </div>
 <button pButton pRipple type="button" label="Book Flight" (click)="bookFlight()"></button>
