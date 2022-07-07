@@ -31,6 +31,14 @@ import { PanelModule } from 'primeng/panel';
 import { DialogModule } from 'primeng/dialog';
 import { RatingModule } from 'primeng/rating';
 import { RippleModule } from 'primeng/ripple';
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToastModule } from "primeng/toast";
+import { ToolbarModule } from "primeng/toolbar";
+import { FileUploadModule } from "primeng/fileupload";
+import { TableModule } from "primeng/table";
+import { RadioButtonModule } from "primeng/radiobutton";
+import { InputNumberModule } from "primeng/inputnumber";
+import { InputTextareaModule } from "primeng/inputtextarea";
 
 const materialModules = [
   FontAwesomeModule,
@@ -63,6 +71,14 @@ const primeModules = [
   ButtonModule,
   RippleModule,
   RatingModule,
+  ConfirmDialogModule,
+  ToastModule,
+  ToolbarModule,
+  FileUploadModule,
+  TableModule,
+  RadioButtonModule,
+  InputNumberModule,
+  InputTextareaModule,
 ]
 
 @NgModule({

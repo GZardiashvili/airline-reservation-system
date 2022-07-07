@@ -16,6 +16,7 @@ import { Airline } from "./airline";
 import { takeUntil } from "rxjs/operators";
 import { ActivatedRoute } from "@angular/router";
 import { CommonService } from "../../../shared/common/common.service";
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @Component({
   selector: 'app-manage-airline',
@@ -26,8 +27,8 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
 
   private componentIsDestroyed$ = new Subject<boolean>();
   private readonly reloadAirlines$ = new BehaviorSubject(true);
-  airlines$!: Observable<Airline[]>;
-  airline$!: Observable<Airline>;
+  airlines!: Airline[];
+  airline!: Airline;
   status = ['All', 'Commercial', 'Business'];
   headers = ['Company', 'Code'];
   view: 'details' | 'edit' | 'create' | 'none' = 'none';
@@ -39,29 +40,26 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
     airlineDescription: [''],
     flightId: [''],
   });
+  productDialog!: boolean;
+
+  selectedProducts!: any[] | null;
+
+  submitted!: boolean;
+  Delete: any;
 
   constructor(private manageAirlineService: ManageAirlineService,
               private manageFlightService: ManageFlightService,
               private fb: FormBuilder,
               private route: ActivatedRoute,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private messageService: MessageService,
+              private confirmationService: ConfirmationService) {
 
   }
 
-  editView() {
-    this.view = 'edit';
-  }
-
-  showDetails() {
-    this.view = 'details';
-  }
-
-  createView() {
-    this.view = 'create';
-  }
 
   ngOnInit(): void {
-    this.airlines$ = combineLatest([
+    combineLatest([
       this.route.paramMap,
       this.commonService.getUpdate().pipe(
         takeUntil(this.componentIsDestroyed$),
@@ -73,28 +71,24 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
       switchMap(([params]) => {
         return this.manageAirlineService.getAirlines('');
       })
+    ).subscribe(
+      (airlines: Airline[]) => {
+        this.airlines = airlines;
+      }
     );
     this.flights$ = this.manageFlightService.getFlights();
   }
 
   addAirline() {
-    return this.manageAirlineService.addAirline(<Airline>this.airlineForm.value)
+    return this.manageAirlineService.addAirline(this.airline)
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
         () => this.reloadAirlines()
       )
   }
 
-  getAirline(id: string) {
-    this.airline$ = this.manageAirlineService.getAirline(id);
-    this.airline$.pipe(takeUntil(this.componentIsDestroyed$))
-      .subscribe(airline => {
-        this.airlineForm.patchValue(airline);
-      })
-  }
-
   updateAirline(id: string | undefined) {
-    return this.manageAirlineService.updateAirline(String(id), <Airline>this.airlineForm.value)
+    return this.manageAirlineService.updateAirline(String(id), this.airline)
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
         () => this.reloadAirlines()
@@ -107,6 +101,78 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
       .subscribe(
         () => this.reloadAirlines()
       )
+  }
+
+  openNew() {
+    this.airline = {airlineCode: "", company: "", description: "", flightIds: []};
+    this.submitted = false;
+    this.productDialog = true;
+  }
+
+  deleteSelectedProducts() {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete the selected airlines?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.airlines = this.airlines.filter(val => !this.selectedProducts?.includes(val));
+        this.selectedProducts = null;
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Airlines Deleted', life: 3000});
+      }
+    });
+  }
+
+  editProduct(airline: Airline) {
+    this.airline = {...airline};
+    this.productDialog = true;
+  }
+
+  deleteProduct(airline: Airline) {
+    this.confirmationService.confirm({
+      message: 'Are you sure you want to delete ' + airline.company + '?',
+      header: 'Confirm',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        this.deleteAirline(airline._id);
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Airline Deleted', life: 3000});
+      }
+    });
+  }
+
+  hideDialog() {
+    this.productDialog = false;
+    this.submitted = false;
+  }
+
+  saveProduct() {
+    this.submitted = true;
+
+    if (this.airline.company.trim()) {
+      if (this.airline._id) {
+        this.airlines[this.findIndexById(this.airline._id)] = this.airline;
+        this.updateAirline(this.airline._id);
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Airline Updated', life: 3000});
+      } else {
+        this.addAirline()
+        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Airline Created', life: 3000});
+      }
+
+      this.airlines = [...this.airlines];
+      this.productDialog = false;
+      this.airline = {airlineCode: "", company: "", description: "", flightIds: []};
+    }
+  }
+
+  findIndexById(id: string): number {
+    let index = -1;
+    for (let i = 0; i < this.airlines.length; i++) {
+      if (this.airlines[i]._id === id) {
+        index = i;
+        break;
+      }
+    }
+
+    return index;
   }
 
   private reloadAirlines(): void {
