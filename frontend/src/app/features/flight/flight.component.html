@@ -1,4 +1,4 @@
-<ng-container *ngIf="flights$ | async as flights">
+<ng-container *ngIf="flights">
   <p-dataView #dv [value]="flights" [paginator]="true" [rows]="9" filterBy="name"
               [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
     <ng-template pTemplate="header">

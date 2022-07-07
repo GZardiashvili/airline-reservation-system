@@ -10,7 +10,7 @@ const addTicket = async (ticket) => {
 const getAllTickets = async (query) => {
   const { gte, lte, sort = { createdAt: -1 } } = query;
   query = {};
-  if (gte != null && lte != null) {
+  if (gte && lte) {
     query.$and = [{ gte: { $gte: gte } }, { lte: { $lte: lte } }];
   }
 

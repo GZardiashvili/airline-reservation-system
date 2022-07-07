@@ -8,14 +8,28 @@ const addFlight = async (flight) => {
 };
 
 const getAllFlights = async (query) => {
-  const { search, sort = { createdAt: -1 } } = query;
+  const {
+    search,
+    from,
+    to,
+    rangeDate,
+    sort = { createdAt: -1 },
+  } = query;
   query = {};
   if (search) {
-    query.search.$or = [
-      { departureCity: { $in: [search] } },
-      { arrivalCity: { $in: [search] } },
-      { departureTime: { $in: [search] } },
+    query.$or = [
+      { departureCity: { $regex: search, $options: 'i' } },
+      { arrivalCity: { $regex: search, $options: 'i' } },
     ];
+  }
+  if (from && to) {
+    query.$and = [
+      { departureCity: { $regex: from, $options: 'i' } },
+      { arrivalCity: { $regex: to, $options: 'i' } },
+    ];
+  }
+  if (rangeDate) {
+    query.departureDate = { $gte: rangeDate[0], $lte: rangeDate[1] };
   }
 
   const flights = await Flight.find({

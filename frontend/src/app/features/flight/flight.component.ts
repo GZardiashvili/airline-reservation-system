@@ -3,12 +3,13 @@ import { faHeart, faLocationDot } from "@fortawesome/free-solid-svg-icons";
 import { FlightService } from "./services/flight.service";
 import { FormBuilder } from "@angular/forms";
 import { Flight } from "./flight";
-import { Observable } from "rxjs";
+import { combineLatest, Observable, switchMap } from "rxjs";
 import { ManageUserService } from "../ars-manager/manage-user/services/manage-user.service";
 import { CommonService } from "../../shared/common/common.service";
 import { ManageTicketService } from "../ars-manager/manage-ticket/services/manage-ticket.service";
 import { Ticket } from "../ars-manager/manage-ticket/ticket";
 import { PrimeNGConfig, SelectItem } from "primeng/api";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-flight',
@@ -16,7 +17,7 @@ import { PrimeNGConfig, SelectItem } from "primeng/api";
   styleUrls: ['./flight.component.scss']
 })
 export class FlightComponent implements OnInit {
-  flights$!: Observable<Flight[]>;
+  flights: Flight[] = [];
   flight$!: Observable<Flight>;
   ticket$!: Observable<Ticket>
   faHeart = faHeart
@@ -34,8 +35,6 @@ export class FlightComponent implements OnInit {
   })
   quantity: number = 1;
 
-  products!: any [];
-
   sortOptions!: SelectItem[];
 
   sortOrder!: number;
@@ -46,6 +45,7 @@ export class FlightComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private flightService: FlightService,
               private userService: ManageUserService,
+              private route: ActivatedRoute,
               private ticketService: ManageTicketService,
               private commonService: CommonService,
               private primengConfig: PrimeNGConfig) {
@@ -53,15 +53,36 @@ export class FlightComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.flightService.getFlights().subscribe(data => this.products = data);
-
+    combineLatest([
+      this.route.queryParamMap,
+    ]).pipe(
+      switchMap(([params]) => {
+        if (params.get('from') && params.get('to')) {
+          return this.flightService.getFlights(String(params.get('from')), String(params.get('to')));
+        } else {
+          return this.flightService.getFlights();
+        }
+      })
+    ).subscribe(data => {
+        this.flights = data;
+      }
+    )
     this.sortOptions = [
       {label: 'Price High to Low', value: '!price'},
       {label: 'Price Low to High', value: 'price'}
     ];
 
     this.primengConfig.ripple = true;
-    this.flights$ = this.flightService.getFlights();
+    combineLatest([
+      this.route.paramMap,
+    ]).pipe(
+      switchMap(([params]) => {
+        return this.flightService.getFlights(String(params.get('search')));
+      })
+    ).subscribe(data => {
+        this.flights = data;
+      }
+    )
   }
 
   getFlight(id: string | undefined) {

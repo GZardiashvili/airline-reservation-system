@@ -42,11 +42,14 @@ export class HomeComponent implements OnInit {
   }
 
   searchFlights() {
-    console.log(this.fromCity);
-    console.log(this.toCity);
-    console.log(this.rangeDates);
     this.commonService.sendUpdate(this.fromCity);
-    this.router.navigate(['/flights'], {queryParams: {departureCity: this.fromCity, arrivalCity: this.toCity}});
+    this.router.navigate(['/flights'], {
+      queryParams: {
+        from: this.fromCity,
+        to: this.toCity,
+        rangeDate: this.rangeDates
+      }
+    });
 
   }
 
