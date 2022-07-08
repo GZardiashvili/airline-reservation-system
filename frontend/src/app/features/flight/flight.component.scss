@@ -95,6 +95,57 @@
   margin-bottom: 2rem;
 }
 
+.example-form {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
+.app-search {
+  margin-bottom: 50px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  column-gap: 20px;
+
+  .app-button {
+    cursor: pointer;
+    position: absolute;
+    width: 120px;
+    height: 42px;
+    bottom: -21px;
+    background: #1B66CA;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    -webkit-border-radius: 20px 20px;
+
+    fa-icon {
+      margin-right: 10px;
+    }
+  }
+}
+
+
 @media screen and (max-width: 576px) {
   :host ::ng-deep .product-list-item {
     flex-direction: column;

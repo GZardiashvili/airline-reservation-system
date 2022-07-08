@@ -1,15 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { faHeart, faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faPlaneDeparture, faPlaneArrival } from "@fortawesome/free-solid-svg-icons";
 import { FlightService } from "./services/flight.service";
-import { FormBuilder } from "@angular/forms";
+import { FormBuilder, FormControl } from "@angular/forms";
 import { Flight } from "./flight";
-import { combineLatest, Observable, switchMap } from "rxjs";
+import { combineLatest, debounceTime, Observable, switchMap } from "rxjs";
 import { ManageUserService } from "../ars-manager/manage-user/services/manage-user.service";
 import { CommonService } from "../../shared/common/common.service";
 import { ManageTicketService } from "../ars-manager/manage-ticket/services/manage-ticket.service";
 import { Ticket } from "../ars-manager/manage-ticket/ticket";
 import { PrimeNGConfig, SelectItem } from "primeng/api";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { HomeService } from "../home/services/home.service";
 
 @Component({
   selector: 'app-flight',
@@ -17,10 +20,14 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./flight.component.scss']
 })
 export class FlightComponent implements OnInit {
+  readonly faSearch: IconProp = faSearch;
+  faPlaneDeparture = faPlaneDeparture
+  faPlaneArrival = faPlaneArrival
   flights: Flight[] = [];
   flight$!: Observable<Flight>;
   ticket$!: Observable<Ticket>
-  faHeart = faHeart
+  fromCityControl = new FormControl('');
+  toCityControl = new FormControl('');
   faLocation = faLocationDot
   flightForm = this.fb.group({
     flightNumber: [''],
@@ -33,6 +40,11 @@ export class FlightComponent implements OnInit {
     departureTime: [''],
     arrivalTime: [''],
   })
+  fromCity!: string[];
+  toCity!: string[];
+  rangeDates: Date[] = [];
+  results!: string[];
+
   quantity: number = 1;
 
   sortOptions!: SelectItem[];
@@ -45,10 +57,12 @@ export class FlightComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private flightService: FlightService,
               private userService: ManageUserService,
+              private homeService: HomeService,
               private route: ActivatedRoute,
               private ticketService: ManageTicketService,
               private commonService: CommonService,
-              private primengConfig: PrimeNGConfig) {
+              private primengConfig: PrimeNGConfig,
+              private router: Router) {
 
   }
 
@@ -83,6 +97,27 @@ export class FlightComponent implements OnInit {
         this.flights = data;
       }
     )
+  }
+
+
+  searchFlights() {
+    this.commonService.sendUpdate(this.fromCity);
+    this.router.navigate(['/flights'], {
+      queryParams: {
+        from: this.fromCity,
+        to: this.toCity,
+        rangeDate: this.rangeDates
+      }
+    });
+
+  }
+
+  search(event: any) {
+    this.homeService.getAirports(event.query).pipe(
+      debounceTime(300))
+      .subscribe(data => {
+        this.results = data.map(item => item.city);
+      })
   }
 
   getFlight(id: string | undefined) {

@@ -1,22 +1,26 @@
 <div class="flex">
   <div class="wrapper">
-    <div class="search-bar" [ngClass]="{ 'hidden' : !currentRoute.includes('/flights') }">
-      <app-search></app-search>
+    <div class="app-home">
+      <a [routerLink]="'/home'">Home</a>
+
     </div>
-    <div class="container">
-      <nav class="menu">
-        <ul class="menu__list">
-          <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"
-              class="menu__list-item">
-            <a [ngClass]="currentRoute.includes(menuItem.route) ? 'selected items' : '' " [routerLink]="menuItem.route">
-              <span class="menu__list-icon"><fa-icon
-                [icon]="menuItem.icon"></fa-icon></span>
-              <span>{{menuItem.title}}</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <!--    <div class="search-bar" [ngClass]="{ 'hidden' : !currentRoute.includes('/flights') }">-->
+    <!--      <app-search></app-search>-->
+    <!--    </div>-->
+    <!--    <div class="container">-->
+    <!--      <nav class="menu">-->
+    <!--        <ul class="menu__list">-->
+    <!--          <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"-->
+    <!--              class="menu__list-item">-->
+    <!--            <a [ngClass]="currentRoute.includes(menuItem.route) ? 'selected items' : '' " [routerLink]="menuItem.route">-->
+    <!--              <span class="menu__list-icon"><fa-icon-->
+    <!--                [icon]="menuItem.icon"></fa-icon></span>-->
+    <!--              <span>{{menuItem.title}}</span>-->
+    <!--            </a>-->
+    <!--          </li>-->
+    <!--        </ul>-->
+    <!--      </nav>-->
+    <!--    </div>-->
     <div class="app-header__profile">
       <button *ngIf="notSignIn" class="btn-list" mat-button [matMenuTriggerFor]="userAcc">
         <fa-icon [icon]="faUser"></fa-icon>
@@ -30,6 +34,9 @@
         <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item>{{profile.account.label}}</button>
         <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item
                 [routerLink]="profile.bookings.url">{{profile.bookings.label}}</button>
+        <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item (click)="logout()">{{profile.logout}}</button>
+        <button *ngIf="profile.ArsManager.permission" class="btn-list--item" mat-menu-item
+                [routerLink]="profile.ArsManager.url">{{profile.ArsManager.label}}</button>
         <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item (click)="logout()">{{profile.logout}}</button>
       </mat-menu>
     </div>

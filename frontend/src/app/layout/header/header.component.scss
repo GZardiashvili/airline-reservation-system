@@ -76,6 +76,8 @@
     .app-header__profile {
       display: flex;
       flex-direction: row;
+      justify-content: right;
+      width: 100%;
 
       button {
         border-radius: 50%;
@@ -95,4 +97,8 @@
 
     }
   }
+}
+
+.app-home {
+  justify-content: left;
 }

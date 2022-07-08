@@ -9,7 +9,7 @@ import { AuthService } from "../../auth/services/auth.service";
 import { User } from "../../register/user";
 import { Observable, Subject } from "rxjs";
 import { UserService } from "./services/user.service";
-import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { MatDialog } from "@angular/material/dialog";
 import { UserDialogComponent } from "./user-dialog/user-dialog.component";
 
@@ -39,6 +39,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
     bookings: {
       label: 'My bookings',
       url: '',
+    },
+    ArsManager: {
+      id: 'ars-manager',
+      label: 'ARS Manager',
+      url: '/ars-manager',
+      permission: 'admin',
     },
     logout: 'Log out',
   };
