@@ -11,7 +11,7 @@
   </p-toolbar>
 
   <p-table #dt [value]="flights" [rows]="10" [paginator]="true"
-           [globalFilterFields]="['name','country.name','representative.name','status']"
+           [globalFilterFields]="['flightNumber','fromTo','dates','ticketId']"
            [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [showCurrentPageReport]="true">
@@ -20,7 +20,7 @@
         <h5 class="p-m-0">Manage Flights</h5>
         <span class="p-input-icon-left">
                     <i class="pi pi-search"></i>
-                    <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
+                    <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
                            placeholder="Search..."/>
                 </span>
       </div>
@@ -33,14 +33,14 @@
         <th pSortableColumn="flightNumber">Flight number
           <p-sortIcon field="flightNumber"></p-sortIcon>
         </th>
+        <th pSortableColumn="fromTo">From - To
+          <p-sortIcon field="fromTo"></p-sortIcon>
+        </th>
+        <th pSortableColumn="dates">Flight date
+          <p-sortIcon field="dates"></p-sortIcon>
+        </th>
         <th pSortableColumn="ticketId">Price
           <p-sortIcon field="ticketId"></p-sortIcon>
-        </th>
-        <th pSortableColumn="From - To">From - To
-          <p-sortIcon field="From - To"></p-sortIcon>
-        </th>
-        <th pSortableColumn="inventoryStatus">Status
-          <p-sortIcon field="inventoryStatus"></p-sortIcon>
         </th>
         <th></th>
       </tr>
@@ -51,11 +51,9 @@
           <p-tableCheckbox [value]="flight"></p-tableCheckbox>
         </td>
         <td>{{flight.flightNumber}}</td>
-        <td>{{flight.price | currency:'USD'}}</td>
         <td>{{flight.departureCity}} - {{flight.arrivalCity}}</td>
-        <!--        <td><span-->
-        <!--          [class]="'product-badge status-' + flight.inventoryStatus.toLowerCase()">{{product.inventoryStatus}}</span>-->
-        <!--        </td>-->
+        <td>{{flight.departureTime | date : 'short'}} - {{flight.arrivalTime | date : 'short'}}</td>
+        <td>{{flight.price | currency:'USD'}}</td>
         <td>
           <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
                   (click)="editProduct(flight)"></button>
@@ -66,7 +64,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{flights ? flights.length : 0 }} products.
+        In total there are {{flights ? flights.length : 0 }} flights.
       </div>
     </ng-template>
   </p-table>

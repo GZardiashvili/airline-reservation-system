@@ -4,23 +4,9 @@
       <a [routerLink]="'/home'">Home</a>
 
     </div>
-    <!--    <div class="search-bar" [ngClass]="{ 'hidden' : !currentRoute.includes('/flights') }">-->
-    <!--      <app-search></app-search>-->
-    <!--    </div>-->
-    <!--    <div class="container">-->
-    <!--      <nav class="menu">-->
-    <!--        <ul class="menu__list">-->
-    <!--          <li routerLinkActive="active" *ngFor="let menuItem of menu; let i = index; trackBy:trackBy"-->
-    <!--              class="menu__list-item">-->
-    <!--            <a [ngClass]="currentRoute.includes(menuItem.route) ? 'selected items' : '' " [routerLink]="menuItem.route">-->
-    <!--              <span class="menu__list-icon"><fa-icon-->
-    <!--                [icon]="menuItem.icon"></fa-icon></span>-->
-    <!--              <span>{{menuItem.title}}</span>-->
-    <!--            </a>-->
-    <!--          </li>-->
-    <!--        </ul>-->
-    <!--      </nav>-->
-    <!--    </div>-->
+    <ng-container *ngIf="currentRoute.includes('/ars-manager')">
+      <app-sub-menu class="sub-menu"></app-sub-menu>
+    </ng-container>
     <div class="app-header__profile">
       <button *ngIf="notSignIn" class="btn-list" mat-button [matMenuTriggerFor]="userAcc">
         <fa-icon [icon]="faUser"></fa-icon>
@@ -34,14 +20,10 @@
         <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item>{{profile.account.label}}</button>
         <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item
                 [routerLink]="profile.bookings.url">{{profile.bookings.label}}</button>
-        <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item (click)="logout()">{{profile.logout}}</button>
-        <button *ngIf="profile.ArsManager.permission" class="btn-list--item" mat-menu-item
+        <button *ngIf="profile.ArsManager.permission===role" class="btn-list--item" mat-menu-item
                 [routerLink]="profile.ArsManager.url">{{profile.ArsManager.label}}</button>
         <button *ngIf="!notSignIn" class="btn-list--item" mat-menu-item (click)="logout()">{{profile.logout}}</button>
       </mat-menu>
     </div>
   </div>
-  <ng-container *ngIf="currentRoute.includes('/ars-manager')">
-    <app-sub-menu class="sub-menu"></app-sub-menu>
-  </ng-container>
 </div>

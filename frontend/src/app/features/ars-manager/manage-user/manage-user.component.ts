@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { BehaviorSubject, Subject } from "rxjs";
 import { ManageUserService } from "./services/manage-user.service";
 import { FormBuilder } from "@angular/forms";
@@ -7,6 +7,7 @@ import { CommonService } from "../../../shared/common/common.service";
 import { ConfirmationService, MessageService } from "primeng/api";
 import { takeUntil } from "rxjs/operators";
 import { User } from "./user";
+import { Table } from "primeng/table";
 
 @Component({
   selector: 'app-manage-user',
@@ -20,7 +21,8 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   user!: User;
   status = ['All', 'Active', 'Inactive', 'admin'];
   headers = ['Name', 'Email'];
-  view: 'details' | 'edit' | 'create' | 'none' = 'none';
+  permission!: string;
+  roles = [{permission: 'user'}, {permission: 'admin'}];
   productDialog!: boolean;
 
   selectedUsers!: any[] | null;
@@ -80,6 +82,7 @@ export class ManageUserComponent implements OnInit, OnDestroy {
   editProduct(user: User) {
     this.user = {...user};
     this.productDialog = true;
+    this.permission = this.user.role;
   }
 
   deleteProduct(user: User) {
@@ -92,6 +95,12 @@ export class ManageUserComponent implements OnInit, OnDestroy {
         this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Airline Deleted', life: 3000});
       }
     });
+  }
+
+  @ViewChild('dt') dt!: Table;
+
+  applyFilterGlobal($event: Event, contains: string) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, contains);
   }
 
   hideDialog() {

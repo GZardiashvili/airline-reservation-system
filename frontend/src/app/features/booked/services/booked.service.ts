@@ -4,6 +4,7 @@ import { environment } from "../../../../environments/environment";
 import { Observable } from "rxjs";
 import { Flight } from "../../flight/flight";
 import { Ticket } from "../../ars-manager/manage-ticket/ticket";
+import { User } from "../../ars-manager/manage-user/user";
 
 @Injectable({
   providedIn: 'root'
@@ -23,5 +24,9 @@ export class BookedService {
 
   getTicket(ticketId: string): Observable<Ticket> {
     return this.http.get<any>(`${environment.apiUrl}tickets/${ticketId}`);
+  }
+
+  cancelTicket(id: string) {
+    return this.http.delete(`${environment.apiUrl}bookings/${id}`);
   }
 }

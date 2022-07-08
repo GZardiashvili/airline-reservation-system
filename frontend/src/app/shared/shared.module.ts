@@ -39,6 +39,8 @@ import { TableModule } from "primeng/table";
 import { RadioButtonModule } from "primeng/radiobutton";
 import { InputNumberModule } from "primeng/inputnumber";
 import { InputTextareaModule } from "primeng/inputtextarea";
+import { CascadeSelectModule } from "primeng/cascadeselect";
+import { SelectButtonModule } from "primeng/selectbutton";
 
 const materialModules = [
   FontAwesomeModule,
@@ -79,6 +81,8 @@ const primeModules = [
   RadioButtonModule,
   InputNumberModule,
   InputTextareaModule,
+  CascadeSelectModule,
+  SelectButtonModule,
 ]
 
 @NgModule({

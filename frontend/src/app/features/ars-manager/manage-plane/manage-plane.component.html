@@ -11,7 +11,7 @@
   </p-toolbar>
 
   <p-table #dt [value]="planes" [rows]="10" [paginator]="true"
-           [globalFilterFields]="['name','country.name','representative.name','status']"
+           [globalFilterFields]="['planeCode','model','airlineId']"
            [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [showCurrentPageReport]="true">
@@ -20,7 +20,7 @@
         <h5 class="p-m-0">Manage Planes</h5>
         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
+                            <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
                                    placeholder="Search..."/>
         </span>
       </div>
@@ -60,7 +60,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{planes ? planes.length : 0 }} airlines.
+        In total there are {{planes ? planes.length : 0 }} planes.
       </div>
     </ng-template>
   </p-table>

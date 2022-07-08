@@ -17,7 +17,7 @@ export class FlightService {
   }
 
   getFlights(from?: string, to?: string): Observable<Flight[]> {
-    if (from) {
+    if (from && to) {
       return this.http.get<Flight[]>(`${environment.apiUrl}flights?from=${from}&to=${to}`);
     }
     return this.http.get<Flight[]>(`${environment.apiUrl}flights`);

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable } from "rxjs";
+import { BehaviorSubject, combineLatest, distinctUntilChanged, Observable, switchMap } from "rxjs";
 import { BookedService } from "./services/booked.service";
 import { Flight } from "../flight/flight";
 import { PrimeNGConfig, SelectItem } from "primeng/api";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-booked',
@@ -10,7 +11,10 @@ import { PrimeNGConfig, SelectItem } from "primeng/api";
   styleUrls: ['./booked.component.scss']
 })
 export class BookedComponent implements OnInit {
+  private readonly reloadBookings$ = new BehaviorSubject(true);
+
   bookings$!: Observable<any[]>;
+  booking!: any;
   flightInfo$!: Observable<Flight>;
   products!: any [];
 
@@ -21,12 +25,18 @@ export class BookedComponent implements OnInit {
   sortField!: string;
   sortKey: any;
 
-  constructor(private bookedService: BookedService, private primengConfig: PrimeNGConfig) {
+  constructor(private bookedService: BookedService, private primengConfig: PrimeNGConfig, private route: ActivatedRoute) {
   }
 
   ngOnInit(): void {
-    this.bookings$ = this.bookedService.getBookings();
-
+    this.bookings$ = combineLatest([
+      this.route.paramMap,
+      this.reloadBookings$,
+    ]).pipe(
+      switchMap(([params]) => {
+        return this.bookedService.getBookings();
+      })
+    );
     this.sortOptions = [
       {label: 'Price High to Low', value: '!price'},
       {label: 'Price Low to High', value: 'price'}
@@ -41,8 +51,10 @@ export class BookedComponent implements OnInit {
     })
   }
 
-  cancelFlight() {
-    console.log('cancelFlight');
+  cancelTicket(id: string) {
+    return this.bookedService.cancelTicket(id)
+      .subscribe(
+        () => this.reloadBookings());
   }
 
   onSortChange(event: any) {
@@ -55,5 +67,9 @@ export class BookedComponent implements OnInit {
       this.sortOrder = 1;
       this.sortField = value;
     }
+  }
+
+  private reloadBookings(): void {
+    this.reloadBookings$.next(true);
   }
 }

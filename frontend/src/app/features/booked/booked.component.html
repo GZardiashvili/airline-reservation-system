@@ -19,7 +19,7 @@
             <div class="product-list-detail">
               <div class="product-name">{{booking.firstName}}</div>
               <div class="product-description">{{booking.lastName}}</div>
-              <p-rating [ngModel]="booking.rating" [readonly]="true" [cancel]="false"></p-rating>
+              <div class="product-description">{{booking.status}}</div>
               <i class="pi pi-tag product-category-icon"></i><span
               class="product-category">{{booking.email}}</span>
             </div>
@@ -39,20 +39,19 @@
             <div class="product-grid-item-top">
               <div>
                 <i class="pi pi-tag product-category-icon"></i>
-                <span class="product-category">{{booking.firstName}}</span>
+                <span class="product-category">{{booking.email}}</span>
               </div>
               <span
                 [class]="'product-badge status-' + booking.firstName.toLowerCase()">{{booking.lastName}}</span>
             </div>
             <div class="product-grid-item-content">
-              <div class="product-name">{{booking.email}}</div>
-              <div class="product-description">{{booking.email}}</div>
-              <p-rating [ngModel]="booking.class" [readonly]="true" [cancel]="false"></p-rating>
+              <div class="product-name">{{booking.firstName}} {{booking.lastName}}</div>
+              <div class="product-description">{{booking.status}}</div>
             </div>
             <div class="product-grid-item-bottom">
               <span class="product-price">${{booking.class}}</span>
-              <p-button icon="pi pi-undo" [disabled]="booking.status !== 'active'"
-                        (click)="cancelFlight()"></p-button>
+              <p-button icon="pi pi-undo"
+                        (click)="cancelTicket(booking._id)"></p-button>
             </div>
           </div>
         </div>

@@ -11,7 +11,7 @@
   </p-toolbar>
 
   <p-table #dt [value]="users" [rows]="10" [paginator]="true"
-           [globalFilterFields]="['name','country.name','representative.name','status']"
+           [globalFilterFields]="['firstName','lastName','email','role']"
            [(selection)]="selectedUsers" [rowHover]="true" dataKey="id"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [showCurrentPageReport]="true">
@@ -20,7 +20,7 @@
         <h5 class="p-m-0">Manage Airlines</h5>
         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
+                            <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
                                    placeholder="Search..."/>
         </span>
       </div>
@@ -64,7 +64,7 @@
     </ng-template>
     <ng-template pTemplate="summary">
       <div class="p-d-flex p-ai-center p-jc-between">
-        In total there are {{users ? users.length : 0 }} airlines.
+        In total there are {{users ? users.length : 0 }} users.
       </div>
     </ng-template>
   </p-table>
@@ -88,10 +88,10 @@
       <input type="text" pInputText id="email" [(ngModel)]="user.email" required autofocus/>
       <small class="p-invalid" *ngIf="submitted && !user.lastName">Email is required.</small>
     </div>
-    <div class="p-field">
-      <label for="role">Permission</label>
-      <input type="text" pInputText id="role" [(ngModel)]="user.role" required autofocus/>
-      <small class="p-invalid" *ngIf="submitted && !user.role">Role is required.</small>
+    <div>
+      <span>Permission</span>
+      <p-selectButton [options]="roles" [(ngModel)]="permission" optionLabel="permission"
+                      optionValue="permission"></p-selectButton>
     </div>
   </ng-template>
 

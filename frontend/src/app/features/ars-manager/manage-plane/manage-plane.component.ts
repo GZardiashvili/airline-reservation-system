@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ManagePlaneService } from "./services/manage-plane.service";
 import {
   BehaviorSubject,
@@ -16,6 +16,7 @@ import { takeUntil } from "rxjs/operators";
 import { Plane } from "./plane";
 import { Airline } from "../manage-airline/airline";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { Table } from "primeng/table";
 
 @Component({
   selector: 'app-manage-plane',
@@ -122,6 +123,12 @@ export class ManagePlaneComponent implements OnInit, OnDestroy {
         this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Airlines Deleted', life: 3000});
       }
     });
+  }
+
+  @ViewChild('dt') dt!: Table;
+
+  applyFilterGlobal($event: Event, contains: string) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, contains);
   }
 
   editProduct(plane: Plane) {

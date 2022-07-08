@@ -24,8 +24,8 @@ export class ManageUserService {
     return this.http.get<User>(`${environment.apiUrl}users/${id}`);
   }
 
-  updateUser(id: string, flight: User) {
-    return this.http.put(`${environment.apiUrl}users/${id}`, flight);
+  updateUser(id: string, user: User) {
+    return this.http.put(`${environment.apiUrl}users/${id}`, user);
   }
 
   deleteUser(id: string) {

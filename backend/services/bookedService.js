@@ -13,12 +13,8 @@ const getAllBookeds = async () => {
 };
 
 const cancelBooked = async (id) => {
-  const canceled = await Booked.findByIdAndUpdate(
-    id,
-    { canceled: true },
-    { new: true },
-  );
-  return canceled;
+  const booked = await Booked.findByIdAndDelete(id);
+  return booked;
 };
 
 module.exports = {

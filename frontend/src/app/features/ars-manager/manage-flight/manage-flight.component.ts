@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -18,6 +18,7 @@ import { ManagePlaneService } from "../manage-plane/services/manage-plane.servic
 import { HomeService } from "../../home/services/home.service";
 import { takeUntil } from "rxjs/operators";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { Table } from "primeng/table";
 
 @Component({
   selector: 'app-manage-flight',
@@ -29,9 +30,9 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
   private componentIsDestroyed$ = new Subject<boolean>();
   flights!: Flight[];
   flight!: Flight;
-  status = ['All', 'Active', 'Cancelled'];
-  headers = ['Flight Code', 'From - To', 'Duration', 'Flight Status'];
-  view: 'details' | 'edit' | 'create' | 'none' = 'none';
+  tickets: any[] = [];
+  airlines: Airline[] = [];
+  filteredAirline: Airline[] = [];
 
   flightFormGroup = this.fb.group({
     flightNumber: [''],
@@ -71,8 +72,6 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     });
   }
 
-  airlines: Airline[] = [];
-  filteredAirline: Airline[] = [];
 
   getAirlines(event: any) {
     let filtered: Airline[] = [];
@@ -110,6 +109,7 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     flightNumber: '',
     airlineId: [],
     planeId: [],
+    ticketId: [],
     departureCity: [],
     arrivalCity: [],
     departureAirport: [],
@@ -128,6 +128,7 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
       flightNumber: '',
       airlineId: [],
       planeId: [],
+      ticketId: [],
       departureCity: [],
       arrivalCity: [],
       departureAirport: [],
@@ -273,5 +274,11 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.componentIsDestroyed$.next(true);
     this.componentIsDestroyed$.complete();
+  }
+
+  @ViewChild('dt') dt!: Table;
+
+  applyFilterGlobal($event: Event, contains: string) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, contains);
   }
 }

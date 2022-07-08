@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   BehaviorSubject,
   combineLatest,
@@ -17,6 +17,7 @@ import { takeUntil } from "rxjs/operators";
 import { ActivatedRoute } from "@angular/router";
 import { CommonService } from "../../../shared/common/common.service";
 import { ConfirmationService, MessageService } from "primeng/api";
+import { Table } from "primeng/table";
 
 @Component({
   selector: 'app-manage-airline',
@@ -107,6 +108,12 @@ export class ManageAirlineComponent implements OnInit, OnDestroy {
     this.airline = {airlineCode: "", company: "", description: "", flightIds: []};
     this.submitted = false;
     this.productDialog = true;
+  }
+
+  @ViewChild('dt') dt!: Table;
+
+  applyFilterGlobal($event: Event, contains: string) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, contains);
   }
 
   deleteSelectedProducts() {

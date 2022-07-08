@@ -11,7 +11,7 @@
   </p-toolbar>
 
   <p-table #dt [value]="airlines" [rows]="10" [paginator]="true"
-           [globalFilterFields]="['name','country.name','representative.name','status']"
+           [globalFilterFields]="['company','airlineCode', 'description']"
            [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
            currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
            [showCurrentPageReport]="true">
@@ -20,7 +20,7 @@
         <h5 class="p-m-0">Manage Airlines</h5>
         <span class="p-input-icon-left">
                             <i class="pi pi-search"></i>
-                            <input pInputText type="text" (input)="dt.filterGlobal($event.target, 'contains')"
+                            <input pInputText type="text" (input)="applyFilterGlobal($event,'contains')"
                                    placeholder="Search..."/>
         </span>
       </div>

@@ -68,6 +68,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.dialog.open(UserDialogComponent);
   }
 
+  role!: string | null;
+
   logout() {
     this.authService.logout();
   }
@@ -77,6 +79,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.role = localStorage.getItem('role');
   }
 
   ngOnDestroy() {
