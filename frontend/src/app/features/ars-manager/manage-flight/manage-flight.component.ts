@@ -7,7 +7,7 @@ import {
   Subject,
   switchMap
 } from "rxjs";
-import { Flight } from "../../flight/flight";
+import { CreateFlight, Flight } from "../../flight/flight";
 import { ManageFlightService } from "./services/manage-flight.service";
 import { FormBuilder } from "@angular/forms";
 import { ActivatedRoute } from "@angular/router";
@@ -30,10 +30,15 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
   private componentIsDestroyed$ = new Subject<boolean>();
   flights!: Flight[];
   flight!: Flight;
+  createFlight!: CreateFlight;
   tickets: any[] = [];
   airlines: Airline[] = [];
   filteredAirline: Airline[] = [];
 
+  fromDate!: Date[];
+  toDate!: Date[];
+
+  results!: string[];
   flightFormGroup = this.fb.group({
     flightNumber: [''],
     description: [''],
@@ -62,8 +67,12 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
               private commonService: CommonService) {
   }
 
-  editFlight() {
-
+  search(event: any) {
+    this.homeService.getAirports(event.query).pipe(
+      debounceTime(300))
+      .subscribe(data => {
+        this.results = data.map(item => item.city);
+      })
   }
 
   getFlight(id: string) {
@@ -72,6 +81,28 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     });
   }
 
+  addFlight(flight: Flight) {
+    flight = this.flight;
+    return this.manageFlightService.addFlight(flight)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.reloadFlights()
+      )
+  }
+
+  deleteFlight(id: string) {
+    this.manageFlightService.deleteFlight(id).subscribe(data => {
+      this.reloadFlights();
+    });
+  }
+
+  updateFlight(id: string | undefined) {
+    return this.manageFlightService.updateFlight(String(id), this.flight)
+      .pipe(takeUntil(this.componentIsDestroyed$))
+      .subscribe(
+        () => this.reloadFlights()
+      )
+  }
 
   getAirlines(event: any) {
     let filtered: Airline[] = [];
@@ -119,25 +150,6 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     results: [''],
   }
   Delete: any;
-
-  addFlight() {
-    this.manageFlightService.addFlight(<any>this.flightObj)
-      .pipe(takeUntil(this.componentIsDestroyed$),)
-      .subscribe(() => this.reloadFlights());
-    this.flightObj = {
-      flightNumber: '',
-      airlineId: [],
-      planeId: [],
-      ticketId: [],
-      departureCity: [],
-      arrivalCity: [],
-      departureAirport: [],
-      arrivalAirport: [],
-      departureTime: '',
-      arrivalTime: '',
-      results: [''],
-    }
-  }
 
   chooseAirlines(event: any) {
     this.manageAirlineService.getAirlines(event.query).pipe(
@@ -209,14 +221,14 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     this.productDialog = true;
   }
 
+
   deleteProduct(flight: Flight) {
     this.confirmationService.confirm({
       message: 'Are you sure you want to delete ' + flight.flightNumber + '?',
       header: 'Confirm',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.flights = this.flights.filter(val => val._id !== flight._id);
-        this.flight = {};
+        this.deleteFlight(String(flight._id));
         this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
       }
     });
@@ -233,11 +245,20 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     if (this.flight.flightNumber?.trim()) {
       if (this.flight._id) {
         this.flights[this.findIndexById(this.flight._id)] = this.flight;
+        this.updateFlight(this.flight._id);
         this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
       } else {
-        this.flight._id = this.createId();
-        this.flights.push(this.flight);
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+        if (this.fromDate === this.toDate) {
+          for (let i = 0; i < this.fromDate.length; i++) {
+            this.addFlight({
+              ...this.flight,
+              departureTime: this.fromDate[i],
+              arrivalTime: this.toDate[i]
+            });
+          }
+          console.log(this.flight);
+          this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+        }
       }
 
       this.flights = [...this.flights];
@@ -258,13 +279,11 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     return index;
   }
 
-  createId(): string {
-    let id = '';
-    var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (var i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
+
+  @ViewChild('dt') dt!: Table;
+
+  applyFilterGlobal($event: Event, contains: string) {
+    this.dt.filterGlobal(($event.target as HTMLInputElement).value, contains);
   }
 
   private reloadFlights(): void {
@@ -276,9 +295,4 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     this.componentIsDestroyed$.complete();
   }
 
-  @ViewChild('dt') dt!: Table;
-
-  applyFilterGlobal($event: Event, contains: string) {
-    this.dt.filterGlobal(($event.target as HTMLInputElement).value, contains);
-  }
 }

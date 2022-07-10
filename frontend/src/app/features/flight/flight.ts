@@ -12,3 +12,8 @@ export interface Flight {
   departureTime?: Date;
   arrivalTime?: Date;
 }
+
+export interface CreateFlight {
+  departureTimeArr?: Date[];
+  arrivalTimeArr?: Date[];
+}

@@ -73,27 +73,130 @@
 <p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
           styleClass="p-fluid">
   <ng-template pTemplate="content">
-    <div class="p-field">
-      <label for="flightNumber">Name</label>
-      <input type="text" pInputText id="flightNumber" [(ngModel)]="flight.flightNumber" required autofocus/>
-      <small class="p-invalid" *ngIf="submitted && !flight.flightNumber">Name is required.</small>
-    </div>
-    <div class="p-field">
-      <label for="description">Description</label>
-      <textarea id="description" pInputTextarea [(ngModel)]="flight.description" required rows="3"
-                cols="20"></textarea>
-    </div>
-    <div class="p-formgrid p-grid">
-      <div class="p-field p-col">
-        <label for="ticketId">Price</label>
-        <p-inputNumber id="ticketId" [(ngModel)]="flight.ticketId" mode="currency" currency="USD"
-                       locale="en-US"></p-inputNumber>
-      </div>
-      <div class="p-field p-col">
-        <label for="airlineId">Quantity</label>
-        <p-inputNumber id="airlineId" [(ngModel)]="flight.airlineId"></p-inputNumber>
-      </div>
-    </div>
+    <!--    <div class="p-field">-->
+    <!--      <label for="flightNumber">Flight number</label>-->
+    <!--      <input type="text" pInputText id="flightNumber" [(ngModel)]="flight.flightNumber" required autofocus/>-->
+    <!--      <small class="p-invalid" *ngIf="submitted && !flight.flightNumber">Flight number is required.</small>-->
+    <!--    </div>-->
+    <!--    <div class="p-field">-->
+    <!--      <label for="departureCity">Departure city</label>-->
+    <!--      <p-autoComplete id="departureCity" [(ngModel)]="flightObj.arrivalCity" [suggestions]="results"-->
+    <!--                      (completeMethod)="search($event)"-->
+    <!--                      [multiple]="true">-->
+    <!--      </p-autoComplete>-->
+    <!--      <small class="p-invalid" *ngIf="submitted && !flight.departureCity">Departure city is required.</small>-->
+    <!--    </div>-->
+    <!--    <div class="p-field">-->
+    <!--      <label for="arrivalCity">Arrival city</label>-->
+    <!--      <p-autoComplete id="arrivalCity" [(ngModel)]="flightObj.arrivalCity" [suggestions]="results"-->
+    <!--                      (completeMethod)="search($event)"-->
+    <!--                      [multiple]="true">-->
+    <!--      </p-autoComplete>-->
+    <!--      <small class="p-invalid" *ngIf="submitted && !flight.arrivalCity">Arrival city is required.</small>-->
+    <!--    </div>-->
+    <!--    <div class="p-field">-->
+    <!--      <label for="departureAirport">Arrival airport</label>-->
+    <!--      <p-autoComplete id="departureAirport" [(ngModel)]="flightObj.departureAirport" [suggestions]="flightObj.results"-->
+    <!--                      (completeMethod)="search($event)"-->
+    <!--      >-->
+    <!--      </p-autoComplete>-->
+    <!--      <small class="p-invalid" *ngIf="submitted && !flight.departureAirport">Departure airport is required.</small>-->
+    <!--    </div>-->
+    <!--    <div class="p-field">-->
+    <!--      <label for="arrivalAirport">Arrival airport</label>-->
+    <!--      <p-autoComplete id="arrivalAirport" [(ngModel)]="flightObj.arrivalAirport" [suggestions]="flightObj.results"-->
+    <!--                      (completeMethod)="search($event)"-->
+    <!--      >-->
+    <!--      </p-autoComplete>-->
+    <!--      <small class="p-invalid" *ngIf="submitted && !flight.arrivalAirport">Arrival airport is required.</small>-->
+    <!--    </div>-->
+    <!--    <div class="p-field">-->
+    <!--      <label for="departureTime">Departure time</label>-->
+    <!--      <p-calendar id="departureTime" [(ngModel)]="flightObj.departureTime" [showTime]="true"-->
+    <!--                  inputId="time"></p-calendar>-->
+    <!--      <small class="p-invalid" *ngIf="submitted && !flight.departureTime">Departure time is required.</small>-->
+    <!--    </div>-->
+    <!--    <div class="p-field">-->
+    <!--      <label for="arrivalTime">Arrival time</label>-->
+    <!--      <p-calendar id="arrivalTime" [(ngModel)]="flightObj.departureTime" [showTime]="true" inputId="time"></p-calendar>-->
+    <!--      <small class="p-invalid" *ngIf="submitted && !flight.arrivalTime">Arrival time is required.</small>-->
+    <!--    </div>-->
+    <!--    <div class="p-field">-->
+    <!--      <label for="description">Description</label>-->
+    <!--      <textarea id="description" pInputTextarea [(ngModel)]="flight.description" rows="3"-->
+    <!--                cols="20"></textarea>-->
+    <!--    </div>-->
+    <!--    <div class="p-formgrid p-grid">-->
+    <!--      <div class="p-field p-col">-->
+    <!--        <label for="ticketId">Price</label>-->
+    <!--        <p-inputNumber id="ticketId" [(ngModel)]="flight.ticketId" mode="currency" currency="USD"-->
+    <!--                       locale="en-US"></p-inputNumber>-->
+    <!--      </div>-->
+    <!--      <div class="p-field p-col">-->
+    <!--        <label for="airlineId">Quantity</label>-->
+    <!--        <p-inputNumber id="airlineId" [(ngModel)]="flight.airlineId"></p-inputNumber>-->
+    <!--      </div>-->
+    <!--    </div>-->
+
+
+    <span class="flex">
+    <h5>Set flight number</h5>
+    <input type="text" pInputText [(ngModel)]="flight.flightNumber"/>
+    </span>
+    <span class="flex">
+    <h5>Choose Airways</h5>
+    <p-autoComplete [(ngModel)]="flight.airlineId" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseAirlines($event)"
+                    [dropdown]="true">
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Choose Plane</h5>
+    <p-autoComplete [(ngModel)]="flight.planeId" [suggestions]="flightObj.results"
+                    (completeMethod)="choosePlane($event)"
+                    [dropdown]="true">
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure City</h5>
+    <p-autoComplete [(ngModel)]="flight.departureCity" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseDestinations($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure Airport</h5>
+    <p-autoComplete [(ngModel)]="flight.departureAirport" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseAirport($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Arrival City</h5>
+    <p-autoComplete [(ngModel)]="flight.arrivalCity" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseDestinations($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Arrival Airport</h5>
+    <p-autoComplete [(ngModel)]="flight.arrivalAirport" [suggestions]="flightObj.results"
+                    (completeMethod)="chooseAirport($event)"
+    >
+    </p-autoComplete>
+    </span>
+    <span class="flex">
+    <h5>Departure Date</h5>
+    <p-calendar [(ngModel)]="fromDate" [showTime]="true" selectionMode="multiple"
+                inputId="time"></p-calendar>
+    </span>
+    <span class="flex">
+    <h5>Arrival Date</h5>
+    <p-calendar [(ngModel)]="toDate" [showTime]="true" selectionMode="multiple"
+                inputId="time"></p-calendar>
+    </span>
+
+
   </ng-template>
 
   <ng-template pTemplate="footer">
