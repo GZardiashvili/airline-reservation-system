@@ -82,7 +82,6 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
   }
 
   addFlight(flight: Flight) {
-    flight = this.flight;
     return this.manageFlightService.addFlight(flight)
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
@@ -239,24 +238,33 @@ export class ManageFlightComponent implements OnInit, OnDestroy {
     this.submitted = false;
   }
 
+  generateFlightNumber(): string {
+    let flightNumber = '';
+    let chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    for (let i = 0; i < 5; i++) {
+      flightNumber += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return flightNumber;
+  }
+
   saveProduct() {
     this.submitted = true;
 
-    if (this.flight.flightNumber?.trim()) {
+    if (this.flight.airlineId?.trim()) {
       if (this.flight._id) {
         this.flights[this.findIndexById(this.flight._id)] = this.flight;
         this.updateFlight(this.flight._id);
         this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
       } else {
-        if (this.fromDate === this.toDate) {
+        if (this.fromDate.length === this.toDate.length) {
           for (let i = 0; i < this.fromDate.length; i++) {
+            this.flight.flightNumber = this.generateFlightNumber();
             this.addFlight({
               ...this.flight,
               departureTime: this.fromDate[i],
               arrivalTime: this.toDate[i]
             });
           }
-          console.log(this.flight);
           this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
         }
       }

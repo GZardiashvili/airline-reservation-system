@@ -38,6 +38,7 @@ export class BookFlightComponent implements OnInit {
 
   flightId!: string;
   userEmail!: string;
+  userId!: string;
 
   ngOnInit(): void {
     this.commonService.getValue().subscribe(flight => {
@@ -51,13 +52,12 @@ export class BookFlightComponent implements OnInit {
         user => {
           this.firstName['controls'][0]?.setValue(user.firstName);
           this.lastName['controls'][0].setValue(user.lastName);
-          // this.email['controls'][0].setValue(user.email);
           this.userEmail = user.email;
+          this.userId = user._id;
         }
       );
     }
     for (let i = 0; i < this.quantity - 1; i++) {
-      // this.email.push(this.createEmailFormControl());
       this.firstName.push(this.createFirstNameFormControl());
       this.lastName.push(this.createLastNameFormControl());
       this.class.push(this.createClassFormControl());
@@ -124,6 +124,7 @@ export class BookFlightComponent implements OnInit {
     let sendBooking = [];
     for (let i = 0; i < bookingForm.firstName.length; i++) {
       sendBooking.push({
+        userId: this.userId,
         firstName: bookingForm.firstName[i],
         lastName: bookingForm.lastName[i],
         email: this.userEmail,
@@ -144,7 +145,9 @@ export class BookFlightComponent implements OnInit {
     passengers.forEach((passenger: any) => {
       this.bookingService.bookFlight(passenger).subscribe();
     })
-    this.router.navigate(['/booked-flights']);
+    setTimeout(() => {
+      this.router.navigate(['/booked-flights']);
+    }, 100);
   }
 
 }

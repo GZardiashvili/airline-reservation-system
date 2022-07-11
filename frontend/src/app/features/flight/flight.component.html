@@ -16,7 +16,7 @@
 
 
 <ng-container *ngIf="flights">
-  <p-dataView #dv [value]="flights" [paginator]="true" [rows]="9" filterBy="name"
+  <p-dataView #dv [value]="flights" [paginator]="true" [rows]="9" filterBy="flightNumber"
               [sortField]="sortField" [sortOrder]="sortOrder" layout="grid">
     <ng-template pTemplate="header">
       <div class="p-d-flex p-flex-column p-flex-md-row p-jc-md-between">
@@ -46,7 +46,7 @@
             <p-button label="Add to Cart"
                       [disabled]="flight.inventoryStatus === 'OUTOFSTOCK'"></p-button>
             <span
-              [class]="'product-badge status-' + flight.arrivalTime.toLowerCase()">{{flight.arrivalCity}}</span>
+              [class]="'product-badge status-' + flight.arrivalCity.toLowerCase()">{{flight.arrivalCity}}</span>
           </div>
         </div>
       </div>
@@ -57,15 +57,14 @@
           <div class="product-grid-item-top">
             <div>
               <i class="pi pi-tag product-category-icon"></i>
-              <span class="product-category">{{flight.flightNumber}}</span>
+              <span class="product-category">{{flight.departureTime | date  :'short'}}</span>
             </div>
             <span
-              [class]="'product-badge status-' + flight.departureCity.toLowerCase()">{{flight.departureCity}}</span>
+              [class]="'product-badge status-' + flight.airlineId.toLowerCase()">{{flight.airlineId}}</span>
           </div>
           <div class="product-grid-item-content">
-            <div class="product-name">{{flight.flightNumber}}</div>
+            <div class="product-name">{{flight.departureCity}} - {{flight.arrivalCity}}</div>
             <div class="product-description">{{flight.description}}</div>
-            <p-rating [ngModel]="flight.arrivalTime" [readonly]="true" [cancel]="false"></p-rating>
           </div>
           <div class="product-grid-item-bottom">
             <span class="product-price">${{flight.planeId}}</span>
