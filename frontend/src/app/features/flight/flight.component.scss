@@ -1,40 +1,181 @@
-@use "../../shared/styles/palette" as var_1;
+:host ::ng-deep {
+  .p-dropdown {
+    width: 14rem;
+    font-weight: normal;
+  }
 
-.travel-destination {
-  display: flex;
-  gap: 25px;
-  flex-wrap: wrap;
+  .product-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
 
-  .flight-card {
-    width: 280px;
-    border-radius: 15px;
+  .product-description {
+    margin: 0 0 1rem 0;
+  }
 
-    .flex {
+  .product-category-icon {
+    vertical-align: middle;
+    margin-right: .5rem;
+  }
+
+  .product-category {
+    font-weight: 600;
+    vertical-align: middle;
+  }
+
+  .product-list-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    width: 100%;
+
+    img {
+      width: 150px;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      margin-right: 2rem;
+    }
+
+    .product-list-detail {
+      flex: 1 1 0;
+    }
+
+    .p-rating {
+      margin: 0 0 .5rem 0;
+    }
+
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: .5rem;
+      align-self: flex-end;
+    }
+
+    .product-list-action {
       display: flex;
       flex-direction: column;
-      gap: 8px;
     }
 
-    fa-icon {
-      font-size: 1.5rem;
+    .p-button {
+      margin-bottom: .5rem;
     }
+  }
 
-    .travel-time {
-      color: var_1.$desc-menu-light;
+  .product-grid-item {
+    margin: .5em;
+    border: 1px solid #dee2e6;
+
+    .product-grid-item-top,
+    .product-grid-item-bottom {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     img {
-      width: 270px;
-      border-radius: 15px;
-      margin: 0 auto;
+      width: 75%;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      margin: 2rem 0;
     }
 
-    button {
+    .product-grid-item-content {
+      text-align: center;
+    }
+
+    .product-price {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+  }
+}
+
+.card {
+  padding: 2rem;
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14), 0 1px 3px 0 rgba(0, 0, 0, 0.12);
+  border-radius: 4px;
+  margin-bottom: 2rem;
+}
+
+.example-form {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+
+.app-search {
+  margin-bottom: 50px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  column-gap: 20px;
+  z-index: 1;
+
+  .app-button {
+    cursor: pointer;
+    position: absolute;
+    width: 120px;
+    height: 42px;
+    bottom: -21px;
+    background: #1B66CA;
+    color: #fff;
+    font-size: 14px;
+    text-transform: uppercase;
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    -webkit-border-radius: 20px 20px;
+
+    fa-icon {
+      margin-right: 10px;
+    }
+  }
+}
+
+
+@media screen and (max-width: 576px) {
+  :host ::ng-deep .product-list-item {
+    flex-direction: column;
+    align-items: center;
+
+    img {
+      width: 75%;
+      margin: 2rem 0;
+    }
+
+    .product-list-detail {
+      text-align: center;
+    }
+
+    .product-price {
+      align-self: center;
+    }
+
+    .product-list-action {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-list-action {
+      margin-top: 2rem;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
       width: 100%;
-      padding: 10px 0;
-      background: var_1.$btn-menu;
-      color: white;
-      border-radius: 0 0 15px 15px;
     }
   }
 }

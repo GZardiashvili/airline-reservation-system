@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
   res.status(200).send(bookeds);
 });
 
-router.put('/:id', async (req, res) => {
+router.delete('/:id', async (req, res) => {
   const canceled = await cancelBooked(req.params.id);
   res.status(200).send(canceled);
 });

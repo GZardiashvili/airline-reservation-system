@@ -13,6 +13,7 @@ import { LayoutModule } from "./layout/layout.module";
 import { HTTP_INTERCEPTORS } from "@angular/common/http";
 import { AuthInterceptor } from "./auth/interceptors/auth.interceptor";
 import { BookedComponent } from './features/booked/booked.component';
+import { ConfirmationService, MessageService } from "primeng/api";
 
 @NgModule({
   declarations: [
@@ -35,7 +36,9 @@ import { BookedComponent } from './features/booked/booked.component';
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
     multi: true,
-  },],
+  },
+    MessageService, ConfirmationService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

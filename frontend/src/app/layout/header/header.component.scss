@@ -4,9 +4,10 @@
   display: flex;
   flex-direction: column;
   width: 100%;
+  position: fixed;
 
   .sub-menu {
-    margin: 0 auto;
+    margin-left: 20%;
   }
 
   .wrapper {
@@ -76,6 +77,8 @@
     .app-header__profile {
       display: flex;
       flex-direction: row;
+      justify-content: right;
+      width: 100%;
 
       button {
         border-radius: 50%;
@@ -95,4 +98,8 @@
 
     }
   }
+}
+
+.app-home {
+  justify-content: left;
 }

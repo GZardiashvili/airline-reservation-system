@@ -1,6 +1,10 @@
-.flex {
+.flex-col {
   display: flex;
   flex-direction: column;
+}
+
+.flex {
+  display: flex;
   align-items: flex-start;
 }
 

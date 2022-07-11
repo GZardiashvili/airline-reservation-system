@@ -10,7 +10,7 @@ const addPlane = async (plane) => {
 const getAllPlanes = async (query) => {
   const { search, sort = { createdAt: -1 } } = query;
   query = {};
-  if (search != null) {
+  if (search) {
     query.$or = [
       { model: { $regex: search, $options: 'i' } },
       { planeCode: { $regex: search, $options: 'i' } },

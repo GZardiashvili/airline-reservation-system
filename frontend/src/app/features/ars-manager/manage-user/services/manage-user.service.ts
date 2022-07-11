@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../../../../environments/environment";
 import { Observable } from "rxjs";
 import { HttpClient } from "@angular/common/http";
-import { User } from "../../../../register/user";
+import { User } from "../user";
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +24,8 @@ export class ManageUserService {
     return this.http.get<User>(`${environment.apiUrl}users/${id}`);
   }
 
-  updateUser(id: string, flight: User) {
-    return this.http.put(`${environment.apiUrl}users/${id}`, flight);
+  updateUser(id: string, user: User) {
+    return this.http.put(`${environment.apiUrl}users/${id}`, user);
   }
 
   deleteUser(id: string) {

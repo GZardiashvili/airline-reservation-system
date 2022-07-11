@@ -1,81 +1,95 @@
-<div class="grid">
-  <div class="app-airline-details">
+<p-toast></p-toast>
 
-    <ng-container *ngIf="view==='details'; else create">
-      <app-details [details]="plane$ | async" (onClick)="editView()"></app-details>
-    </ng-container>
-  </div>
-  <div class="app-airline__list">
+<div class="card">
+  <p-toolbar styleClass="p-mb-4">
+    <ng-template pTemplate="left">
+      <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+              (click)="openNew()"></button>
+      <button pButton pRipple [label]="Delete" icon="pi pi-trash" class="p-button-danger"
+              (click)="deleteSelectedProducts()" [disabled]="!selectedProducts || !selectedProducts.length"></button>
+    </ng-template>
+  </p-toolbar>
 
-    <ng-container *ngFor="let plane of planes$ | async">
-      <app-admin-list *ngIf="plane._id" class='admin-list' [item]="plane" [filters]="status" [headers]="headers"
-                      (onClick)="showDetails(); getPlane(plane._id)"></app-admin-list>
-    </ng-container>
-  </div>
-
+  <p-table #dt [value]="planes" [rows]="10" [paginator]="true"
+           [globalFilterFields]="['planeCode','model','airlineId']"
+           [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+           currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+           [showCurrentPageReport]="true">
+    <ng-template pTemplate="caption">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        <h5 class="p-m-0">Manage Planes</h5>
+        <span class="p-input-icon-left">
+                            <i class="pi pi-search"></i>
+                            <input pInputText type="text" (input)="applyFilterGlobal($event, 'contains')"
+                                   placeholder="Search..."/>
+        </span>
+      </div>
+    </ng-template>
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th pSortableColumn="planeCode">Plane Code
+          <p-sortIcon field="planeCode"></p-sortIcon>
+        </th>
+        <th pSortableColumn="model">Model
+          <p-sortIcon field="model"></p-sortIcon>
+        </th>
+        <th pSortableColumn="airline">Airline
+          <p-sortIcon field="airline"></p-sortIcon>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-plane>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="plane"></p-tableCheckbox>
+        </td>
+        <td>{{plane.planeCode}}</td>
+        <td>{{plane.model}}</td>
+        <td>{{plane.airlineId}}</td>
+        <td>
+          <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success p-mr-2"
+                  (click)="editProduct(plane)"></button>
+          <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                  (click)="deleteProduct(plane)"></button>
+        </td>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="summary">
+      <div class="p-d-flex p-ai-center p-jc-between">
+        In total there are {{planes ? planes.length : 0 }} planes.
+      </div>
+    </ng-template>
+  </p-table>
 </div>
-<ng-template #create>
-  <ng-container *ngIf="!(plane$ | async); else edit">
-    <div class="app-plane">
-      <form class="app-airline__form" [formGroup]="planeForm">
-        <mat-form-field class="app-login__form-field">
-          <mat-label [ngClass]="planeForm.get('airlineId')?.value!==''? 'not-empty' :''">Airline Name</mat-label>
-          <input matInput type="text" name="airlineId" formControlName="airlineId">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="planeForm.get('model')?.value!==''? 'not-empty' :''">Model</mat-label>
-          <input matInput
-                 type="text" name="model" formControlName="model">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="planeForm.get('planeCode')?.value!==''? 'not-empty' :''">Code</mat-label>
-          <input matInput
-                 type="text" name="planeCode" formControlName="planeCode">
-        </mat-form-field>
-        <mat-form-field class="app-airline__form-field">
-          <mat-label [ngClass]="planeForm.get('seats')?.value!==''? 'not-empty' :''">Seats
-          </mat-label>
-          <input matInput
-                 type="text" name="seats" formControlName="seats">
-        </mat-form-field>
-      </form>
-      <button mat-raised-button class="app-airline__button" color="primary" (click)="addPlane()">Add</button>
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '450px'}" header="Product Details" [modal]="true"
+          styleClass="p-fluid">
+  <ng-template pTemplate="content">
+    <div class="p-field">
+      <label for="planeCode">Company Name</label>
+      <input type="text" pInputText id="planeCode" [(ngModel)]="plane.planeCode" required autofocus/>
+      <small class="p-invalid" *ngIf="submitted && !plane.planeCode">Company name is required.</small>
     </div>
-  </ng-container>
-</ng-template>
+    <div class="p-field">
+      <label for="model">Model</label>
+      <input type="text" pInputText id="model" [(ngModel)]="plane.model" required autofocus/>
+      <small class="p-invalid" *ngIf="submitted && !plane.model">Plane model is required.</small>
+    </div>
+    <div class="p-field">
+      <label for="airlineId">Model</label>
+      <input type="text" pInputText id="airlineId" [(ngModel)]="plane.airlineId" required autofocus/>
+      <small class="p-invalid" *ngIf="submitted && !plane.airlineId">Plane model is required.</small>
+    </div>
+  </ng-template>
 
+  <ng-template pTemplate="footer">
+    <button pButton pRipple label="Cancel" icon="pi pi-times" class="p-button-text" (click)="hideDialog()"></button>
+    <button pButton pRipple label="Save" icon="pi pi-check" class="p-button-text" (click)="saveProduct()"></button>
+  </ng-template>
+</p-dialog>
 
-<ng-template #edit>
-  <div class="app-plane">
-    <form class="app-airline__form" [formGroup]="planeForm">
-      <mat-form-field class="app-login__form-field">
-        <mat-label [ngClass]="planeForm.get('airlineId')?.value!==''? 'not-empty' :''">Airline Name</mat-label>
-        <input matInput type="text" name="airlineId" formControlName="airlineId">
-      </mat-form-field>
-      <mat-form-field class="app-airline__form-field">
-        <mat-label [ngClass]="planeForm.get('model')?.value!==''? 'not-empty' :''">Model</mat-label>
-        <input matInput
-               type="text" name="model" formControlName="model">
-      </mat-form-field>
-      <mat-form-field class="app-airline__form-field">
-        <mat-label [ngClass]="planeForm.get('planeCode')?.value!==''? 'not-empty' :''">Code</mat-label>
-        <input matInput
-               type="text" name="planeCode" formControlName="planeCode">
-      </mat-form-field>
-      <mat-form-field class="app-airline__form-field">
-        <mat-label [ngClass]="planeForm.get('seats')?.value!==''? 'not-empty' :''">Seats
-        </mat-label>
-        <input matInput
-               type="text" name="seats" formControlName="seats">
-      </mat-form-field>
-    </form>
-    <ng-container *ngIf="plane$ | async as plane">
-      <button mat-raised-button class="app-airline__button" color="primary" (click)="updatePlane(plane._id)">
-        Update
-      </button>
-      <button mat-raised-button class="app-airline__button" color="primary" (click)="showDetails()">
-        Cancel
-      </button>
-    </ng-container>
-  </div>
-</ng-template>
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

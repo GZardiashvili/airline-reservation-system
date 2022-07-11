@@ -1,11 +1,10 @@
 .layout {
-  width: 96%;
+  width: 100%;
   display: grid;
   grid-template-columns: auto 4fr;
   grid-template-rows: 64px 1fr;
   grid-template-areas:
     "header header "
-    "sidebar content "
     "sidebar content ";
   column-gap: 7%;
   row-gap: 20px;
@@ -18,7 +17,7 @@
     justify-content: space-around;
     width: 100%;
     height: 50px;
-    padding: 10px 50px;
+    //padding: 10px 50px;
   }
 
   &__sidebar {

@@ -27,13 +27,6 @@ export const SUB_MENU_CONFIG: SubMenuItem[] = [
     permission: 'admin',
   },
   {
-    id: 'tickets',
-    title: 'Tickets',
-    icon: faTicket,
-    route: '/tickets',
-    permission: 'admin',
-  },
-  {
     id: 'users',
     title: 'Users',
     icon: faUsers,

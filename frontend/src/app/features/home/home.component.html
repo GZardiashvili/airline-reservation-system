@@ -1,12 +1,19 @@
-<p-autoComplete [(ngModel)]="fromCity" [suggestions]="results"
-                (completeMethod)="search($event)"
-                [multiple]="true">
-</p-autoComplete>
-<p-autoComplete [(ngModel)]="toCity" [suggestions]="results"
-                (completeMethod)="search($event)"
-                [multiple]="true">
-</p-autoComplete>
-<p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"></p-calendar>
-<button (click)="searchFlights()">search</button>
-
+<div class="container">
+  <div class="app-search">
+    <p-autoComplete [(ngModel)]="fromCity" [suggestions]="results"
+                    (completeMethod)="search($event)"
+                    [multiple]="true">
+    </p-autoComplete>
+    <p-autoComplete [(ngModel)]="toCity" [suggestions]="results"
+                    (completeMethod)="search($event)"
+                    [multiple]="true">
+    </p-autoComplete>
+    <p-calendar [(ngModel)]="rangeDates" selectionMode="range" [readonlyInput]="true" inputId="range"
+                [showIcon]="true"></p-calendar>
+    <button class="app-button" (click)="searchFlights()">
+      <fa-icon [icon]="faSearch"></fa-icon>
+      search
+    </button>
+  </div>
+</div>
 

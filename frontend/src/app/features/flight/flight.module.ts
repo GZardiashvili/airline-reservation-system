@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FlightComponent } from "./flight.component";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "../../shared/shared.module";
+import { FormsModule } from "@angular/forms";
+import { InputNumberModule } from "primeng/inputnumber";
 
 
 @NgModule({
@@ -12,7 +14,9 @@ import { SharedModule } from "../../shared/shared.module";
     RouterModule.forChild([
       {path: '', pathMatch: 'full', component: FlightComponent},
     ]),
-    SharedModule
+    SharedModule,
+    FormsModule,
+    InputNumberModule
   ]
 })
 export class FlightModule {

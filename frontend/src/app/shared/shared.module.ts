@@ -24,6 +24,23 @@ import { DetailsComponent } from './components/details/details.component';
 import { AutoCompleteModule } from "primeng/autocomplete";
 import { CalendarModule } from "primeng/calendar";
 import { InputTextModule } from "primeng/inputtext";
+import { DropdownModule } from "primeng/dropdown";
+import { DataViewModule } from 'primeng/dataview';
+import { ButtonModule } from 'primeng/button';
+import { PanelModule } from 'primeng/panel';
+import { DialogModule } from 'primeng/dialog';
+import { RatingModule } from 'primeng/rating';
+import { RippleModule } from 'primeng/ripple';
+import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { ToastModule } from "primeng/toast";
+import { ToolbarModule } from "primeng/toolbar";
+import { FileUploadModule } from "primeng/fileupload";
+import { TableModule } from "primeng/table";
+import { RadioButtonModule } from "primeng/radiobutton";
+import { InputNumberModule } from "primeng/inputnumber";
+import { InputTextareaModule } from "primeng/inputtextarea";
+import { CascadeSelectModule } from "primeng/cascadeselect";
+import { SelectButtonModule } from "primeng/selectbutton";
 
 const materialModules = [
   FontAwesomeModule,
@@ -49,6 +66,23 @@ const primeModules = [
   AutoCompleteModule,
   CalendarModule,
   InputTextModule,
+  DropdownModule,
+  DataViewModule,
+  PanelModule,
+  DialogModule,
+  ButtonModule,
+  RippleModule,
+  RatingModule,
+  ConfirmDialogModule,
+  ToastModule,
+  ToolbarModule,
+  FileUploadModule,
+  TableModule,
+  RadioButtonModule,
+  InputNumberModule,
+  InputTextareaModule,
+  CascadeSelectModule,
+  SelectButtonModule,
 ]
 
 @NgModule({

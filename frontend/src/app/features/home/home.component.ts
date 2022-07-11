@@ -6,6 +6,8 @@ import { HomeService } from "./services/home.service";
 import { Airport } from "./airport";
 import { Router } from "@angular/router";
 import { CommonService } from "../../shared/common/common.service";
+import { IconProp } from "@fortawesome/fontawesome-svg-core";
+import { faSearch } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home',
@@ -13,6 +15,7 @@ import { CommonService } from "../../shared/common/common.service";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  readonly faSearch: IconProp = faSearch;
   fromCityControl = new FormControl('');
   toCityControl = new FormControl('');
   airports$!: Observable<Airport[]>;
@@ -42,11 +45,14 @@ export class HomeComponent implements OnInit {
   }
 
   searchFlights() {
-    console.log(this.fromCity);
-    console.log(this.toCity);
-    console.log(this.rangeDates);
     this.commonService.sendUpdate(this.fromCity);
-    this.router.navigate(['/flights'], {queryParams: {departureCity: this.fromCity, arrivalCity: this.toCity}});
+    this.router.navigate(['/flights'], {
+      queryParams: {
+        from: this.fromCity,
+        to: this.toCity,
+        rangeDate: this.rangeDates
+      }
+    });
 
   }
 

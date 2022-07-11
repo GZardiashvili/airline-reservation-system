@@ -45,7 +45,7 @@ app.use('/api/flights', flightsRouter);
 app.use('/api/tickets', auth, adminGuard, ticketsRouter);
 app.use('/api/planes', auth, adminGuard, planesRouter);
 app.use('/api/airports', airportRouter);
-app.use('/api/booked', bookedRouter);
+app.use('/api/bookings', bookedRouter);
 
 app.use(errorHandler);
 

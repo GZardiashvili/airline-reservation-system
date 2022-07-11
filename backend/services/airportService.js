@@ -3,7 +3,7 @@ const Airport = require('../models/airport');
 const getAllAirports = async (query) => {
   const { search } = query;
   query = {};
-  if (search != null) {
+  if (search) {
     query.$or = [
       { country: { $regex: search, $options: 'i' } },
       { city: { $regex: search, $options: 'i' } },
