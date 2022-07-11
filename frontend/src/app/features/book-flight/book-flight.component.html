@@ -1,26 +1,26 @@
-<div class="flex" [formGroup]="bookingObj">
+<div class="grid" [formGroup]="bookingObj">
   <ng-container *ngIf="bookingObj.controls">
-    <div formArrayName="firstName">
+    <p class="firstHead">First Name</p>
+    <p class="lastHead">Last Name</p>
+    <p class="flightClassHead">Flight Class</p>
+    <div class="first" formArrayName="firstName">
       <ng-container *ngFor="let firstNameArrayControl of firstName['controls']; index as i ">
-        <h5>First Name</h5>
         <input type="text" pInputText [formControlName]="i"/>
       </ng-container>
     </div>
-    <div formArrayName="lastName">
+    <div class="last" formArrayName="lastName">
       <ng-container *ngFor="let lastNameArrayControl of lastName['controls']; index as i ">
-        <h5>Last Name</h5>
         <input type="text" pInputText [formControlName]="i"/>
       </ng-container>
     </div>
-    <div formArrayName="class">
+    <div class="flightClass" formArrayName="class">
       <ng-container *ngFor="let classArrayControl of class['controls']; index as i ">
-        <h5>Flight Class</h5>
         <p-dropdown [options]="chooseTicketClass" [formControlName]="i" placeholder="Select a Class"
                     optionLabel="viewValue"
                     [showClear]="true"></p-dropdown>
+
       </ng-container>
     </div>
   </ng-container>
-
+  <button pButton pRipple type="button" label="Book Flight" (click)="bookFlight()"></button>
 </div>
-<button pButton pRipple type="button" label="Book Flight" (click)="bookFlight()"></button>

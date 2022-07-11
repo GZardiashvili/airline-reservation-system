@@ -1,8 +1,7 @@
 <div class="flex">
   <div class="wrapper">
     <div class="app-home">
-      <a [routerLink]="'/home'">Home</a>
-
+      <button pButton type="button" label="Home" class="p-button-link" [routerLink]="'/home'"></button>
     </div>
     <ng-container *ngIf="currentRoute.includes('/ars-manager')">
       <app-sub-menu class="sub-menu"></app-sub-menu>
