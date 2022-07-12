@@ -51,9 +51,6 @@ export class LoginComponent implements OnDestroy {
         .subscribe(
           () => {
             this.router.navigate(['/']);
-          },
-          (error: Error) => {
-            console.error(error);
           }
         );
     }

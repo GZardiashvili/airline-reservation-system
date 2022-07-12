@@ -11,7 +11,7 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./booked.component.scss']
 })
 export class BookedComponent implements OnInit {
-  private readonly reloadBookings$ = new BehaviorSubject(true);
+  private reloadBookings$ = new BehaviorSubject(true);
 
   bookings$!: Observable<any[]>;
   booking!: any;

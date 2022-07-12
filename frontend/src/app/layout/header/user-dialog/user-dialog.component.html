@@ -1,1 +1,36 @@
-<p>user-dialog works!</p>
+<ng-container *ngIf="modalView | async as view">
+  <ng-container *ngIf="view ==='login'; else register">
+    <div class="login-modal">
+  <span class="p-float-label">
+    <input id="email" type="text" pInputText (keyup)="onKeyUp($event)" [(ngModel)]="email">
+    <label for="email">Email</label>
+</span><span class="p-float-label">
+    <input id="password" type="password" pInputText (keyup)="onKeyUp($event)" [(ngModel)]="password">
+    <label for="password">Password</label>
+</span>
+      <button pButton type="button" (click)="login()">Login</button>
+    </div>
+  </ng-container>
+</ng-container>
+
+<ng-template #register>
+  <div class="register-modal">
+    <span class="p-float-label">
+      <input id="firstName" type="text" pInputText (keyup)="onKeyUp($event)" [(ngModel)]="firstName">
+      <label for="firstName">First Name</label>
+    </span>
+    <span class="p-float-label">
+      <input id="lastName" type="text" pInputText (keyup)="onKeyUp($event)" [(ngModel)]="lastName">
+      <label for="lastName">Last Name</label>
+    </span>
+    <span class="p-float-label">
+      <input id="regEmail" type="text" pInputText (keyup)="onKeyUp($event)" [(ngModel)]="email">
+      <label for="regEmail">Email</label>
+    </span>
+    <span class="p-float-label">
+      <input id="regPassword" type="password" pInputText (keyup)="onKeyUp($event)" [(ngModel)]="password">
+      <label for="regPassword">Password</label>
+    </span>
+    <button pButton type="button" (click)="signUp()">Register</button>
+  </div>
+</ng-template>
