@@ -36,18 +36,21 @@
   .first {
     grid-area: first;
     text-align: center;
-
+    z-index: 1;
   }
 
   .last {
     grid-area: last;
     text-align: center;
+    z-index: 1;
   }
 
   .flightClass {
     grid-area: flightClass;
     text-align: center;
+    z-index: 1;
   }
+
 
   .flex-col {
     display: flex;

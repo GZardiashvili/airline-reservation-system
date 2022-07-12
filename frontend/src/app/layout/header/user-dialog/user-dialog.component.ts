@@ -38,11 +38,12 @@ export class UserDialogComponent implements OnInit, OnDestroy {
   }
 
   login() {
-    this.authService.login(this.email, this.password).pipe(takeUntil(this.componentIsDestroyed$)).subscribe();
-    setTimeout(() => {
-      this.dialogRef.close();
-    }, 100);
-    window.location.reload();
+    this.authService.login(this.email, this.password).pipe(takeUntil(this.componentIsDestroyed$)).subscribe(() => {
+      setTimeout(() => {
+        this.dialogRef.close();
+      }, 100);
+      window.location.reload();
+    });
   }
 
   signUp() {
@@ -51,15 +52,16 @@ export class UserDialogComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.componentIsDestroyed$))
       .subscribe(
         () => {
+          setTimeout(() => {
+            this.dialogRef.close();
+          }, 100);
           this.router.navigate(['/']);
         },
         (error: Error) => {
           console.error(error);
         }
       );
-    setTimeout(() => {
-      this.dialogRef.close();
-    }, 100);
+
   }
 
 
