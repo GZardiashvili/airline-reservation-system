@@ -7,11 +7,12 @@ import { MenuItem } from "./menu/menu-item";
 import { Profile } from "./models/profile";
 import { AuthService } from "../../auth/services/auth.service";
 import { User } from "../../register/user";
-import { Observable, Subject } from "rxjs";
+import { BehaviorSubject, Observable, Subject } from "rxjs";
 import { UserService } from "./services/user.service";
 import { faUser, faUserSecret } from "@fortawesome/free-solid-svg-icons";
 import { MatDialog } from "@angular/material/dialog";
 import { UserDialogComponent } from "./user-dialog/user-dialog.component";
+import { CommonService } from "../../shared/common/common.service";
 
 @Component({
   selector: 'app-header',
@@ -20,6 +21,8 @@ import { UserDialogComponent } from "./user-dialog/user-dialog.component";
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private componentIsDestroyed$ = new Subject<boolean>();
+  private reloadBookings$ = new BehaviorSubject(true);
+
   user: Observable<User> = this.userService.getUserProfile();
   menu: MenuItem[] = MENU_CONFIG;
   notSignIn: boolean = true;
@@ -49,7 +52,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
     logout: 'Log out',
   };
 
-  constructor(private authService: AuthService, private userService: UserService, private router: Router, private dialog: MatDialog) {
+  constructor(private authService: AuthService, private userService: UserService, private commonService: CommonService,
+              private router: Router, private dialog: MatDialog) {
     router.events.pipe(filter((event: any) => event instanceof NavigationEnd)
     ).subscribe((event: any) => {
       this.currentRoute = event.url;
@@ -64,14 +68,21 @@ export class HeaderComponent implements OnInit, OnDestroy {
     });
   }
 
-  openDialog() {
+  openLoginDialog() {
     this.dialog.open(UserDialogComponent);
+    this.commonService.sendUpdate('login')
+  }
+
+  openRegisterDialog() {
+    this.dialog.open(UserDialogComponent);
+    this.commonService.sendUpdate('signup')
   }
 
   role!: string | null;
 
   logout() {
     this.authService.logout();
+    window.location.reload();
   }
 
   trackBy(index: number, item: MenuItem): string {
@@ -80,6 +91,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.role = localStorage.getItem('role');
+  }
+
+  reloadBookings() {
+    this.reloadBookings$.next(true);
   }
 
   ngOnDestroy() {

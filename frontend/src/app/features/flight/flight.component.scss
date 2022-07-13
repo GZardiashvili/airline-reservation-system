@@ -2,6 +2,8 @@
   .p-dropdown {
     width: 14rem;
     font-weight: normal;
+    margin-right: 15px;
+    margin-bottom: 15px;
   }
 
   .product-name {
@@ -110,11 +112,12 @@
 .app-search {
   margin-bottom: 50px;
   height: 150px;
+  width: 85%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
-  background: rgba(255, 255, 255, 0.2);
+  position: fixed;
+  background: rgba(255, 255, 255, 0.8);
   border-radius: 16px;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
@@ -122,6 +125,12 @@
   border: 1px solid rgba(255, 255, 255, 0.3);
   column-gap: 20px;
   z-index: 1;
+  transform: translateY(-230px);
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    //transform: translateY(-120px);
+  }
 
   .app-button {
     cursor: pointer;
