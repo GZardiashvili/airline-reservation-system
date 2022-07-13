@@ -5,20 +5,21 @@
     <p class="flightClassHead">Flight Class</p>
     <div class="first" formArrayName="firstName">
       <ng-container *ngFor="let firstNameArrayControl of firstName['controls']; index as i ">
-        <input type="text" pInputText [formControlName]="i"/>
+        <input class="input-gap" type="text" pInputText [formControlName]="i"/>
       </ng-container>
     </div>
     <div class="last" formArrayName="lastName">
       <ng-container *ngFor="let lastNameArrayControl of lastName['controls']; index as i ">
-        <input type="text" pInputText [formControlName]="i"/>
+        <input class="input-gap" type="text" pInputText [formControlName]="i"/>
       </ng-container>
     </div>
     <div class="flightClass" formArrayName="class">
       <ng-container *ngFor="let classArrayControl of class['controls']; index as i ">
-        <p-dropdown [options]="chooseTicketClass" [formControlName]="i" placeholder="Select a Class"
-                    optionLabel="viewValue"
-                    [showClear]="true"></p-dropdown>
-
+        <div class="dropdown-gap">
+          <p-dropdown [options]="chooseTicketClass" [formControlName]="i" placeholder="Select a Class"
+                      optionLabel="viewValue"
+                      [showClear]="true"></p-dropdown>
+        </div>
       </ng-container>
     </div>
   </ng-container>
