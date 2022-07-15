@@ -1,49 +1,49 @@
-const mongoose = require('mongoose');
-const supertest = require('supertest');
-const app = require('../app');
+/* eslint-disable function-paren-newline */
+/* eslint-disable comma-dangle */
+/* eslint-disable implicit-arrow-linebreak */
+// const bcrypt = require('bcrypt');
+// const jwt = require('jsonwebtoken');
 const userService = require('../services/userService');
+const authService = require('../auth/services/authService');
 
-const userId = new mongoose.Types.ObjectId().toString();
+jest.mock('jsonwebtoken');
+jest.mock('bcrypt');
+jest.mock('../models/user');
+
+// const userId = new mongoose.Types.ObjectId().toString();
 
 const userInput = {
   firstName: 'John',
   lastName: 'Doe',
   email: 'test@gmail.com',
-  password: 'test',
-};
-
-const userPayload = {
-  _id: userId,
-  firstName: 'John',
-  lastName: 'Doe',
-  email: 'test@gmail.com',
-  password: 'test',
+  password: 'Test123',
 };
 
 describe('user', () => {
   describe('user registration', () => {
     describe('given the email and passowrd are valid', () => {
       it('should return the user payload', async () => {
-        const addUserServiceMock = jest
+        jest
           .spyOn(userService, 'addUser')
-          .mockResolvedValue(userPayload);
-        const { statusCode, body } = await supertest(app)
-          .post('/api/users')
-          .send(userInput);
-
-        expect(addUserServiceMock).toHaveBeenCalledWith(userInput);
-        expect(statusCode).toBe(200);
-        expect(body).toEqual(userPayload);
+          .mockImplementation(() => Promise.resolve(userInput));
+        const user = await userService.addUser(userInput);
+        expect(user).toEqual(userInput);
       });
     });
   });
 });
 
-// describe('create user sesion', () => {
-//   describe('given the email and passowrd are valid', () => {
-//     it('should return a signed accessToken', async () => {
-//       const userId = '123';
-//       await supertest(app).get(`/api/users/${userId}`).expect(404);
-//     });
-//   });
-// });
+describe('create user sesion', () => {
+  describe('given the email and passowrd are valid', () => {
+    it('should return a signed accessToken', async () => {
+      jest
+        .spyOn(authService, 'loginUserWithJWT')
+        .mockImplementation(() => Promise.resolve('accessToken'));
+      const accessToken = await authService.loginUserWithJWT(
+        userInput.email,
+        userInput.password
+      );
+      expect(accessToken).toEqual('accessToken');
+    });
+  });
+});
