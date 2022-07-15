@@ -1,15 +1,8 @@
 /* eslint-disable function-paren-newline */
 /* eslint-disable comma-dangle */
 /* eslint-disable implicit-arrow-linebreak */
-// const bcrypt = require('bcrypt');
-// const jwt = require('jsonwebtoken');
 const userService = require('../services/userService');
 const authService = require('../auth/services/authService');
-
-jest.mock('jsonwebtoken');
-jest.mock('bcrypt');
-jest.mock('../models/user');
-
 // const userId = new mongoose.Types.ObjectId().toString();
 
 const userInput = {
