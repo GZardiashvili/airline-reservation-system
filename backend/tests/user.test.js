@@ -13,8 +13,11 @@ const userInput = {
 };
 
 describe('user', () => {
+
   describe('user registration', () => {
+
     describe('given the email and passowrd are valid', () => {
+
       it('should return the user payload', async () => {
         jest
           .spyOn(userService, 'addUser')
@@ -22,12 +25,15 @@ describe('user', () => {
         const user = await userService.addUser(userInput);
         expect(user).toEqual(userInput);
       });
+
     });
   });
 });
 
 describe('create user sesion', () => {
+
   describe('given the email and passowrd are valid', () => {
+
     it('should return a signed accessToken', async () => {
       jest
         .spyOn(authService, 'loginUserWithJWT')
@@ -38,5 +44,6 @@ describe('create user sesion', () => {
       );
       expect(accessToken).toEqual('accessToken');
     });
+
   });
 });

@@ -20,64 +20,85 @@ const flight = {
 };
 
 describe('flight', () => {
+
   describe('get flight route', () => {
+
     describe('given user not authenticated', () => {
+
       it('should return a 401', async () => {
         const airlineId = '123';
         await supertest(app).get(`/api/airlines/${airlineId}`).expect(401);
       });
+
     });
   });
 });
 
 describe('flight', () => {
+
   describe('get flight route', () => {
+
+
     describe('given flight exists', () => {
+
       it('should return the flight', async () => {
         jest
           .spyOn(flightService, 'getOneFlight')
           .mockImplementation(() => Promise.resolve(flight));
         expect(await flightService.getOneFlight(flight.id)).toEqual(flight);
       });
+
     });
   });
 });
 
 describe('flight', () => {
+
   describe('create flight', () => {
+
     describe('given form is valid', () => {
+
       it('should return the flight', async () => {
         jest
           .spyOn(flightService, 'addFlight')
           .mockImplementation(() => Promise.resolve(flight));
         expect(await flightService.addFlight(flight)).toEqual(flight);
       });
+
     });
   });
 });
 
 describe('flight', () => {
+
   describe('update flight', () => {
+
     describe('given form is valid', () => {
+
       it('should return the flight', async () => {
         jest
           .spyOn(flightService, 'updateFlight')
           .mockImplementation(() => Promise.resolve(flight));
         expect(await flightService.updateFlight(flight)).toEqual(flight);
       });
+
     });
   });
 });
 
 describe('flight', () => {
+
   describe('delete flight', () => {
+
     describe('given form is valid', () => {
+
       it('should return the flight', async () => {
         jest
           .spyOn(flightService, 'deleteFlight')
           .mockImplementation(() => Promise.resolve(flight));
         expect(await flightService.deleteFlight(flight)).toEqual(flight);
       });
+
     });
   });
 });
