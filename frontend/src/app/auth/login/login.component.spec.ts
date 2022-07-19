@@ -1,23 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { LoginComponent } from './login.component';
+import { createComponentFactory, Spectator } from "@ngneat/spectator";
+import { LoginComponent } from "./login.component";
 
 describe('LoginComponent', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
+  let spectator: Spectator<LoginComponent>;
+  const createComponent = createComponentFactory({
+    component: LoginComponent,
+    detectChanges: false,
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ LoginComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    spectator.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      expect(spectator.component).toBeTruthy();
+    }
+  );
 });

@@ -1,23 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ManageFlightComponent } from './manage-flight.component';
+import { createComponentFactory, Spectator } from "@ngneat/spectator";
+import { ManageFlightComponent } from "./manage-flight.component";
 
 describe('ManageFlightComponent', () => {
-  let component: ManageFlightComponent;
-  let fixture: ComponentFixture<ManageFlightComponent>;
+  let spectator: Spectator<ManageFlightComponent>;
+  const createComponent = createComponentFactory({
+    component: ManageFlightComponent,
+    detectChanges: false,
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ManageFlightComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ManageFlightComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    spectator.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      expect(spectator.component).toBeTruthy();
+    }
+  );
 });

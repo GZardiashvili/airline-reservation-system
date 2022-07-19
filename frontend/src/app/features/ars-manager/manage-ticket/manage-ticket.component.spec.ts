@@ -1,23 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from "@ngneat/spectator";
+import { ManageTicketComponent } from "./manage-ticket.component";
 
-import { ManageTicketComponent } from './manage-ticket.component';
 
 describe('ManageTicketComponent', () => {
-  let component: ManageTicketComponent;
-  let fixture: ComponentFixture<ManageTicketComponent>;
+  let spectator: Spectator<ManageTicketComponent>;
+  const createComponent = createComponentFactory({
+    component: ManageTicketComponent,
+    detectChanges: false,
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ManageTicketComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ManageTicketComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    spectator.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      expect(spectator.component).toBeTruthy();
+    }
+  );
 });

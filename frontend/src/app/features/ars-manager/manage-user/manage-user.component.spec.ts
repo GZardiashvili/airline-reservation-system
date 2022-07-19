@@ -1,23 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ManageUserComponent } from './manage-user.component';
+import { createComponentFactory, Spectator } from "@ngneat/spectator";
+import { ManageUserComponent } from "./manage-user.component";
 
 describe('ManageUserComponent', () => {
-  let component: ManageUserComponent;
-  let fixture: ComponentFixture<ManageUserComponent>;
+  let spectator: Spectator<ManageUserComponent>;
+  const createComponent = createComponentFactory({
+    component: ManageUserComponent,
+    detectChanges: false,
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ManageUserComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ManageUserComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    spectator.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      expect(spectator.component).toBeTruthy();
+    }
+  );
 });

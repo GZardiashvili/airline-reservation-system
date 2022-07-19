@@ -1,23 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from "@ngneat/spectator";
+import { ArsManagerComponent } from "./ars-manager.component";
 
-import { ArsManagerComponent } from './ars-manager.component';
 
 describe('ArsManagerComponent', () => {
-  let component: ArsManagerComponent;
-  let fixture: ComponentFixture<ArsManagerComponent>;
+  let spectator: Spectator<ArsManagerComponent>;
+  const createComponent = createComponentFactory({
+    component: ArsManagerComponent,
+    detectChanges: false,
+  });
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ ArsManagerComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(ArsManagerComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    spectator.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      expect(spectator.component).toBeTruthy();
+    }
+  );
 });

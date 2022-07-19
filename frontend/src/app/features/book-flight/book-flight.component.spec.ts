@@ -1,23 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { createComponentFactory, Spectator } from "@ngneat/spectator";
+import { BookFlightComponent } from "./book-flight.component";
 
-import { BookFlightComponent } from './book-flight.component';
+describe('flightComponent', () => {
+  let spectator: Spectator<BookFlightComponent>;
+  const createComponent = createComponentFactory({
+    component: BookFlightComponent,
+    detectChanges: false,
+  });
 
-describe('BookFlightComponent', () => {
-  let component: BookFlightComponent;
-  let fixture: ComponentFixture<BookFlightComponent>;
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ BookFlightComponent ]
-    })
-    .compileComponents();
-
-    fixture = TestBed.createComponent(BookFlightComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+  beforeEach(() => {
+    spectator = createComponent();
+    spectator.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+      expect(spectator.component).toBeTruthy();
+    }
+  );
 });
